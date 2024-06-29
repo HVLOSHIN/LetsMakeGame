@@ -5,7 +5,7 @@ import prototypeSystem.Character.Player;
 
 import java.sql.*;
 
-public class DatabaseConnect {
+public  class DatabaseConnect {
     private Connection conn;
     public DatabaseConnect() {
         String url = "jdbc:mysql://localhost:3306/TextRPGSave";
@@ -15,7 +15,7 @@ public class DatabaseConnect {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connection 객체 생성 성공");
+            System.out.println("데이터 베이스 접속 중..");
 
 //
 
@@ -39,7 +39,7 @@ public class DatabaseConnect {
     }
 
 
-    public Player getPlayer(int playerId) throws SQLException {
+    public  Player getPlayer(int playerId) throws SQLException {
             Player player = null;
 //            conn.prepareStatement("insert into TextRPGSave(name,level,maxHealth,maxEXP,currentEXP,strengthAbility,dexterityAbility) values ('b', 1,100,100,100,100,100);").execute();
             ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave where id=" + playerId).executeQuery();
@@ -53,6 +53,7 @@ public class DatabaseConnect {
                 int strengthAbility = resultSet.getInt(6);
                 int dexterityAbility = resultSet.getInt(6);
                 player = new Player(id, name, level, maxHealth, currentExp, maxExp, currentExp, strengthAbility, dexterityAbility);
+                System.out.println("세이브 불러오기 성공");
                 System.out.println(player);
             }
             return player;

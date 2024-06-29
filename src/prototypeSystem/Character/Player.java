@@ -32,15 +32,23 @@ public class Player {
     }
 
     public Player(String name) {
+        this.id = 1;
         this.name = name;
         this.level = 1;
         this.maxHealth = 100;
         this.currentHealth = maxHealth;
         this.maxEXP = 100;
         this.currentEXP = 0;
-
         this.strengthAbility = 10;
         this.dexterityAbility = 10;
+    }
+
+    public Player() {
+
+    }
+
+    public Player returnPlayer(){
+        return this;
     }
 
     public String getName() {
