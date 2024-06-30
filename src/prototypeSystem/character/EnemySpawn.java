@@ -1,4 +1,4 @@
-package prototypeSystem.Character;
+package prototypeSystem.character;
 
 public class EnemySpawn{
     Enemy[] enemyNum = new Enemy[100];

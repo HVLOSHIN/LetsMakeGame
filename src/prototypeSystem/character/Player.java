@@ -1,4 +1,4 @@
-package prototypeSystem.Character;
+package prototypeSystem.character;
 
 public class Player {
     private int id;
@@ -6,41 +6,41 @@ public class Player {
     private int level;
     private int maxHealth;
     private int currentHealth;
-    private int maxEXP;
     private int currentEXP;
-
+    private int usedExp;
     private int strengthAbility;
     private int dexterityAbility;
+    private int intelligenceAbility;
 
-/*
-    private int attackAbility;
-    private int defenseAbility;
-    private int accuracyAbility;
-    private int dodgeAbility;
-*/
+        int maxEXP;
 
-    public Player(int id, String name, int level, int maxHealth, int currentHealth, int maxEXP, int currentEXP, int strengthAbility, int dexterityAbility) {
+    public Player(int id, String name, int level, int maxHealth, int currentHealth,  int currentEXP, int strengthAbility, int dexterityAbility, int intelligenceAbility,int usedExp) {
         this.id = id;
         this.name = name;
         this.level = level;
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
-        this.maxEXP = maxEXP;
         this.currentEXP = currentEXP;
         this.strengthAbility = strengthAbility;
         this.dexterityAbility = dexterityAbility;
+        this.intelligenceAbility = intelligenceAbility;
+        this.usedExp = usedExp;
     }
 
     public Player(String name) {
         this.id = 1;
         this.name = name;
         this.level = 1;
-        this.maxHealth = 100;
+        this.maxHealth = 30;
         this.currentHealth = maxHealth;
-        this.maxEXP = 100;
-        this.currentEXP = 0;
-        this.strengthAbility = 10;
-        this.dexterityAbility = 10;
+        this.maxEXP = level*15;       //레벨업 필요 경험치 (엘든링 식)
+        this.currentEXP = 50;
+        this.strengthAbility = 1;
+        this.dexterityAbility = 1;
+        this.intelligenceAbility = 1;
+        this.usedExp = 0;
+
+
     }
 
     public String getName() {
@@ -51,8 +51,20 @@ public class Player {
         return level;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public int getUsedExp() {
+        return usedExp;
+    }
+
+    public void setUsedExp(int usedExp) {
+        this.usedExp = usedExp;
     }
 
     public int getMaxHealth() {
@@ -67,20 +79,12 @@ public class Player {
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
-
-    public int getMaxEXP() {
-        return maxEXP;
-    }
-    public void setMaxEXP(int maxEXP) {
-        this.maxEXP = maxEXP;
-    }
     public int getCurrentEXP() {
         return currentEXP;
     }
     public void setCurrentEXP(int currentEXP) {
         this.currentEXP = currentEXP;
     }
-
     public int getStrengthAbility() {
         return strengthAbility;
     }
@@ -94,15 +98,12 @@ public class Player {
         this.dexterityAbility = dexterityAbility;
     }
 
-    public void playerGetCombatStatus(Player player){
-        player.name = this.name;
-        player.level = this.level;
-        player.maxHealth = this.maxHealth;
-        player.currentHealth = this.currentHealth;
-        player.maxEXP = this.maxEXP;
-        player.currentEXP = this.currentEXP;
-        player.strengthAbility = this.strengthAbility;
-        player.dexterityAbility = this.dexterityAbility;
+    public int getIntelligenceAbility() {
+        return intelligenceAbility;
+    }
+
+    public void setIntelligenceAbility(int intelligenceAbility) {
+        this.intelligenceAbility = intelligenceAbility;
     }
 
     @Override
@@ -112,10 +113,11 @@ public class Player {
                 ", level=" + level +
                 ", maxHealth=" + maxHealth +
                 ", currentHealth=" + currentHealth +
-                ", maxEXP=" + maxEXP +
                 ", currentEXP=" + currentEXP +
+                ", usedExp=" + usedExp +
                 ", strengthAbility=" + strengthAbility +
                 ", dexterityAbility=" + dexterityAbility +
+                ", intelligenceAbility=" + intelligenceAbility +
                 '}';
     }
 }

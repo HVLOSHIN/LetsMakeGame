@@ -1,12 +1,13 @@
 package prototypeSystem.game;
 
-import prototypeSystem.Character.Player;
+import prototypeSystem.character.Player;
 import prototypeSystem.database.DatabaseConnect;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Game {
     private DatabaseConnect databaseConnect;
+    LevelUp levelUp = new LevelUp();
 
     public Game(DatabaseConnect databaseConnect) {
         this.databaseConnect = databaseConnect;
@@ -26,7 +27,7 @@ public class Game {
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
                 break;
             case 2:
-                System.out.println("플레이어 이름 : ");
+                System.out.print("플레이어 이름 : ");
                 String newPlayerName = scanner.next();
                 returnPlayer = new Player(newPlayerName);
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
@@ -60,4 +61,41 @@ public class Game {
         System.out.println("게임을 종료합니다.");
         System.exit(0);
     }
+
+    public void gameLogic(Player player) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("====================================");
+            System.out.println("1.탐험|2.레벨업|3.스테이터스|4.저장|5.종료");
+            System.out.println("====================================");
+            String choice = scanner.nextLine();
+            switch (choice) {
+                case "1":
+                    break;
+
+                case "2":
+                    levelUp.levelUp(player);
+                    break;
+
+                case "3":
+                    levelUp.playerInfo(player);
+                    break;
+
+                case "4":
+                    gameSave(player);
+                    break;
+
+                case "5":
+                    gameExit(player);
+                    break;
+
+                default:
+                    System.out.println("올바른 입력이 아닙니다.");
+            }
+
+        }
+    }
+
+
 }

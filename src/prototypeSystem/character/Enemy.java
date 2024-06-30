@@ -1,4 +1,4 @@
-package prototypeSystem.Character;
+package prototypeSystem.character;
 
 public class Enemy {
         private String name;
@@ -48,18 +48,6 @@ public class Enemy {
         }
 
 
-        public int getStrengthAbility() {
-            return strengthAbility;
-        }
-        public void setStrengthAbility(int strengthAbility) {
-            this.strengthAbility = strengthAbility;
-        }
-        public int getDexterityAbility() {
-            return dexterityAbility;
-        }
-        public void setDexterityAbility(int dexterityAbility) {
-            this.dexterityAbility = dexterityAbility;
-        }
 
         public void EnemyGetCombatStatus(Enemy enemy){
             enemy.name = this.name;
