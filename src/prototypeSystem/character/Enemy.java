@@ -84,9 +84,6 @@ public class Enemy {
                 "이름 : " + name +
                 ", 레벨 : " + level
                + ", 체력 : " + maxHealth ;
-              /*
-                ", 힘 : " + strengthAbility +
-                ", 민첩 : " + dexterityAbility;
-                */
+
     }
 }
