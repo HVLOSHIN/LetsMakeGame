@@ -43,14 +43,6 @@ public class Player {
         this.dexterityAbility = 10;
     }
 
-    public Player() {
-
-    }
-
-    public Player returnPlayer(){
-        return this;
-    }
-
     public String getName() {
         return name;
     }

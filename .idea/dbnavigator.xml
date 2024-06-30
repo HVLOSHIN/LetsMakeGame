@@ -24,9 +24,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="eb628a98-dbdf-4a85-b5fe-0bbb519f7402" object-ref="consoles/TextRPGSave" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="eb628a98-dbdf-4a85-b5fe-0bbb519f7402" />
