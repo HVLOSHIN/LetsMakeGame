@@ -28,7 +28,6 @@ public class Generator {
             for (int j = i; j < i + 5; j++) {
                 System.out.println(enemyNum[j]);
             }
-
             int choice = scanner.nextInt();
             if (choice == 0) {
                 return;
