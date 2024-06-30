@@ -54,15 +54,17 @@ public class DatabaseConnect {
             int dexterityAbility = resultSet.getInt(7);
             int intelligenceAbility = resultSet.getInt(8);
             int usedExp = resultSet.getInt(9);
-            player = new Player(id, name, level, maxHealth, currentExp, currentExp, strengthAbility, dexterityAbility, intelligenceAbility,usedExp);
-            System.out.println("세이브 불러오기 성공");
-            System.out.println(player);
+            int mapUnlock = resultSet.getInt(10);
+            int money = resultSet.getInt(11);
+            int killCount = resultSet.getInt(12);
+            player = new Player(id, name, level, maxHealth, currentExp, currentExp, strengthAbility, dexterityAbility, intelligenceAbility, usedExp, mapUnlock ,money, killCount);
+            System.out.println("세이브 불러오기 성공..");
         }
         return player;
     }
 
     public void savePlayer(Player player) throws SQLException {
-        String sql = "update TextRPGSave Set name = ?,level = ?,maxHealth = ?,currentEXP = ?,strengthAbility = ?,dexterityAbility = ?,intelligenceAbility = ?,usedExp = ? where id=?";
+        String sql = "update TextRPGSave Set name = ?,level = ?,maxHealth = ?,currentEXP = ?,strengthAbility = ?,dexterityAbility = ?,intelligenceAbility = ?,usedExp = ?, mapUnlock =?, money =?,killCount=? where id=?";
 
         PreparedStatement psmt = conn.prepareStatement(sql);
         psmt.setString(1, player.getName());
@@ -73,8 +75,14 @@ public class DatabaseConnect {
         psmt.setInt(6, player.getDexterityAbility());
         psmt.setInt(7, player.getIntelligenceAbility());
         psmt.setInt(8, player.getUsedExp());
-        psmt.setInt(9, player.getId());  //얘가 무조건 끝에 와야함
+        psmt.setInt(9, player.getMapUnlock());
+        psmt.setInt(10,player.getMoney());
+        psmt.setInt(11, player.getKillCount());
+
+        psmt.setInt(12, player.getId());  //얘가 무조건 끝에 와야함
         psmt.executeUpdate();
+
+        System.out.println("세이브 저장 완료..");
     }
 }
 

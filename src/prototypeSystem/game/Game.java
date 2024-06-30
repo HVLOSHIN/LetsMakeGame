@@ -1,13 +1,14 @@
 package prototypeSystem.game;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.combat.Generator;
 import prototypeSystem.database.DatabaseConnect;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Game {
     private DatabaseConnect databaseConnect;
-    LevelUp levelUp = new LevelUp();
+    PlayerInfo playerInfo = new PlayerInfo();
 
     public Game(DatabaseConnect databaseConnect) {
         this.databaseConnect = databaseConnect;
@@ -46,7 +47,6 @@ public class Game {
             switch (choice) {
                 case 1:
                     databaseConnect.savePlayer(player);
-                    System.out.println(player);
                     break;
                 case 2:
                     System.out.println("저장 취소");
@@ -65,21 +65,26 @@ public class Game {
     public void gameLogic(Player player) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
+        Generator generator = new Generator();
+
         while (true) {
-            System.out.println("====================================");
-            System.out.println("1.탐험|2.레벨업|3.스테이터스|4.저장|5.종료");
-            System.out.println("====================================");
+            System.out.println("==============================================");
+            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.저장 | 5.종료 |");
+            System.out.println("==============================================");
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1":
+
+                    generator.regionGenerate(player);
                     break;
 
                 case "2":
-                    levelUp.levelUp(player);
+                    playerInfo.levelUp(player);
                     break;
 
                 case "3":
-                    levelUp.playerInfo(player);
+                    playerInfo.showPlayer(player);
+                    System.out.println("사용한 경험치 : " + player.getUsedExp());
                     break;
 
                 case "4":

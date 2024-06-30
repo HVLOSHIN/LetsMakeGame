@@ -6,29 +6,24 @@ public class Enemy {
         private int maxHealth;
         private int currentHealth;
         private int giveEXP;
+        private int giveMoney;
 
         private int strengthAbility;
         private int dexterityAbility;
+        private int intelligenceAbility;
 
 
-
-
-/*
-        private int attackAbility;
-        private int defenseAbility;
-        private int accuracyAbility;
-        private int dodgeAbility;
-*/
-
-    public Enemy(String name, int level, int maxHealth, int giveEXP, int strengthAbility, int dexterityAbility) {
+    public Enemy(String name, int level, int maxHealth, int giveEXP,int giveMoney, int strengthAbility, int dexterityAbility , int intelligenceAbility) {
         this.name = name;
         this.level = level;
         this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
         this.giveEXP = giveEXP;
+        this.giveMoney = giveMoney;
         this.strengthAbility = strengthAbility;
         this.dexterityAbility = dexterityAbility;
+        this.intelligenceAbility = intelligenceAbility;
     }
+
 
     public String getName() {
         return name;
@@ -59,13 +54,39 @@ public class Enemy {
             enemy.dexterityAbility = this.dexterityAbility;
         }
 
-   @Override
+    public int getLevel() {
+        return level;
+    }
+
+    public int getGiveEXP() {
+        return giveEXP;
+    }
+
+    public int getStrengthAbility() {
+        return strengthAbility;
+    }
+
+    public int getDexterityAbility() {
+        return dexterityAbility;
+    }
+
+    public int getIntelligenceAbility() {
+        return intelligenceAbility;
+    }
+
+    public int getGiveMoney() {
+        return giveMoney;
+    }
+
+    @Override
     public String toString() {
         return
                 "이름 : " + name +
-                ", 레벨 : " + level +
-                ", 체력 : " + maxHealth +
+                ", 레벨 : " + level
+               + ", 체력 : " + maxHealth ;
+              /*
                 ", 힘 : " + strengthAbility +
                 ", 민첩 : " + dexterityAbility;
+                */
     }
 }

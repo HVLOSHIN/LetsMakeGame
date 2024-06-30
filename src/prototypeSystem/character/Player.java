@@ -11,10 +11,12 @@ public class Player {
     private int strengthAbility;
     private int dexterityAbility;
     private int intelligenceAbility;
-
+    private int mapUnlock;
+    private int money;
+    private int killCount;
         int maxEXP;
 
-    public Player(int id, String name, int level, int maxHealth, int currentHealth,  int currentEXP, int strengthAbility, int dexterityAbility, int intelligenceAbility,int usedExp) {
+    public Player(int id, String name, int level, int maxHealth, int currentHealth,  int currentEXP, int strengthAbility, int dexterityAbility, int intelligenceAbility,int usedExp, int mapUnlock, int money, int killCount) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -25,6 +27,9 @@ public class Player {
         this.dexterityAbility = dexterityAbility;
         this.intelligenceAbility = intelligenceAbility;
         this.usedExp = usedExp;
+        this.mapUnlock = mapUnlock;
+        this.money = money;
+        this.killCount = killCount;
     }
 
     public Player(String name) {
@@ -39,8 +44,26 @@ public class Player {
         this.dexterityAbility = 1;
         this.intelligenceAbility = 1;
         this.usedExp = 0;
+        this.mapUnlock = 0;
+        this.money = 0;
 
 
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getKillCount() {
+        return killCount;
+    }
+
+    public void setKillCount(int killCount) {
+        this.killCount = killCount;
     }
 
     public String getName() {
@@ -65,6 +88,14 @@ public class Player {
 
     public void setUsedExp(int usedExp) {
         this.usedExp = usedExp;
+    }
+
+    public int getMapUnlock() {
+        return mapUnlock;
+    }
+
+    public void setMapUnlock(int mapUnlock) {
+        this.mapUnlock = mapUnlock;
     }
 
     public int getMaxHealth() {
