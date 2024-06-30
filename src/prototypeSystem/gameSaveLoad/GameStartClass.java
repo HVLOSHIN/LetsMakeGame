@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class GameStartClass {
 
-    public static void gameStart() throws SQLException {
+    public void gameStart() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Game Start");
@@ -18,8 +18,6 @@ public class GameStartClass {
         switch (choice) {
             case 1:
                 DatabaseConnect databaseConnect = new DatabaseConnect();
-//        Player player = new Player("HVLO");
-//        System.out.println(player.getName());
                 Player player = databaseConnect.getPlayer(1);
                 System.out.println(player.getName() + "님, 모험을 시작합니다.");
                 break;
