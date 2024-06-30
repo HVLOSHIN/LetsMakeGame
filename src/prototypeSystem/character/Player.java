@@ -47,7 +47,6 @@ public class Player {
         this.mapUnlock = 0;
         this.money = 0;
 
-
     }
 
     public int getMoney() {
