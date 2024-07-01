@@ -3,6 +3,8 @@ package prototypeSystem.game;
 import prototypeSystem.character.Player;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.database.DatabaseConnect;
+import prototypeSystem.village.VillageLoop;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -66,10 +68,11 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         Generator generator = new Generator();
+        VillageLoop villageLoop = new VillageLoop();
 
         while (true) {
             System.out.println("==============================================");
-            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.저장 | 5.종료 |");
+            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.저장 | 6.종료 |");
             System.out.println("==============================================");
             String choice = scanner.nextLine();
             switch (choice) {
@@ -86,12 +89,14 @@ public class Game {
                     playerInfo.showPlayer(player);
                     System.out.println("사용한 경험치 : " + player.getUsedExp());
                     break;
-
                 case "4":
+                    villageLoop.VillageLoop(player);
+
+                case "5":
                     gameSave(player);
                     break;
 
-                case "5":
+                case "6":
                     gameExit(player);
                     break;
 
