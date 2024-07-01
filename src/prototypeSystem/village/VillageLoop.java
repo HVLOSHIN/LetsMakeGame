@@ -1,17 +1,22 @@
 package prototypeSystem.village;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.item.WeaponShop;
 
 import java.util.Scanner;
 
 public class VillageLoop {
 Scanner scanner = new Scanner(System.in);
 
-   public void VillageLoop(Player player) {
+   public void VillageLoop(Player player, WeaponShop weaponShop) {
+       System.out.println("마을로 이동합니다.");
+       System.out.println("| 1.무기상점 | 2.방어구상점 | 2.전직 | 0.이전 |");
         String choice = scanner.nextLine();
-       System.out.println(" | 1.상점 | 2.전직 | 0.이전 |");
+
         switch (choice) {
             case "1":
+                weaponShop.ShowWeapon(player);
+
 
                 break;
             case "2":

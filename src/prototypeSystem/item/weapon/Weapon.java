@@ -103,7 +103,32 @@ public class Weapon {
         this.playerEquip = playerEquip;
     }
 
+    public int getWeaponAddMajicDamage() {
+        return WeaponAddMajicDamage;
+    }
+
+    public void setWeaponAddMajicDamage(int weaponAddMajicDamage) {
+        WeaponAddMajicDamage = weaponAddMajicDamage;
+    }
+
+    public int getWeaponmultMajicDamage() {
+        return WeaponmultMajicDamage;
+    }
+
+    public void setWeaponmultMajicDamage(int weaponmultMajicDamage) {
+        WeaponmultMajicDamage = weaponmultMajicDamage;
+    }
+
+    public int getWeaponPrice() {
+        return WeaponPrice;
+    }
+
+    public void setWeaponPrice(int weaponPrice) {
+        WeaponPrice = weaponPrice;
+    }
+
     public void getItemInfo(){
-        System.out.println(weaponID + ". " + WeaponName + ", 공격력 : " + WeaponAddDamage + ", 공격배율 : x" + WeaponMultDamage);
+        System.out.print(weaponID + ". " + WeaponName + ", 공격력 : " + WeaponAddDamage + ", 공격배율 : x" + WeaponMultDamage);
+        System.out.println(", 마법공격력 : " + WeaponAddMajicDamage + ", 마법공격배올 : " + WeaponmultMajicDamage + ", 가격 : " + WeaponPrice);
     }
 }

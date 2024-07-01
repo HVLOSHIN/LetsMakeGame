@@ -1,6 +1,7 @@
 package prototypeSystem.database;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.item.WeaponShop;
 
 import java.sql.*;
 
@@ -58,6 +59,8 @@ public class DatabaseConnect {
             int money = resultSet.getInt(11);
             int killCount = resultSet.getInt(12);
             player = new Player(id, name, level, maxHealth, currentExp, currentExp, strengthAbility, dexterityAbility, intelligenceAbility, usedExp, mapUnlock ,money, killCount);
+
+
             System.out.println("세이브 불러오기 성공..");
         }
         return player;
@@ -81,6 +84,9 @@ public class DatabaseConnect {
 
         psmt.setInt(12, player.getId());  //얘가 무조건 끝에 와야함
         psmt.executeUpdate();
+
+       // String sql2 =
+
 
         System.out.println("세이브 저장 완료..");
     }

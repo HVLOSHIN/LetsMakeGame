@@ -3,6 +3,7 @@ package prototypeSystem.game;
 import prototypeSystem.character.Player;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.database.DatabaseConnect;
+import prototypeSystem.item.WeaponShop;
 import prototypeSystem.village.VillageLoop;
 
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 public class Game {
     private DatabaseConnect databaseConnect;
     PlayerInfo playerInfo = new PlayerInfo();
+    WeaponShop weaponShop = new WeaponShop();
 
     public Game(DatabaseConnect databaseConnect) {
         this.databaseConnect = databaseConnect;
@@ -68,7 +70,11 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         Generator generator = new Generator();
+        WeaponShop weaponShop = new WeaponShop();
+        weaponShop.GenerateWeapon(player);
+
         VillageLoop villageLoop = new VillageLoop();
+
 
         while (true) {
             System.out.println("==============================================");
@@ -90,7 +96,8 @@ public class Game {
                     System.out.println("사용한 경험치 : " + player.getUsedExp());
                     break;
                 case "4":
-                    villageLoop.VillageLoop(player);
+                    villageLoop.VillageLoop(player, weaponShop);
+                    break;
 
                 case "5":
                     gameSave(player);

@@ -1,5 +1,8 @@
 package prototypeSystem.character;
 
+import prototypeSystem.item.WeaponShop;
+import prototypeSystem.item.weapon.Weapon;
+
 public class Player {
     private int id;
     private String name;
@@ -15,6 +18,9 @@ public class Player {
     private int money;
     private int killCount;
     // 여기까지 기본 스텟
+    private int deathCount;
+
+
 
 
     public Player(int id, String name, int level, int maxHealth, int currentHealth,  int currentEXP, int strengthAbility, int dexterityAbility, int intelligenceAbility,int usedExp, int mapUnlock, int money, int killCount) {
