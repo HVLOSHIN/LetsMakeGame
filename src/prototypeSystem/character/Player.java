@@ -300,5 +300,14 @@ public class Player {
 
     }
 
+    public void getStatistics(){
+        //통계 메서드
+        System.out.println("처치한 적 : " + killCount);
+        System.out.println("사용한 경험치 : " + usedExp);
+        System.out.println("죽은 횟수 : " + deathCount);
+
+        System.out.println("맵 언락 스테이지 : " + (mapUnlock + 1));
+        //System.out.println("처치한 가장 강한 적 : " );
+    }
 }
 

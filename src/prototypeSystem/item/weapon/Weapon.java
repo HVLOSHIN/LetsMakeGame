@@ -129,7 +129,7 @@ public class Weapon {
     }
 
     public void getItemInfo(){
-        System.out.print(weaponID + ". " + WeaponName + ", 공격력 : " + WeaponAddDamage + ", 공격배율 : x" + WeaponMultDamage);
+        System.out.print( weaponID + ". " + WeaponName + ", 공격력 : " + WeaponAddDamage + ", 공격배율 : x" + WeaponMultDamage);
         System.out.println(", 마법공격력 : " + WeaponAddMajicDamage + ", 마법공격배올 : " + WeaponmultMajicDamage + ", 가격 : " + WeaponPrice);
     }
 }

@@ -101,8 +101,7 @@ public class PlayerInfo {
         System.out.println("레벨업 필요 경험치 : " + maxExp);
         System.out.println("현재 경험치 : " + player.getCurrentEXP());
         System.out.println("현재 보유 금화 : " + player.getMoney());
-        System.out.println("처치한 적 : " + player.getKillCount());
-        System.out.println("사용한 경험치 : " + player.getUsedExp());
+
         System.out.println("===========================");
     }
 

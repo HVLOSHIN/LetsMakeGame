@@ -95,7 +95,7 @@ public class Game {
 
         while (true) {
             System.out.println("=======================================================");
-            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.저장 | 6.종료 |");
+            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.업적 | 6.저장 | 7.종료 |");
             System.out.println("=======================================================");
             String choice = scanner.nextLine();
             switch (choice) {
@@ -109,16 +109,18 @@ public class Game {
                     break;
 
                 case "3":
-                    System.out.println("| 1.캐릭터 | 2.효과 | 0.뒤로가기 |");
+                    System.out.println("| 1.캐릭터 | 2.효과 | 3.통계 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
                     if(choice2.equals("1")) {
                         playerInfo.showPlayer(player);
-
                     }
                     else if(choice2.equals("2")) {
                         player.showHaveItems(weapon);
                     }
-                    else if(choice2.equals("0")) {
+                    else if (choice2.equals("3")) {
+                        player.getStatistics();
+
+                    } else if(choice2.equals("0")) {
                         break;
                     }
                     else{
@@ -145,12 +147,13 @@ public class Game {
                             System.out.println("올바른 입력이 아닙니다.");
                     }
                     break;
-
                 case "5":
+                    //업적
+                case "6":
                     gameSave(player);
                     break;
 
-                case "6":
+                case "7":
                     gameExit(player);
                     break;
 
