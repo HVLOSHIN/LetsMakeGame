@@ -2,7 +2,7 @@ package prototypeSystem.game;
 
 import prototypeSystem.character.Player;
 import prototypeSystem.combat.Generator;
-import prototypeSystem.database.DatabaseConnect;
+import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.item.WeaponShop;
 import prototypeSystem.item.weapon.Weapon;
 
@@ -15,7 +15,9 @@ public class Game {
     PlayerInfo playerInfo = new PlayerInfo();
     Scanner scanner = new Scanner(System.in);
     WeaponShop weaponShop = new WeaponShop();
-    Weapon[]  weapon = new Weapon[100];
+    Weapon[] weapon = new Weapon[100];
+    Achievements[] achieve = new Achievements[100];
+    int areYouComeBack = 0;
 
     public Game(DatabaseConnect databaseConnect) {
         this.databaseConnect = databaseConnect;
@@ -36,10 +38,14 @@ public class Game {
         switch (choice) {
             case 1:     //세이브 불러오기
                 returnPlayer = databaseConnect.getPlayer(1);
-                for (int i = 0; i <= 10; i++ ){
+                for (int i = 1; i <= 10; i++) {
                     weapon[i] = databaseConnect.getWeapon(i);
                 }
+                for (int i = 1; i <= 5; i++) {
+                    achieve[i] = databaseConnect.getAchievements(i);
+                }
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
+                areYouComeBack = 1;
 
                 break;
             case 2:     // 새로 시작
@@ -50,8 +56,12 @@ public class Game {
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
 
                 // Original 에서 아이템 데이터 받기
-                for (int i = 0; i <= 10; i++ ){
+                for (int i = 1; i <= 10; i++) {
                     weapon[i] = databaseConnect.getWeaponOriginal(i);
+                }
+
+                for (int i = 1; i <= 5; i++) {
+                    achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
                 break;
             default:
@@ -59,6 +69,7 @@ public class Game {
         }
         return returnPlayer;
     }
+
     // 게임 저장
     public void gameSave(Player player) throws SQLException {
         {
@@ -69,7 +80,8 @@ public class Game {
                 case 1:
                     databaseConnect.savePlayer(player);
                     System.out.println();
-                        databaseConnect.saveWeapon(weapon);
+                    databaseConnect.saveWeapon(weapon);
+                    databaseConnect.saveAchievements(achieve);
                     break;
 
                 case 2:
@@ -80,6 +92,7 @@ public class Game {
             }
         }
     }
+
     public void gameExit(Player player) throws SQLException {
         this.gameSave(player);
         System.out.println("게임을 종료합니다.");
@@ -90,12 +103,10 @@ public class Game {
         Generator generator = new Generator();
 
 
-
-
-
         while (true) {
+            AchievementCheck(player);
             System.out.println("=======================================================");
-            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.업적 | 6.저장 | 7.종료 |");
+            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.저장 | 6.종료 |");
             System.out.println("=======================================================");
             String choice = scanner.nextLine();
             switch (choice) {
@@ -109,51 +120,51 @@ public class Game {
                     break;
 
                 case "3":
-                    System.out.println("| 1.캐릭터 | 2.효과 | 3.통계 | 0.뒤로가기 |");
+                    System.out.println("| 1.캐릭터 | 2.효과 | 3.통계 | 4.업적 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
-                    if(choice2.equals("1")) {
+                    if (choice2.equals("1")) {
                         playerInfo.showPlayer(player);
-                    }
-                    else if(choice2.equals("2")) {
+                    } else if (choice2.equals("2")) {
                         player.showHaveItems(weapon);
-                    }
-                    else if (choice2.equals("3")) {
+                    } else if (choice2.equals("3")) {
                         player.getStatistics();
+                    } else if (choice2.equals("4")) {
+                        player.showAchievements(achieve);
+                    } else if (choice2.equals("0")) {
+                        break;
+                    } else {
+                        System.out.println("올바른 입력이 아닙니다.");
+                    }
+                    break;
+                case "4": {
+                    System.out.println("마을로 이동합니다.");
+                    System.out.println("| 1.무기상점 | 2.방어구상점 | 3.전직 | 0.이전 |");
+                    String choice3 = scanner.nextLine();
 
-                    } else if(choice2.equals("0")) {
+                    if (choice3.equals("1")) {
+                        weaponShop.CallWeaponShop(player, weapon);
+                    }
+                    else if (choice3.equals("2")) {
+                        System.out.println("방어구 상점 준비중..");
+                    }
+                    else if (choice3.equals("3")) {
+                        System.out.println("전직소 준비중...");
+                    }
+                    else if (choice3.equals("0")) {
                         break;
                     }
                     else{
                         System.out.println("올바른 입력이 아닙니다.");
                     }
+
+
                     break;
-                case "4":
-                    System.out.println("마을로 이동합니다.");
-                    System.out.println("| 1.무기상점 | 2.방어구상점 | 2.전직 | 0.이전 |");
-                    String choice3 = scanner.nextLine();
-
-                    switch (choice3) {
-                        case "1":
-                            weaponShop.CallWeaponShop(player,weapon);
-
-
-                            break;
-                        case "2":
-
-                            break;
-                        case "0":
-                            return;
-                        default:
-                            System.out.println("올바른 입력이 아닙니다.");
-                    }
-                    break;
+                }
                 case "5":
-                    //업적
-                case "6":
                     gameSave(player);
                     break;
 
-                case "7":
+                case "6":
                     gameExit(player);
                     break;
 
@@ -164,5 +175,26 @@ public class Game {
         }
     }
 
-
+    public void AchievementCheck(Player player) {
+        if (player.getKillCount() >= 100 && achieve[2].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 : 1000EXP");
+            achieve[2].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (player.getMoney() >= 1000 && achieve[3].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 1000EXP");
+            achieve[3].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (player.getMapUnlock() >= 1 && achieve[4].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 1000EXP");
+            achieve[4].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (areYouComeBack == 1 && achieve[5].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 1000EXP");
+            achieve[5].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+    }
 }

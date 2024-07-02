@@ -1,12 +1,15 @@
+import prototypeSystem.System.Window;
 import prototypeSystem.character.Player;
-import prototypeSystem.database.DatabaseConnect;
+import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.game.Game;
-import prototypeSystem.item.weapon.Weapon;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+     //   Window window = new Window();
+     //   window.setVisible(true);
+
         DatabaseConnect databaseConnect = new DatabaseConnect();
         Game game = new Game(databaseConnect);
         Player player = game.gameStart();

@@ -1,7 +1,7 @@
-package prototypeSystem.database;
+package prototypeSystem.System;
 
 import prototypeSystem.character.Player;
-import prototypeSystem.item.WeaponShop;
+import prototypeSystem.game.Achievements;
 import prototypeSystem.item.weapon.Weapon;
 
 import java.sql.*;
@@ -120,6 +120,35 @@ public class DatabaseConnect {
         return  weapon;
     }
 
+    public Achievements getAchievements(int achievementID) throws SQLException {
+        Achievements achievements = null;
+
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.Achievements where id=" +achievementID).executeQuery();
+        while(resultSet.next()){
+            int id = resultSet.getInt(1);
+            int clear = resultSet.getInt(2);
+            String name = resultSet.getString(3);
+            String description = resultSet.getString(4);
+
+            achievements = new Achievements(id, clear, name, description );
+        }
+        return achievements;
+    }
+    public Achievements getAchievementsOriginal(int achievementID) throws SQLException {
+        Achievements achievements = null;
+
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.AchievementsOriginal where id=" +achievementID).executeQuery();
+        while(resultSet.next()){
+            int id = resultSet.getInt(1);
+            int clear = resultSet.getInt(2);
+            String name = resultSet.getString(3);
+            String description = resultSet.getString(4);
+
+            achievements = new Achievements(id, clear, name, description );
+        }
+        return achievements;
+    }
+
 
 
 
@@ -146,6 +175,20 @@ public class DatabaseConnect {
             //  System.out.println("무기 세이브 저장 완료..");
         }
     }
+    public void saveAchievements(Achievements[] achievements) throws SQLException {
+        String sql = "update TextRPGSave.Achievements set clear =?, name =?, description =? where id=?";
+        PreparedStatement psmt = conn.prepareStatement(sql);
+        for (int i = 1 ; i <= 5; i++) {
+            psmt.setInt(1, achievements[i].getClear());
+            psmt.setString(2,achievements[i].getAchieveName());
+            psmt.setString(3,achievements[i].getAchieveDesc());
+
+            psmt.setInt(4,achievements[i].getAchieveID());
+            psmt.executeUpdate();
+        }
+    }
+
+
 
 
     // 플레이어 세이브 저장

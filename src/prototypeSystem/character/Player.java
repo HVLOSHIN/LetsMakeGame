@@ -1,5 +1,6 @@
 package prototypeSystem.character;
 
+import prototypeSystem.game.Achievements;
 import prototypeSystem.item.weapon.Weapon;
 
 public class Player {
@@ -308,6 +309,22 @@ public class Player {
 
         System.out.println("맵 언락 스테이지 : " + (mapUnlock + 1));
         //System.out.println("처치한 가장 강한 적 : " );
+    }
+    public void showAchievements(Achievements[] achievements){
+        int counter = 0;
+        for(int i = 1 ; i <= 5 ; i++){
+            if(achievements[i].getClear() == 1){
+                System.out.println( i + ". " + achievements[i].getAchieveName()+" - "+achievements[i].getAchieveDesc());
+                counter++;
+            }
+
+        }
+        System.out.println();
+        System.out.println("총 " + counter + "개의 업적 달성!");
+        System.out.println("===============================");
+        if(counter == 0){
+            System.out.println("아무런 업적도 달성하지 못했습니다.");
+        }
     }
 }
 
