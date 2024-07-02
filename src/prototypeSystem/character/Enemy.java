@@ -1,27 +1,27 @@
 package prototypeSystem.character;
 
 public class Enemy {
-        private String name;
-        private int level;
-        private int maxHealth;
-        private int currentHealth;
-        private int giveEXP;
-        private int giveMoney;
+    private String name;
+    private int level;
+    private int maxHP;
+    private int currentHP;
+    private int EXP;
+    private int money;
 
-        private int strengthAbility;
-        private int dexterityAbility;
-        private int intelligenceAbility;
+    private int STR;
+    private int DEX;
+    private int INT;
 
 
-    public Enemy(String name, int level, int maxHealth, int giveEXP,int giveMoney, int strengthAbility, int dexterityAbility , int intelligenceAbility) {
+    public Enemy(String name, int level, int maxHP, int EXP, int money, int STR, int DEX, int INT) {
         this.name = name;
         this.level = level;
-        this.maxHealth = maxHealth;
-        this.giveEXP = giveEXP;
-        this.giveMoney = giveMoney;
-        this.strengthAbility = strengthAbility;
-        this.dexterityAbility = dexterityAbility;
-        this.intelligenceAbility = intelligenceAbility;
+        this.maxHP = maxHP;
+        this.EXP = EXP;
+        this.money = money;
+        this.STR = STR;
+        this.DEX = DEX;
+        this.INT = INT;
     }
 
 
@@ -29,61 +29,52 @@ public class Enemy {
         return name;
     }
 
-    public int getMaxHealth() {
-            return maxHealth;
-        }
-        public void setMaxHealth(int maxHealth) {
-            this.maxHealth = maxHealth;
-        }
-        public int getCurrentHealth() {
-            return currentHealth;
-        }
-        public void setCurrentHealth(int currentHealth) {
-            this.currentHealth = currentHealth;
-        }
+    public int getMaxHP() {
+        return maxHP;
+    }
 
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
 
+    public int getCurrentHP() {
+        return currentHP;
+    }
 
-        public void EnemyGetCombatStatus(Enemy enemy){
-            enemy.name = this.name;
-            enemy.level = this.level;
-            enemy.maxHealth = this.maxHealth;
-            enemy.currentHealth = this.currentHealth;
-            enemy.giveEXP = this.giveEXP;
-            enemy.strengthAbility = this.strengthAbility;
-            enemy.dexterityAbility = this.dexterityAbility;
-        }
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
+    }
 
     public int getLevel() {
         return level;
     }
 
-    public int getGiveEXP() {
-        return giveEXP;
+    public int getEXP() {
+        return EXP;
     }
 
-    public int getStrengthAbility() {
-        return strengthAbility;
+    public int getSTR() {
+        return STR;
     }
 
-    public int getDexterityAbility() {
-        return dexterityAbility;
+    public int getDEX() {
+        return DEX;
     }
 
-    public int getIntelligenceAbility() {
-        return intelligenceAbility;
+    public int getINT() {
+        return INT;
     }
 
-    public int getGiveMoney() {
-        return giveMoney;
+    public int getMoney() {
+        return money;
     }
 
     @Override
     public String toString() {
         return
                 "이름 : " + name +
-                ", 레벨 : " + level
-               + ", 체력 : " + maxHealth ;
+                        ", 레벨 : " + level
+                        + ", 체력 : " + maxHP;
 
     }
 }

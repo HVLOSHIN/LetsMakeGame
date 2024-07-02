@@ -32,29 +32,29 @@ public class PlayerInfo {
                 case "1":
                     expCheck = expCheck(player);
                     if (expCheck) {
-                        System.out.println("체력 : " + player.getMaxHealth() + " -> " + (player.getMaxHealth() + 5));
-                        player.setMaxHealth(player.getMaxHealth() + 5);
+                        System.out.println("체력 : " + player.getMaxHP() + " -> " + (player.getMaxHP() + 5));
+                        player.setMaxHP(player.getMaxHP() + 5);
                     }
                     break;
                 case "2":
                     expCheck = expCheck(player);
                     if (expCheck) {
-                        System.out.println("근력 : " + player.getStrengthAbility() + " -> " + (player.getStrengthAbility() + 1));
-                        player.setStrengthAbility(player.getStrengthAbility() + 1);
+                        System.out.println("근력 : " + player.getSTR() + " -> " + (player.getSTR() + 1));
+                        player.setSTR(player.getSTR() + 1);
                     }
                     break;
                 case "3":
                     expCheck = expCheck(player);
                     if (expCheck) {
-                        System.out.println("기교 : " + player.getDexterityAbility() + " -> " + (player.getDexterityAbility() + 1));
-                        player.setDexterityAbility(player.getDexterityAbility() + 1);
+                        System.out.println("기교 : " + player.getDEX() + " -> " + (player.getDEX() + 1));
+                        player.setDEX(player.getDEX() + 1);
                     }
                     break;
                 case "4":
                     expCheck = expCheck(player);
                     if (expCheck) {
-                        System.out.println("지력 : " + player.getIntelligenceAbility() + " -> " + (player.getIntelligenceAbility() + 1));
-                        player.setIntelligenceAbility(player.getIntelligenceAbility() + 1);
+                        System.out.println("지력 : " + player.getINT() + " -> " + (player.getINT() + 1));
+                        player.setINT(player.getINT() + 1);
 
                     }
                     break;
@@ -85,10 +85,10 @@ public class PlayerInfo {
         getStats(player);
         System.out.println("===========================");
         System.out.println("레벨 : " + player.getLevel());
-        System.out.print("체력 : " + player.getMaxHealth());
-        System.out.println("  | 근력 : " + player.getStrengthAbility());
-        System.out.print("기교 : " + player.getDexterityAbility());
-        System.out.println("  | 지력 : " + player.getIntelligenceAbility());
+        System.out.print("체력 : " + player.getMaxHP());
+        System.out.println("  | 근력 : " + player.getSTR());
+        System.out.print("기교 : " + player.getDEX());
+        System.out.println("  | 지력 : " + player.getINT());
         System.out.println();
         System.out.print("공격력 : " + attack);
         System.out.println("  | 마법공격력 : " + magicAttack);
@@ -100,28 +100,28 @@ public class PlayerInfo {
         System.out.println();
         System.out.println("레벨업 필요 경험치 : " + maxExp);
         System.out.println("현재 경험치 : " + player.getCurrentEXP());
-        System.out.println("현재 보유 금화 : " + player.getMoney());
+        System.out.println("현재 보유 금화 : " + player.getGold());
 
         System.out.println("===========================");
     }
 
     public void getStats(Player player) {
-        attack = (player.getStrengthAbility() * 3) + player.getDexterityAbility();
-        magicAttack = (player.getIntelligenceAbility() * 3);
-        defense = player.getStrengthAbility() * 2;
-        magicDefense = player.getIntelligenceAbility() * 2;
-        critical = player.getDexterityAbility();
-        dodge = player.getDexterityAbility();
-        attackSpeed = player.getDexterityAbility();
+        attack = (player.getSTR() * 3) + player.getDEX();
+        magicAttack = (player.getINT() * 3);
+        defense = player.getSTR() * 2;
+        magicDefense = player.getINT() * 2;
+        critical = player.getDEX();
+        dodge = player.getDEX();
+        attackSpeed = player.getDEX();
         maxExp = player.getLevel() * player.getLevel() * 5;
 
 
-        if (player.getStrengthAbility() > player.getDexterityAbility() && player.getStrengthAbility() > player.getIntelligenceAbility()) {
-            accuracy = player.getStrengthAbility();
-        } else if (player.getDexterityAbility() > player.getIntelligenceAbility()) {
-            accuracy = player.getDexterityAbility();
+        if (player.getSTR() > player.getDEX() && player.getSTR() > player.getINT()) {
+            accuracy = player.getSTR();
+        } else if (player.getDEX() > player.getINT()) {
+            accuracy = player.getDEX();
         } else {
-            accuracy = player.getIntelligenceAbility();
+            accuracy = player.getINT();
         }
     }
 }

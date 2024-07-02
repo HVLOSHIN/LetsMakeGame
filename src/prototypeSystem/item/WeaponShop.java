@@ -1,7 +1,7 @@
 package prototypeSystem.item;
 
 import prototypeSystem.character.Player;
-import prototypeSystem.item.weapon.Weapon;
+
 import java.util.Scanner;
 
 public class WeaponShop {
@@ -10,19 +10,19 @@ public class WeaponShop {
     Scanner scanner = new Scanner(System.in);
 
     public void CallWeaponShop(Player player, Weapon[] weapon) {
-        System.out.println("현재 보유 골드 : " + player.getMoney());
+        System.out.println("현재 보유 골드 : " + player.getGold());
         // map 해금에 따라 순차적으로 개방
         // 이 메서드도 개선가능 한가?
         int itemNum = 1;
         for (int i = 1; i < 4; i++) {
-            if (weapon[i].getPlayerHave() == 1) {
+            if (weapon[i].getHave() == 1) {
                 System.out.print("(보유중)");
             }
             weapon[i].getItemInfo();
         }
         if (player.getMapUnlock() > 0) {
             for (int i = 4; i < 7; i++) {
-                if (weapon[i].getPlayerHave() == 0) {
+                if (weapon[i].getHave() == 0) {
 
                     weapon[i].getItemInfo();
 
@@ -31,7 +31,7 @@ public class WeaponShop {
         }
         if(player.getMapUnlock() > 1){
             for (int i = 7; i < 10; i++) {
-                if (weapon[i].getPlayerHave() == 0) {
+                if (weapon[i].getHave() == 0) {
 
                     weapon[i].getItemInfo();
 
@@ -59,20 +59,20 @@ public class WeaponShop {
     //구매 로직 메서드
     public void buyWeapon(Player player, int i, Weapon[] weapon) {
        //소유 검증
-        if (weapon[i].getPlayerHave() == 1) {
+        if (weapon[i].getHave() == 1) {
             System.out.println("이미 보유한 아이템 입니다.");
             return;
         }
         //골드 검증
-        if (player.getMoney() < weapon[i].getWeaponPrice()) {
+        if (player.getGold() < weapon[i].getPrice()) {
             System.out.println("골드가 부족 합니다.");
             return;
         }
 
-        System.out.println(weapon[i].getWeaponName() + "를 구매합니다.");
-        System.out.println( player.getMoney() + " -> " + (player.getMoney() - weapon[i].getWeaponPrice()) + " (골드)");
-        player.setMoney(player.getMoney() - weapon[i].getWeaponPrice());
-        weapon[i].setPlayerHave(1);
+        System.out.println(weapon[i].getName() + "를 구매합니다.");
+        System.out.println( player.getGold() + " -> " + (player.getGold() - weapon[i].getPrice()) + " (골드)");
+        player.setGold(player.getGold() - weapon[i].getPrice());
+        weapon[i].setHave(1);
     }
 }
 

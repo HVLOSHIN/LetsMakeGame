@@ -4,7 +4,7 @@ import prototypeSystem.character.Player;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.item.WeaponShop;
-import prototypeSystem.item.weapon.Weapon;
+import prototypeSystem.item.Weapon;
 
 
 import java.sql.SQLException;
@@ -181,7 +181,7 @@ public class Game {
             achieve[2].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
         }
-        if (player.getMoney() >= 1000 && achieve[3].getClear() == 0) {
+        if (player.getGold() >= 1000 && achieve[3].getClear() == 0) {
             System.out.println("도전과제 달성! 보상 1000EXP");
             achieve[3].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);

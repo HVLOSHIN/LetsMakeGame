@@ -1,49 +1,48 @@
 package prototypeSystem.character;
 
 import prototypeSystem.game.Achievements;
-import prototypeSystem.item.weapon.Weapon;
+import prototypeSystem.item.Weapon;
 
 public class Player {
     private int id;
     private String name;
     private int level;
-    private int maxHealth;
-    private int currentHealth;
+    private int maxHP;
+    private int currentHP;
     private int currentEXP;
     private int usedExp;
-    private int strengthAbility;
-    private int dexterityAbility;
-    private int intelligenceAbility;
+    private int STR;
+    private int DEX;
+    private int INT;
     private int mapUnlock;
-    private int money;
+    private int gold;
     private int killCount;
-    // 여기까지 기본 스텟
     private int deathCount;
 
 
     private int addDamage;
     private int multDamage;
-    private int addMagicDamage;
-    private int multMagicDamage;
+    private int addMDamage;
+    private int multMDamage;
     private int addSTR;
     private int addDEX;
     private int addINT;
     private int addHP;
 
 
-    public Player(int id, String name, int level, int maxHealth, int currentHealth, int currentEXP, int strengthAbility, int dexterityAbility, int intelligenceAbility, int usedExp, int mapUnlock, int money, int killCount, int deathCount) {
+    public Player(int id, String name, int level, int maxHP, int currentHP, int currentEXP, int STR, int DEX, int INT, int usedExp, int mapUnlock, int gold, int killCount, int deathCount) {
         this.id = id;
         this.name = name;
         this.level = level;
-        this.maxHealth = maxHealth;
-        this.currentHealth = currentHealth;
+        this.maxHP = maxHP;
+        this.currentHP = currentHP;
         this.currentEXP = currentEXP;
-        this.strengthAbility = strengthAbility;
-        this.dexterityAbility = dexterityAbility;
-        this.intelligenceAbility = intelligenceAbility;
+        this.STR = STR;
+        this.DEX = DEX;
+        this.INT = INT;
         this.usedExp = usedExp;
         this.mapUnlock = mapUnlock;
-        this.money = money;
+        this.gold = gold;
         this.killCount = killCount;
         this.deathCount = deathCount;
     }
@@ -52,15 +51,15 @@ public class Player {
         this.id = 1;
         this.name = name;
         this.level = 1;
-        this.maxHealth = 30;
-        this.currentHealth = maxHealth;
+        this.maxHP = 30;
+        this.currentHP = maxHP;
         this.currentEXP = 50;
-        this.strengthAbility = 1;
-        this.dexterityAbility = 1;
-        this.intelligenceAbility = 1;
+        this.STR = 1;
+        this.DEX = 1;
+        this.INT = 1;
         this.usedExp = 0;
         this.mapUnlock = 0;
-        this.money = 100;
+        this.gold = 100;
         this.killCount = 0;
 
     }
@@ -74,12 +73,12 @@ public class Player {
         this.deathCount = deathCount;
     }
 
-    public int getMoney() {
-        return money;
+    public int getGold() {
+        return gold;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public int getKillCount() {
@@ -122,20 +121,20 @@ public class Player {
         this.mapUnlock = mapUnlock;
     }
 
-    public int getMaxHealth() {
-        return maxHealth;
+    public int getMaxHP() {
+        return maxHP;
     }
 
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
-    public int getCurrentHealth() {
-        return currentHealth;
+    public int getCurrentHP() {
+        return currentHP;
     }
 
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
     }
 
     public int getCurrentEXP() {
@@ -146,28 +145,28 @@ public class Player {
         this.currentEXP = currentEXP;
     }
 
-    public int getStrengthAbility() {
-        return strengthAbility;
+    public int getSTR() {
+        return STR;
     }
 
-    public void setStrengthAbility(int strengthAbility) {
-        this.strengthAbility = strengthAbility;
+    public void setSTR(int STR) {
+        this.STR = STR;
     }
 
-    public int getDexterityAbility() {
-        return dexterityAbility;
+    public int getDEX() {
+        return DEX;
     }
 
-    public void setDexterityAbility(int dexterityAbility) {
-        this.dexterityAbility = dexterityAbility;
+    public void setDEX(int DEX) {
+        this.DEX = DEX;
     }
 
-    public int getIntelligenceAbility() {
-        return intelligenceAbility;
+    public int getINT() {
+        return INT;
     }
 
-    public void setIntelligenceAbility(int intelligenceAbility) {
-        this.intelligenceAbility = intelligenceAbility;
+    public void setINT(int INT) {
+        this.INT = INT;
     }
 
     public int getAddHP() {
@@ -202,20 +201,20 @@ public class Player {
         this.addSTR = addSTR;
     }
 
-    public int getMultMagicDamage() {
-        return multMagicDamage;
+    public int getMultMDamage() {
+        return multMDamage;
     }
 
-    public void setMultMagicDamage(int multMagicDamage) {
-        this.multMagicDamage = multMagicDamage;
+    public void setMultMDamage(int multMDamage) {
+        this.multMDamage = multMDamage;
     }
 
-    public int getAddMagicDamage() {
-        return addMagicDamage;
+    public int getAddMDamage() {
+        return addMDamage;
     }
 
-    public void setAddMagicDamage(int addMagicDamage) {
-        this.addMagicDamage = addMagicDamage;
+    public void setAddMDamage(int addMDamage) {
+        this.addMDamage = addMDamage;
     }
 
     public int getMultDamage() {
@@ -239,13 +238,13 @@ public class Player {
         return "Player{" +
                 "name='" + name + '\'' +
                 ", level=" + level +
-                ", maxHealth=" + maxHealth +
-                ", currentHealth=" + currentHealth +
+                ", maxHealth=" + maxHP +
+                ", currentHealth=" + currentHP +
                 ", currentEXP=" + currentEXP +
                 ", usedExp=" + usedExp +
-                ", strengthAbility=" + strengthAbility +
-                ", dexterityAbility=" + dexterityAbility +
-                ", intelligenceAbility=" + intelligenceAbility +
+                ", strengthAbility=" + STR +
+                ", dexterityAbility=" + DEX +
+                ", intelligenceAbility=" + INT +
                 '}';
     }
 
@@ -253,7 +252,7 @@ public class Player {
         getPlayerAdditionalStats(weapon);
         for (int i = 1; i < 8; i++) {
 
-            if (weapon[i].getPlayerHave() == 1) {
+            if (weapon[i].getHave() == 1) {
                 displayItems(weapon, i);
             }
         }
@@ -263,16 +262,16 @@ public class Player {
     public void getPlayerAdditionalStats(Weapon[] weapon) {
         resetItemStats();
         for (int i = 1; i < 8; i++) {
-            if (weapon[i].getPlayerHave() == 1) {
+            if (weapon[i].getHave() == 1) {
 
-                addDamage += weapon[i].getWeaponAddDamage();
-                multDamage *= weapon[i].getWeaponMultDamage();
-                addMagicDamage += weapon[i].getWeaponAddMajicDamage();
-                multMagicDamage *= weapon[i].getWeaponmultMajicDamage();
-                addSTR += weapon[i].getWeaponAddSTR();
-                addDEX += weapon[i].getWeaponAddDEX();
-                addINT += weapon[i].getWeaponAddINT();
-                addHP += weapon[i].getWeaponAddHP();
+                addDamage += weapon[i].getAddDamage();
+                multDamage *= weapon[i].getMultDamage();
+                addMDamage += weapon[i].getAddMagicDamage();
+                multMDamage *= weapon[i].getMultMagicDamage();
+                addSTR += weapon[i].getAddSTR();
+                addDEX += weapon[i].getAddDEX();
+                addINT += weapon[i].getAddINT();
+                addHP += weapon[i].getAddHP();
             }
             //방어구 , 직업 보너스도 여기에 연산하면 될듯
         }
@@ -281,8 +280,8 @@ public class Player {
     public void resetItemStats() {
         addDamage = 0;
         multDamage = 1;
-        addMagicDamage = 0;
-        multMagicDamage = 1;
+        addMDamage = 0;
+        multMDamage = 1;
         addSTR = 0;
         addDEX = 0;
         addINT = 0;
@@ -290,14 +289,14 @@ public class Player {
     }
 
     public void displayItems(Weapon[] weapons, int i) {
-        System.out.print(i + ". " + weapons[i].getWeaponName() + " - " + "물리공격력 : " + weapons[i].getWeaponAddDamage() + ", 물리배율 : " + weapons[i].getWeaponMultDamage());
-        System.out.print(", 마법공격력 : " + weapons[i].getWeaponAddMajicDamage() + ", 마법배율 : " + weapons[i].getWeaponmultMajicDamage() + ", 근력 : " + weapons[i].getWeaponAddSTR());
-        System.out.println(", 기교 : " + weapons[i].getWeaponAddDEX() + ", 지력 : " + weapons[i].getWeaponAddINT() + ", 체력 : " + weapons[i].getWeaponAddHP());
+        System.out.print(i + ". " + weapons[i].getName() + " - " + "물리공격력 : " + weapons[i].getAddDamage() + ", 물리배율 : " + weapons[i].getMultDamage());
+        System.out.print(", 마법공격력 : " + weapons[i].getAddMagicDamage() + ", 마법배율 : " + weapons[i].getMultMagicDamage() + ", 근력 : " + weapons[i].getAddSTR());
+        System.out.println(", 기교 : " + weapons[i].getAddDEX() + ", 지력 : " + weapons[i].getAddINT() + ", 체력 : " + weapons[i].getAddHP());
     }
     public void getItemStats(){
         System.out.println("====================================");
         System.out.println("효과 (강화, 장비, 직업)");
-        System.out.println(name + " : 물리공격력 : " + addDamage + ", 물리배율 : " + multDamage + ", 마법공격력 : " + addMagicDamage + ", 마법배율 : " + multMagicDamage + ", 근력 : " + addSTR + ", 기교 : " + addDEX + ", 지력 : "  + addINT + ", 추가 체력 : " + addHP);
+        System.out.println(name + " : 물리공격력 : " + addDamage + ", 물리배율 : " + multDamage + ", 마법공격력 : " + addMDamage + ", 마법배율 : " + multMDamage + ", 근력 : " + addSTR + ", 기교 : " + addDEX + ", 지력 : "  + addINT + ", 추가 체력 : " + addHP);
 
     }
 

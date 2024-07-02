@@ -81,7 +81,7 @@ public class Generator {
         if (choice - 1 > mapUnlock) {
             System.out.println("이 지역은 아직 해금되지 않았습니다.");
         } else if (0 < choice && choice < regionNum.length) {
-            System.out.println(regionNum[choice - 1].getRegionName() + "으로 이동합니다.");
+            System.out.println(regionNum[choice - 1].getName() + "으로 이동합니다.");
             enemyGenerate(choice - 1, player);
         }
 
