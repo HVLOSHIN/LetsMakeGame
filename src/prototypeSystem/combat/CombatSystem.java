@@ -34,6 +34,9 @@ public class CombatSystem {
 
 
     public void startCombat(Player player, Enemy enemy) {
+    if(enemy.getBoss() == 1){
+        System.out.println("========================보스전=======================");
+    }
         System.out.println(enemy.getName() + "과 전투를 시작합니다.");
         getCombatStatus(player, enemy);
 
@@ -63,13 +66,21 @@ public class CombatSystem {
 
             System.out.println("                              " + eName + ", 체력 : " + eCurrentHP + "/" + eMaxHP);
             if (eCurrentHP <= -0) {
+
+
                 System.out.println("적 사망. \n" + enemy.getEXP() + " 경험치 획득");
+
+                if(enemy.getBoss()==1 && enemy.getBossSlain()==0){
+                    System.out.println("보스처치.. 다음지역이 해금됩니다..");
+                    System.out.println("상점에 새로운 물건들이 보급됩니다.");
+                    enemy.setBossSlain(1);
+                }
+
                 //아이템 드랍 추가예정
                 goldChance(player, enemy);
                 player.setCurrentEXP(player.getCurrentEXP() + enemy.getEXP());
                 player.setKillCount(player.getKillCount() + 1);
                 break;
-                //  }
 
             }
 

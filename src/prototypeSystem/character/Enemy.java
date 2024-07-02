@@ -11,7 +11,8 @@ public class Enemy {
     private int STR;
     private int DEX;
     private int INT;
-
+    private int boss;
+    private int bossSlain;
 
     public Enemy(String name, int level, int maxHP, int EXP, int money, int STR, int DEX, int INT) {
         this.name = name;
@@ -22,6 +23,17 @@ public class Enemy {
         this.STR = STR;
         this.DEX = DEX;
         this.INT = INT;
+    }
+    public Enemy(String name, int level, int maxHP, int EXP, int money, int STR, int DEX, int INT, int boss) {
+        this.name = name;
+        this.level = level;
+        this.maxHP = maxHP;
+        this.EXP = EXP;
+        this.money = money;
+        this.STR = STR;
+        this.DEX = DEX;
+        this.INT = INT;
+        this.boss = boss;
     }
 
 
@@ -67,6 +79,22 @@ public class Enemy {
 
     public int getMoney() {
         return money;
+    }
+
+    public int getBossSlain() {
+        return bossSlain;
+    }
+
+    public void setBossSlain(int bossSlain) {
+        this.bossSlain = bossSlain;
+    }
+
+    public int getBoss() {
+        return boss;
+    }
+
+    public void setBoss(int boss) {
+        this.boss = boss;
     }
 
     @Override
