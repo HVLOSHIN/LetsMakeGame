@@ -113,7 +113,7 @@ public class Game {
                     String choice2 = scanner.nextLine();
                     if(choice2.equals("1")) {
                         playerInfo.showPlayer(player);
-                        System.out.println("사용한 경험치 : " + player.getUsedExp());
+
                     }
                     else if(choice2.equals("2")) {
                         player.showHaveItems(weapon);

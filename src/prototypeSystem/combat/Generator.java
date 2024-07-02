@@ -33,11 +33,12 @@ public class Generator {
                         return;
                     } else if (0 < choice && choice < 5) {
                         //   System.out.println(enemyNum[(choice + (5*i))-1].getName() + "과 전투를 시작합니다..");
+                        while(true){
                         combatSystem.startCombat(player, enemyNum[(choice + (5 * i)) - 1]);
 
                         System.out.println("1.이어서 탐험 | 2. 메인화면으로");
                         String choice2 = scanner.nextLine();
-                        scanner.nextInt();
+
                         switch (choice2) {
                             case "1":
 
@@ -48,6 +49,7 @@ public class Generator {
 
                             default:
                                 System.out.println("잘못된 입력입니다.");
+                        }
                         }
 
                     }
