@@ -21,36 +21,39 @@ public class Generator {
 
 // 지역별로 드랍되는 아이템 추가 예정
 
-
-
         while (true) {
             System.out.println("전투 상대 선택 (0누를시 뒤로 이동)");
             for (int j = i; j < i + 5; j++) {
                 System.out.println(enemyNum[j]);
             }
             int choice = scanner.nextInt();
-            if (choice == 0) {
-                return;
-            } else if (0 < choice && choice < 5) {
-                //   System.out.println(enemyNum[(choice + (5*i))-1].getName() + "과 전투를 시작합니다..");
-                combatSystem.startCombat(player, enemyNum[(choice + (5 * i)) - 1]);
 
-                System.out.println("1.이어서 탐험 | 2. 메인화면으로");
-                int choice2 = scanner.nextInt();
-                switch (choice2) {
-                    case 1:
-
-                        break;
-                    case 2:
+                {
+                    if (choice == 0) {
                         return;
-                    default:
-                        System.out.println("잘못된 입력입니다.");
+                    } else if (0 < choice && choice < 5) {
+                        //   System.out.println(enemyNum[(choice + (5*i))-1].getName() + "과 전투를 시작합니다..");
+                        combatSystem.startCombat(player, enemyNum[(choice + (5 * i)) - 1]);
 
+                        System.out.println("1.이어서 탐험 | 2. 메인화면으로");
+                        String choice2 = scanner.nextLine();
+                        scanner.nextInt();
+                        switch (choice2) {
+                            case "1":
+
+                                break;
+                            case "2":
+
+                                return;
+
+                            default:
+                                System.out.println("잘못된 입력입니다.");
+                        }
+
+                    }
                 }
-            }
+
         }
-
-
     }
 
     public void regionGenerate(Player player) {
@@ -61,7 +64,7 @@ public class Generator {
         regionNum[2] = new Region("region3", 3, 11, 15);
         regionNum[3] = new Region("region4", 4, 16, 20);
         regionNum[4] = new Region("region5", 5, 21, 25);
-
+        //TODO 지역 추가
 
         for (int i = 0; i <= mapUnlock + 1; i++) {
             System.out.println(regionNum[i]);
@@ -80,9 +83,7 @@ public class Generator {
             enemyGenerate(choice - 1, player);
         }
 
-
     }
-
 
 }
 

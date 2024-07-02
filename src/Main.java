@@ -1,6 +1,7 @@
 import prototypeSystem.character.Player;
 import prototypeSystem.database.DatabaseConnect;
 import prototypeSystem.game.Game;
+import prototypeSystem.item.weapon.Weapon;
 
 import java.sql.SQLException;
 

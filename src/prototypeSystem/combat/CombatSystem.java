@@ -36,6 +36,8 @@ public class CombatSystem {
     public void startCombat(Player player, Enemy enemy) {
         System.out.println(enemy.getName() + "과 전투를 시작합니다.");
         getCombatStatus(player, enemy);
+
+
         int count = 1;
         while (true) {
             System.out.println("=====================================================");
@@ -86,7 +88,8 @@ public class CombatSystem {
             System.out.println(playerName + ", 체력 : " + playerCurrentHealth + "/" + playerHealth);
             if (playerCurrentHealth <= -0) {
                 System.out.println("당신은 사망하였습니다. 경험치의 일부를 잃어버립니다.");
-                player.setCurrentEXP(player.getCurrentEXP() / 2);
+                player.setDeathCount(player.getDeathCount()+1);
+                player.setCurrentEXP(player.getCurrentEXP() / 4);
                 break;
             }
             System.out.println(count + "턴 종료");
@@ -101,48 +104,53 @@ public class CombatSystem {
     }
 
     public void getCombatStatus(Player player, Enemy enemy) {
+
         playerName = player.getName();
-        playerHealth = player.getMaxHealth();
+        playerHealth = player.getMaxHealth() + player.getAddHP();
         playerCurrentHealth = playerHealth;
-        playerAttack = (player.getStrengthAbility() * 3) + player.getDexterityAbility();
-        playerMagicAttack = (player.getIntelligenceAbility() * 3);
-        playerDefense = (player.getStrengthAbility() * 2);
-        playerMagicDefense = (player.getIntelligenceAbility() * 2);
+        playerAttack = ((player.getStrengthAbility() + player.getAddSTR()) * 3) + (player.getDexterityAbility()+ player.getAddDEX());
+        playerMagicAttack = ((player.getIntelligenceAbility() + player.getAddINT()) * 3);
+        playerDefense = ((player.getStrengthAbility() + player.getAddSTR()) * 2);
+        playerMagicDefense = ((player.getIntelligenceAbility() + player.getAddINT()) * 2);
 
-        playerCritical = player.getDexterityAbility();
-        playerDodge = player.getDexterityAbility();
-        playerAttackSpeed = player.getDexterityAbility();
+        playerCritical = (player.getDexterityAbility()+ player.getAddDEX());
+        playerDodge = (player.getDexterityAbility()+ player.getAddDEX());
+        playerAttackSpeed = (player.getDexterityAbility()+ player.getAddDEX());
 
-        if (player.getStrengthAbility() > player.getDexterityAbility() && player.getStrengthAbility() > player.getIntelligenceAbility()) {
-            playerAccuracy = player.getStrengthAbility();
-        } else if (player.getDexterityAbility() > player.getIntelligenceAbility()) {
-            playerAccuracy = player.getDexterityAbility();
+
+        if (player.getStrengthAbility() + player.getAddSTR() > player.getDexterityAbility() + player.getAddDEX() && player.getStrengthAbility() + player.getAddSTR() > player.getIntelligenceAbility() + player.getAddINT()) {
+            playerAccuracy = player.getStrengthAbility() + player.getAddSTR();
+        } else if (player.getDexterityAbility() + player.getAddDEX()> player.getIntelligenceAbility() + player.getAddINT()) {
+            playerAccuracy = player.getDexterityAbility()+ player.getAddDEX();
         } else {
-            playerAccuracy = player.getIntelligenceAbility();
+            playerAccuracy = player.getIntelligenceAbility() + player.getAddINT();
         }
 
-        enemyName = enemy.getName();
-        enemyHealth = enemy.getMaxHealth();
-        enemyCurrentHealth = enemyHealth;
+        {
+            enemyName = enemy.getName();
+            enemyHealth = enemy.getMaxHealth();
+            enemyCurrentHealth = enemyHealth;
 
-        enemyAttack = (enemy.getStrengthAbility() * 3) + enemy.getDexterityAbility();
-        enemyMagicAttack = enemy.getIntelligenceAbility() * 3;
-        enemyDefense = enemy.getStrengthAbility() * 2;
-        enemyMagicDefense = enemy.getIntelligenceAbility() * 2;
+            enemyAttack = (enemy.getStrengthAbility() * 3) + enemy.getDexterityAbility();
+            enemyMagicAttack = enemy.getIntelligenceAbility() * 3;
+            enemyDefense = enemy.getStrengthAbility() * 2;
+            enemyMagicDefense = enemy.getIntelligenceAbility() * 2;
 
-        enemyCritical = enemy.getDexterityAbility();
-        enemyDodge = enemy.getDexterityAbility();
-        enemyAttackSpeed = enemy.getDexterityAbility();
+            enemyCritical = enemy.getDexterityAbility();
+            enemyDodge = enemy.getDexterityAbility();
+            enemyAttackSpeed = enemy.getDexterityAbility();
 
-        if (enemy.getStrengthAbility() > enemy.getDexterityAbility() && enemy.getStrengthAbility() > enemy.getStrengthAbility()) {
-            enemyAccuracy = enemy.getStrengthAbility();
-        } else if (enemy.getDexterityAbility() > enemy.getIntelligenceAbility()) {
-            enemyAccuracy = enemy.getDexterityAbility();
-        } else {
-            enemyAccuracy = enemy.getIntelligenceAbility();
+            if (enemy.getStrengthAbility() > enemy.getDexterityAbility() && enemy.getStrengthAbility() > enemy.getStrengthAbility()) {
+                enemyAccuracy = enemy.getStrengthAbility();
+            } else if (enemy.getDexterityAbility() > enemy.getIntelligenceAbility()) {
+                enemyAccuracy = enemy.getDexterityAbility();
+            } else {
+                enemyAccuracy = enemy.getIntelligenceAbility();
+            }
         }
-
     }
+
+
 
     public int additionalDamage() {
         int additionalDamage = 0;

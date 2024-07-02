@@ -12,10 +12,9 @@ public class Weapon {
     private int WeaponAddINT;
     private int WeaponAddHP;
     private int playerHave;
-    private int playerEquip;
     private int WeaponPrice;
 
-    public Weapon(int weaponID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage,int addSTR, int addDEX, int addINT, int addHP, int weaponPrice) {
+    public Weapon(int weaponID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage,int addSTR, int addDEX, int addINT, int addHP, int weaponPrice, int playerHave) {
         this.weaponID = weaponID;
         this.WeaponName = name;
         this.WeaponAddDamage = addDamage;
@@ -27,8 +26,8 @@ public class Weapon {
         this.WeaponAddINT = addINT;
         this.WeaponAddHP = addHP;
         this.WeaponPrice = weaponPrice;
-        this.playerHave = 0;
-        this.playerEquip = 0;
+        this.playerHave = playerHave;
+
     }
 
     public String getWeaponName() {
@@ -95,13 +94,7 @@ public class Weapon {
         this.playerHave = playerHave;
     }
 
-    public int getPlayerEquip() {
-        return playerEquip;
-    }
 
-    public void setPlayerEquip(int playerEquip) {
-        this.playerEquip = playerEquip;
-    }
 
     public int getWeaponAddMajicDamage() {
         return WeaponAddMajicDamage;
@@ -125,6 +118,14 @@ public class Weapon {
 
     public void setWeaponPrice(int weaponPrice) {
         WeaponPrice = weaponPrice;
+    }
+
+    public int getWeaponID() {
+        return weaponID;
+    }
+
+    public void setWeaponID(int weaponID) {
+        this.weaponID = weaponID;
     }
 
     public void getItemInfo(){
