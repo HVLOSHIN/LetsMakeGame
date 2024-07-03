@@ -17,7 +17,7 @@ public class Region {
 
     @Override
     public String toString() {
-        return "지역" + regionNum + " : " + name + " / 권장 레벨 : " + minLV + " ~ " + maxLV;
+        return regionNum + ". " + name + " / 권장 레벨 : " + minLV + " ~ " + maxLV;
     }
 
     public String getName() {

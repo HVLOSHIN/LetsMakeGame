@@ -113,6 +113,8 @@ public class Game {
                 case "1":
                     player.getPlayerAdditionalStats(weapon); //전투 들어가기 전에 캐릭터 스텟 한번 점검
                     generator.regionGenerate(player);
+
+
                     break;
 
                 case "2":

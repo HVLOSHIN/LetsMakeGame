@@ -3,7 +3,11 @@ package prototypeSystem.character;
 import prototypeSystem.game.Achievements;
 import prototypeSystem.item.Weapon;
 
+//@Getter
+
+
 public class Player {
+
     private int id;
     private String name;
     private int level;

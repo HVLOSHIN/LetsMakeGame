@@ -74,6 +74,7 @@ public class CombatSystem {
                     System.out.println("보스처치.. 다음지역이 해금됩니다..");
                     System.out.println("상점에 새로운 물건들이 보급됩니다.");
                     enemy.setBossSlain(1);
+                    player.setMapUnlock(1);
                 }
 
                 //아이템 드랍 추가예정
@@ -103,6 +104,60 @@ public class CombatSystem {
                 break;
             }
             System.out.println(count + "턴 종료");
+            count++;
+            if (count == 15) {
+                System.out.println("전투가 너무 오래 지속되어 무승부로 끝납니다.");
+                return;
+            }
+        }
+
+
+    }
+    public void startShortCombat(Player player, Enemy enemy) {
+        getCombatStatus(player, enemy);
+        int count = 1;
+        while (true) {
+            int currentAttack1 = attack + (int) (additionalDamage() * attack * 0.01) - eDefense;
+            if (currentAttack1 < 1) {
+                currentAttack1 = 1;
+            }
+            if (playerHitChance()) {
+               // System.out.println(eName + ", 공격을 회피했다.");
+            } else {
+                eCurrentHP -= currentAttack1;
+            }
+            if (eCurrentHP <= -0) {
+
+                System.out.print("적 사망.                 " + enemy.getEXP() + " 경험치 획득");
+                if(enemy.getBoss()==1 && enemy.getBossSlain()==0){
+                    System.out.print("             보스처치.. 다음지역이 해금됩니다..");
+                    enemy.setBossSlain(1);
+                    player.setMapUnlock(1);
+                }
+
+                shortGoldChance(player, enemy);
+                player.setCurrentEXP(player.getCurrentEXP() + enemy.getEXP());
+                player.setKillCount(player.getKillCount() + 1);
+                System.out.println();
+                break;
+            }
+
+            int currentAttack2 = eAttack + (int) (additionalDamage() * eAttack * 0.01) - defense;
+            if (currentAttack2 < 1) {
+                currentAttack2 = 1;
+            }
+            if (enemyHitChance()) {
+              //  System.out.println(Name + ", 공격을 회피했다.");
+            } else {
+                currentHP -= currentAttack2;
+            }
+            if (currentHP <= -0) {
+                System.out.println("당신은 사망하였습니다. 경험치의 일부를 잃어버립니다.");
+                player.setDeathCount(player.getDeathCount() + 1);
+                player.setCurrentEXP(player.getCurrentEXP() / 4);
+                break;
+            }
+         //   System.out.println(count + "턴 종료");
             count++;
             if (count == 15) {
                 System.out.println("전투가 너무 오래 지속되어 무승부로 끝납니다.");
@@ -201,4 +256,12 @@ public class CombatSystem {
             player.setGold(player.getGold() + enemy.getMoney());
         }
     }
+    public void shortGoldChance(Player player, Enemy enemy) {
+        int random = rand.nextInt(100);
+        if (random >= 50) {
+            System.out.print("            " + enemy.getMoney() + " 골드를 얻었다.");
+            player.setGold(player.getGold() + enemy.getMoney());
+        }
+    }
+
 }
