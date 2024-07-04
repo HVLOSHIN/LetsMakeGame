@@ -37,7 +37,6 @@ public class CombatSystem {
     private int eAccuracy;
     private int eAttackSpeed;
 
-
     public void startCombat(Player player, Enemy enemy, int stageChoice) {
     if(enemy.getBoss() == 1){
         System.out.println("========================보스전=======================");
