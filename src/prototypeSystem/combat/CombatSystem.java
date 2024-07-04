@@ -33,7 +33,7 @@ public class CombatSystem {
     private int eAttackSpeed;
 
 
-    public void startCombat(Player player, Enemy enemy) {
+    public void startCombat(Player player, Enemy enemy, int stageChoice) {
     if(enemy.getBoss() == 1){
         System.out.println("========================보스전=======================");
     }
@@ -70,11 +70,10 @@ public class CombatSystem {
 
                 System.out.println("적 사망. \n" + enemy.getEXP() + " 경험치 획득");
 
-                if(enemy.getBoss()==1 && enemy.getBossSlain()==0){
+                if(enemy.getBoss()==1 && player.getMapUnlock()== stageChoice){
                     System.out.println("보스처치.. 다음지역이 해금됩니다..");
                     System.out.println("상점에 새로운 물건들이 보급됩니다.");
-                    enemy.setBossSlain(1);
-                    player.setMapUnlock(1);
+                    player.setMapUnlock(2);
                 }
 
                 //아이템 드랍 추가예정
@@ -113,7 +112,7 @@ public class CombatSystem {
 
 
     }
-    public void startShortCombat(Player player, Enemy enemy) {
+    public void startShortCombat(Player player, Enemy enemy, int stageChoice) {
         getCombatStatus(player, enemy);
         int count = 1;
         while (true) {
@@ -129,9 +128,8 @@ public class CombatSystem {
             if (eCurrentHP <= -0) {
 
                 System.out.print("적 사망.                 " + enemy.getEXP() + " 경험치 획득");
-                if(enemy.getBoss()==1 && enemy.getBossSlain()==0){
+                if(enemy.getBoss()==1 && player.getMapUnlock()== stageChoice){
                     System.out.print("             보스처치.. 다음지역이 해금됩니다..");
-                    enemy.setBossSlain(1);
                     player.setMapUnlock(1);
                 }
 

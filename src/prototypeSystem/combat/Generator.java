@@ -45,16 +45,17 @@ public class Generator {
     public void regionGenerate(Player player) {
         int mapUnlock = player.getMapUnlock();
         Region[] regionNum = new Region[10];
-        regionNum[0] = new Region("초원", 1, 1, 15);
-        regionNum[1] = new Region("region2", 2, 16, 30);
-        regionNum[2] = new Region("region3", 3, 31, 45);
-        regionNum[3] = new Region("region4", 4, 46, 60);
-        regionNum[4] = new Region("region5", 5, 61, 75);
+        regionNum[0] = null;
+        regionNum[1] = new Region("초원", 1, 1, 15);
+        regionNum[2] = new Region("region2", 2, 16, 30);
+        regionNum[3] = new Region("region3", 3, 31, 45);
+        regionNum[4] = new Region("region4", 4, 46, 60);
+        regionNum[5] = new Region("region5", 5, 61, 75);
         //TODO 지역 추가
 
 
         //해금도에 따른 지역 보여주기
-        for (int i = 0; i <= mapUnlock; i++) {
+        for (int i = 1; i <= mapUnlock; i++) {
             System.out.println(regionNum[i]);
         }
 
@@ -64,14 +65,11 @@ public class Generator {
         if (stageChoice == 0) {
             return;
         }
-        if (stageChoice - 1 > mapUnlock) {
+        if (stageChoice > mapUnlock) {
             System.out.println("이 지역은 아직 해금되지 않았습니다.");
         } else if (0 < stageChoice && stageChoice < regionNum.length) {
             System.out.println(regionNum[stageChoice].getName() + "으로 이동합니다.");
-            while (true) {
-                enemyGenerate(stageChoice, player);
-                break;
-            }
+            enemyGenerate(stageChoice, player);
         }
     }
 
@@ -97,8 +95,7 @@ public class Generator {
                     shortCombat(player, enemyNum, boss, combatCount, enemyChoice, stageChoice);
                 } else if (combatCount == 1) {
                     longCombat(player, enemyNum, boss, enemyChoice, stageChoice);
-                }
-                else {
+                } else {
                     System.out.println("올바른 입력이 아닙니다.");
                 }
 
@@ -116,16 +113,16 @@ public class Generator {
                 //보스전
                 if (random > 70) {
                     System.out.print("전투 " + (j + 1) + " : ");
-                    combatSystem.startShortCombat(player, boss[stageChoice]);
+                    combatSystem.startShortCombat(player, boss[stageChoice], stageChoice);
                 }
                 //일반전
                 else if (random <= 70) {
                     System.out.print("전투 " + (j + 1) + " : ");
-                    combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice))]);
+                    combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
                 }
                 // 1~4몹
             } else if (enemyChoice < 5) {
-                combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice))]);
+                combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
             }
 
         }
@@ -138,11 +135,11 @@ public class Generator {
         if (enemyChoice == 5) {
             int random = rand.nextInt(100);
             if (random > 70) {
-                combatSystem.startCombat(player, boss[stageChoice]);
+                combatSystem.startCombat(player, boss[stageChoice], stageChoice);
             }
 
         }
-        combatSystem.startCombat(player, enemyNum[(enemyChoice + (5 * stageChoice))]);
+        combatSystem.startCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
 
     }
 

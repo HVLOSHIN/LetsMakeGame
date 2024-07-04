@@ -62,7 +62,7 @@ public class Player {
         this.DEX = 1;
         this.INT = 1;
         this.usedExp = 0;
-        this.mapUnlock = 0;
+        this.mapUnlock = 1;
         this.gold = 100;
         this.killCount = 0;
 
@@ -310,7 +310,7 @@ public class Player {
         System.out.println("사용한 경험치 : " + usedExp);
         System.out.println("죽은 횟수 : " + deathCount);
 
-        System.out.println("맵 언락 스테이지 : " + (mapUnlock + 1));
+        System.out.println("맵 언락 스테이지 : " + (mapUnlock));
         //System.out.println("처치한 가장 강한 적 : " );
     }
     public void showAchievements(Achievements[] achievements){
