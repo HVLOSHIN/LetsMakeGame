@@ -16,6 +16,7 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     WeaponShop weaponShop = new WeaponShop();
     Weapon[] weapon = new Weapon[100];
+    Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
     int areYouComeBack = 0;
 

@@ -11,43 +11,13 @@ public class WeaponShop {
 
     public void CallWeaponShop(Player player, Weapon[] weapon) {
         System.out.println("현재 보유 골드 : " + player.getGold());
-        // map 해금에 따라 순차적으로 개방
-        // 이 메서드도 개선가능 한가?
-        int itemNum = 1;
-        for (int i = 1; i < 4; i++) {
-            if (weapon[i].getHave() == 1) {
-                System.out.print("(보유중)");
-            }
-            weapon[i].getItemInfo();
-        }
-        if (player.getMapUnlock() > 0) {
-            for (int i = 4; i < 7; i++) {
-                if (weapon[i].getHave() == 0) {
-
-                    weapon[i].getItemInfo();
-
-                }
-            }
-        }
-        if(player.getMapUnlock() > 1){
-            for (int i = 7; i < 10; i++) {
-                if (weapon[i].getHave() == 0) {
-
-                    weapon[i].getItemInfo();
-
-                }
-            }
-
-        }
-        //TODO 계속 추가!
+        // map 해금에 따라 순차적 개방
+        disPlayWeapons(player, weapon);
 
         int choice = scanner.nextInt();
         if(choice > 3 && player.getMapUnlock() == 0){
-            System.out.println("올");
+            System.out.println("올바른 입력이 아닙니다.");
         }
-
-
-
 
         try {
             buyWeapon(player, choice, weapon);
@@ -74,6 +44,17 @@ public class WeaponShop {
         player.setGold(player.getGold() - weapon[i].getPrice());
         weapon[i].setHave(1);
     }
+
+    public void disPlayWeapons(Player player, Weapon[] weapon) {
+        int mapUnlock = player.getMapUnlock() + 1;
+                for (int i = 1; i <= 3 * mapUnlock ; i++) {
+                    if (weapon[i].getHave() == 1) {
+                        System.out.print("(보유중)");
+                    }
+                    weapon[i].getItemInfo();
+                }
+        }
+
 }
 
 
