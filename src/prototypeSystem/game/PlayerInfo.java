@@ -31,7 +31,7 @@ public class PlayerInfo {
     CombatSystem combatSystem = new CombatSystem();
 
     public void levelUp(Player player , Weapon[] weapon, Armor[] armor) {
-        maxExp = player.getLevel()*player.getLevel()*3;
+        maxExp = (player.getLevel()*player.getLevel())*3;
         while (true) {
           //  showPlayer(player, weapon, armor);
             combatSystem.displayPlayerCombatStatus(player);
@@ -80,6 +80,7 @@ public class PlayerInfo {
     }
 
     public boolean expCheck(Player player) {
+        maxExp = (player.getLevel()*player.getLevel())*3;
         if (player.getCurrentEXP() < maxExp) {
             System.out.println("경험치가 부족합니다.");
             return false;

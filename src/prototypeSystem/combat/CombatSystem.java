@@ -300,7 +300,7 @@ public class CombatSystem {
         System.out.println("  | 명중률 : " + accuracy);
         System.out.println("치명타 확률 :" + critical);
         System.out.println();
-        System.out.println("레벨업 필요 경험치 : " + (player.getLevel()*player.getLevel()*5));
+        System.out.println("레벨업 필요 경험치 : " + (player.getLevel()*player.getLevel()*3));
         System.out.println("현재 경험치 : " + player.getCurrentEXP());
         System.out.println("현재 보유 금화 : " + player.getGold());
 

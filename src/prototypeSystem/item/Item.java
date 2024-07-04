@@ -15,7 +15,7 @@ public class Item {
     private int have;
     private int price;
 
-    public Item(int ID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int have, int price) {
+    public Item(int ID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int price, int have) {
         this.ID = ID;
         this.name = name;
         this.addDamage = addDamage;
@@ -26,8 +26,9 @@ public class Item {
         this.addDEX = addDEX;
         this.addINT = addINT;
         this.addHP = addHP;
-        this.have = have;
         this.price = price;
+        this.have = have;
+
     }
 
     public int getID() {

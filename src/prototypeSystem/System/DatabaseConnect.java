@@ -32,7 +32,7 @@ public class DatabaseConnect {
     //PLAYER
     public Player getPlayer(int playerId) throws SQLException {
         Player player = null;
-        ResultSet rs = conn.prepareStatement("select * from TextRPGSave where id=" + playerId).executeQuery();
+        ResultSet rs = conn.prepareStatement("select * from playerSave where id=" + playerId).executeQuery();
         while (rs.next()) {
             int id = rs.getInt(1);
             String name = rs.getString(2);
@@ -54,7 +54,7 @@ public class DatabaseConnect {
     }
 
     public void savePlayer(Player player) throws SQLException {
-        String sql = "update TextRPGSave Set name = ?,level = ?,maxHealth = ?,currentEXP = ?,strengthAbility = ?,dexterityAbility = ?,intelligenceAbility = ?,usedExp = ?, mapUnlock =?, money =?,killCount=?, deathCount=? where id=?";
+        String sql = "update playerSave Set name = ?,level = ?,maxHealth = ?,currentEXP = ?,strengthAbility = ?,dexterityAbility = ?,intelligenceAbility = ?,usedExp = ?, mapUnlock =?, money =?,killCount=?, deathCount=? where id=?";
 
         PreparedStatement psmt = conn.prepareStatement(sql);
         psmt.setString(1, player.getName());
@@ -154,7 +154,7 @@ public class DatabaseConnect {
     public Armor getArmor(int armorID) throws SQLException {
         Armor armor = null;
 
-        ResultSet rs = conn.prepareStatement("select * from TextRPGSave.saveArmor where id=" + armorID).executeQuery();
+        ResultSet rs = conn.prepareStatement("select * from TextRPGSave.SaveArmor where id=" + armorID).executeQuery();
         while (rs.next()) {
             int id = rs.getInt(1);
             String name = rs.getString(2);
@@ -166,7 +166,7 @@ public class DatabaseConnect {
             int addDEX = rs.getInt(8);
             int addINT = rs.getInt(9);
             int addHP = rs.getInt(10);
-            int price = rs.getInt(11);
+            int price = rs.getInt(11); //이상하게 SaveArmor 테이블만 Column 순서 꼬여있음 (11,12)
             int have = rs.getInt(12);
             armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
 
@@ -201,7 +201,8 @@ public class DatabaseConnect {
 
     public void saveArmor(Armor[] armor) throws SQLException {
 
-        String sql = "update TextRPGSave.saveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?,have=? where id=?";
+
+        String sql = "update TextRPGSave.SaveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?, have=? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
         for (int i = 1; i < 10; i++) {
             psmt.setString(1, armor[i].getName());
@@ -214,7 +215,7 @@ public class DatabaseConnect {
             psmt.setInt(8, armor[i].getAddINT());
             psmt.setInt(9, armor[i].getAddHP());
             psmt.setInt(10, armor[i].getPrice());
-            psmt.setInt(11, armor[i].getHave());
+            psmt.setInt(11, armor[i].getHave());//이상하게 SaveArmor 테이블만 Column 순서 꼬여있음 (11,12)
 
             psmt.setInt(12, armor[i].getID());
             psmt.executeUpdate();

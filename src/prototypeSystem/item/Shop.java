@@ -19,10 +19,12 @@ public class Shop {
         if (itemChoice > player.getMapUnlock()*3) {
             System.out.println("아직 해금된 무기가 아닙니다..");
         }
-        try {
-            buyWeapon(player, itemChoice, weapon);
-        } catch (NullPointerException e) {
-            System.out.println("올바른 입력이 아닙니다.");
+        else {
+            try {
+                buyWeapon(player, itemChoice, weapon);
+            } catch (NullPointerException e) {
+                System.out.println("올바른 입력이 아닙니다.");
+            }
         }
     }
     public void displayWeapons(Player player, Weapon[] weapon) {
@@ -34,22 +36,22 @@ public class Shop {
             weapon[i].getItemInfo();
         }
     }
-    public void buyWeapon(Player player, int i, Weapon[] weapon) {
+    public void buyWeapon(Player player, int weaponChoice, Weapon[] weapon) {
         //소유 검증
-        if (weapon[i].getHave() == 1) {
+        if (weapon[weaponChoice].getHave() == 1) {
             System.out.println("이미 보유한 아이템 입니다.");
             return;
         }
         //골드 검증
-        if (player.getGold() < weapon[i].getPrice()) {
+        if (player.getGold() < weapon[weaponChoice].getPrice()) {
             System.out.println("골드가 부족 합니다.");
             return;
         }
 
-        System.out.println(weapon[i].getName() + "를 구매합니다.");
-        System.out.println(player.getGold() + " -> " + (player.getGold() - weapon[i].getPrice()) + " (골드)");
-        player.setGold(player.getGold() - weapon[i].getPrice());
-        weapon[i].setHave(1);
+        System.out.println(weapon[weaponChoice].getName() + "를 구매합니다.");
+        System.out.println(player.getGold() + " -> " + (player.getGold() - weapon[weaponChoice].getPrice()) + " (골드)");
+        player.setGold(player.getGold() - weapon[weaponChoice].getPrice());
+        weapon[weaponChoice].setHave(1);
     }
 
 
@@ -63,10 +65,12 @@ public class Shop {
         if (itemChoice > player.getMapUnlock()*3) {
             System.out.println("아직 해금된 방어구가 아닙니다..");
         }
+        else{
         try {
             buyArmor(player, itemChoice, armor);
         } catch (NullPointerException e) {
             System.out.println("올바른 입력이 아닙니다.");
+        }
         }
     }
     public void displayArmors(Player player, Armor[] armor) {
