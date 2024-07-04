@@ -2,6 +2,7 @@ package prototypeSystem.System;
 
 import prototypeSystem.character.Player;
 import prototypeSystem.game.Achievements;
+import prototypeSystem.item.Armor;
 import prototypeSystem.item.Weapon;
 
 import java.sql.*;
@@ -100,6 +101,7 @@ public class DatabaseConnect {
         return weapon;
     }
 
+
     public Weapon getWeaponOriginal(int weaponID) throws SQLException {
         Weapon weapon = null;
 
@@ -149,8 +151,76 @@ public class DatabaseConnect {
 
     //ARMOR
 
+    public Armor getArmor(int armorID) throws SQLException {
+        Armor armor = null;
 
+        ResultSet rs = conn.prepareStatement("select * from TextRPGSave.saveArmor where id=" + armorID).executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt(1);
+            String name = rs.getString(2);
+            int addDamage = rs.getInt(3);
+            int multDamage = rs.getInt(4);
+            int addMagicDamage = rs.getInt(5);
+            int multMagicDamage = rs.getInt(6);
+            int addSTR = rs.getInt(7);
+            int addDEX = rs.getInt(8);
+            int addINT = rs.getInt(9);
+            int addHP = rs.getInt(10);
+            int price = rs.getInt(11);
+            int have = rs.getInt(12);
+            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
 
+        }
+
+        return armor;
+    }
+
+    public Armor getArmorOriginal(int armorID) throws SQLException {
+        Armor armor = null;
+
+        ResultSet rs = conn.prepareStatement("select * from TextRPGSave.SaveArmorOriginal where id=" + armorID).executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt(1);
+            String name = rs.getString(2);
+            int addDamage = rs.getInt(3);
+            int multDamage = rs.getInt(4);
+            int addMagicDamage = rs.getInt(5);
+            int multMagicDamage = rs.getInt(6);
+            int addSTR = rs.getInt(7);
+            int addDEX = rs.getInt(8);
+            int addINT = rs.getInt(9);
+            int addHP = rs.getInt(10);
+            int price = rs.getInt(11);
+            int have = rs.getInt(12);
+            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
+
+        }
+
+        return armor;
+    }
+
+    public void saveArmor(Armor[] armor) throws SQLException {
+
+        String sql = "update TextRPGSave.saveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?,have=? where id=?";
+        PreparedStatement psmt = conn.prepareStatement(sql);
+        for (int i = 1; i < 10; i++) {
+            psmt.setString(1, armor[i].getName());
+            psmt.setInt(2, armor[i].getAddDamage());
+            psmt.setInt(3, armor[i].getMultDamage());
+            psmt.setInt(4, armor[i].getAddMagicDamage());
+            psmt.setInt(5, armor[i].getMultMagicDamage());
+            psmt.setInt(6, armor[i].getAddSTR());
+            psmt.setInt(7, armor[i].getAddDEX());
+            psmt.setInt(8, armor[i].getAddINT());
+            psmt.setInt(9, armor[i].getAddHP());
+            psmt.setInt(10, armor[i].getPrice());
+            psmt.setInt(11, armor[i].getHave());
+
+            psmt.setInt(12, armor[i].getID());
+            psmt.executeUpdate();
+            //  System.out.println("무기 세이브 저장 완료..");
+        }
+    }
 
     //ACHIEVE
     public Achievements getAchievements(int achievementID) throws SQLException {

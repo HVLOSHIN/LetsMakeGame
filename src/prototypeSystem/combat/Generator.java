@@ -87,7 +87,6 @@ public class Generator {
             if (enemyChoice == 0) {
                 return;
             } else if (0 < enemyChoice && enemyChoice <= 5) {
-
                 System.out.print("전투 횟수 입력 (1 ~ 10까지 가능) : ");
                 int combatCount = scanner.nextInt();
                 //반복 전투 정의
@@ -98,10 +97,8 @@ public class Generator {
                 } else {
                     System.out.println("올바른 입력이 아닙니다.");
                 }
-
             }
         }
-
 
     }
 

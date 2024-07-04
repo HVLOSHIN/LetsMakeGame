@@ -3,7 +3,8 @@ package prototypeSystem.game;
 import prototypeSystem.character.Player;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.System.DatabaseConnect;
-import prototypeSystem.item.WeaponShop;
+import prototypeSystem.item.Armor;
+import prototypeSystem.item.Shop;
 import prototypeSystem.item.Weapon;
 
 
@@ -14,9 +15,9 @@ public class Game {
     private DatabaseConnect databaseConnect;
     PlayerInfo playerInfo = new PlayerInfo();
     Scanner scanner = new Scanner(System.in);
-    WeaponShop weaponShop = new WeaponShop();
+    Shop shop = new Shop();
     Weapon[] weapon = new Weapon[100];
-   // Armor[] armor = new Armor[100];
+    Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
     int areYouComeBack = 0;
 
@@ -42,6 +43,9 @@ public class Game {
                 for (int i = 1; i <= 10; i++) {
                     weapon[i] = databaseConnect.getWeapon(i);
                 }
+                for (int i = 1; i <= 10; i++) {
+                    armor[i] = databaseConnect.getArmor(i);
+                }
                 for (int i = 1; i <= 5; i++) {
                     achieve[i] = databaseConnect.getAchievements(i);
                 }
@@ -60,7 +64,9 @@ public class Game {
                 for (int i = 1; i <= 10; i++) {
                     weapon[i] = databaseConnect.getWeaponOriginal(i);
                 }
-
+                for (int i = 1; i <= 10; i++) {
+                    armor[i] = databaseConnect.getArmorOriginal(i);
+                }
                 for (int i = 1; i <= 5; i++) {
                     achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
@@ -82,6 +88,7 @@ public class Game {
                     databaseConnect.savePlayer(player);
                     System.out.println();
                     databaseConnect.saveWeapon(weapon);
+                    databaseConnect.saveArmor(armor);
                     databaseConnect.saveAchievements(achieve);
                     break;
 
@@ -145,10 +152,10 @@ public class Game {
                     String choice3 = scanner.nextLine();
 
                     if (choice3.equals("1")) {
-                        weaponShop.CallWeaponShop(player, weapon);
+                        shop.CallWeaponShop(player, weapon);
                     }
                     else if (choice3.equals("2")) {
-                        System.out.println("방어구 상점 준비중..");
+                        shop.CallArmorShop(player,armor);
                     }
                     else if (choice3.equals("3")) {
                         System.out.println("전직소 준비중...");
@@ -189,7 +196,7 @@ public class Game {
             achieve[3].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
         }
-        if (player.getMapUnlock() >= 1 && achieve[4].getClear() == 0) {
+        if (player.getMapUnlock() > 1 && achieve[4].getClear() == 0) {
             System.out.println("도전과제 달성! 보상 1000EXP");
             achieve[4].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);

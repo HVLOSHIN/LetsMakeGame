@@ -1,6 +1,7 @@
 package prototypeSystem.item;
 
-public class Amor {
+public class Item {
+
     private int ID;
     private String name;
     private int addDamage;
@@ -14,7 +15,7 @@ public class Amor {
     private int have;
     private int price;
 
-    public Amor(int ID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int have, int price) {
+    public Item(int ID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int have, int price) {
         this.ID = ID;
         this.name = name;
         this.addDamage = addDamage;
@@ -123,6 +124,12 @@ public class Amor {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+    public void getItemInfo(){
+        System.out.print( ID + ". " + name + ", 공격력 : " + addDamage + ", 공격배율 : x" + multDamage);
+        System.out.print(", 마법공격력 : " + addMagicDamage + ", 마법공격배올 : " + multMagicDamage);
+        System.out.print(", 근력 : " + addSTR + ", 기교 : " + addDEX + ", 지력 : " + addINT );
+        System.out.println(" , 체력 : " + addHP +  ", 가격 : " + price);
     }
 
 
