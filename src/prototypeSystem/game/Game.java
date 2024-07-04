@@ -20,6 +20,9 @@ public class Game {
     Weapon[] weapon = new Weapon[100];
     Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
+    int weaponArraySize =10;
+    int armorArraySize = 10;
+    int achieveArraySize = 9;
     CombatSystem combatSystem = new CombatSystem();
     int areYouComeBack = 0;
 
@@ -42,15 +45,16 @@ public class Game {
         switch (choice) {
             case 1:     //세이브 불러오기
                 returnPlayer = databaseConnect.getPlayer(1);
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= weaponArraySize; i++) {
                     weapon[i] = databaseConnect.getWeapon(i);
                 }
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= armorArraySize; i++) {
                     armor[i] = databaseConnect.getArmor(i);
                 }
-                for (int i = 1; i <= 5; i++) {
+                for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievements(i);
                 }
+
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
                 areYouComeBack = 1;
 
@@ -63,15 +67,19 @@ public class Game {
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
 
                 // Original 에서 아이템 데이터 받기
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= weaponArraySize; i++) {
                     weapon[i] = databaseConnect.getWeaponOriginal(i);
                 }
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= armorArraySize; i++) {
                     armor[i] = databaseConnect.getArmorOriginal(i);
                 }
-                for (int i = 1; i <= 5; i++) {
+
+                for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
+
+
+
                 break;
             default:
                 System.out.println("올바른 입력이 아닙니다.");
@@ -89,9 +97,9 @@ public class Game {
                 case 1:
                     databaseConnect.savePlayer(player);
                     System.out.println();
-                    databaseConnect.saveWeapon(weapon);
-                    databaseConnect.saveArmor(armor);
-                    databaseConnect.saveAchievements(achieve);
+                    databaseConnect.saveWeapon(weapon,weaponArraySize);
+                    databaseConnect.saveArmor(armor,armorArraySize);
+                    databaseConnect.saveAchievements(achieve,achieveArraySize);
                     break;
 
                 case 2:

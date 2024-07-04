@@ -101,7 +101,6 @@ public class DatabaseConnect {
         return weapon;
     }
 
-
     public Weapon getWeaponOriginal(int weaponID) throws SQLException {
         Weapon weapon = null;
 
@@ -126,7 +125,7 @@ public class DatabaseConnect {
         return weapon;
     }
 
-    public void saveWeapon(Weapon[] weapon) throws SQLException {
+    public void saveWeapon(Weapon[] weapon, int weaponArraySize) throws SQLException {
 
         String sql = "update TextRPGSave.saveWeapon set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?,have=? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
@@ -199,7 +198,7 @@ public class DatabaseConnect {
         return armor;
     }
 
-    public void saveArmor(Armor[] armor) throws SQLException {
+    public void saveArmor(Armor[] armor, int armorArraySize) throws SQLException {
 
 
         String sql = "update TextRPGSave.SaveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?, have=? where id=?";
@@ -227,7 +226,7 @@ public class DatabaseConnect {
     public Achievements getAchievements(int achievementID) throws SQLException {
         Achievements achievements = null;
 
-        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.Achievements where id=" + achievementID).executeQuery();
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.saveAchievements where id=" + achievementID).executeQuery();
         while (resultSet.next()) {
             int id = resultSet.getInt(1);
             int clear = resultSet.getInt(2);
@@ -242,7 +241,7 @@ public class DatabaseConnect {
     public Achievements getAchievementsOriginal(int achievementID) throws SQLException {
         Achievements achievements = null;
 
-        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.AchievementsOriginal where id=" + achievementID).executeQuery();
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.saveAchievementsOriginal where id=" + achievementID).executeQuery();
         while (resultSet.next()) {
             int id = resultSet.getInt(1);
             int clear = resultSet.getInt(2);
@@ -254,10 +253,10 @@ public class DatabaseConnect {
         return achievements;
     }
 
-    public void saveAchievements(Achievements[] achievements) throws SQLException {
-        String sql = "update TextRPGSave.Achievements set clear =?, name =?, description =? where id=?";
+    public void saveAchievements(Achievements[] achievements, int achieveArraySize) throws SQLException {
+        String sql = "update TextRPGSave.saveAchievements set clear =?, name =?, description =? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= achieveArraySize; i++) {
             psmt.setInt(1, achievements[i].getClear());
             psmt.setString(2, achievements[i].getAchieveName());
             psmt.setString(3, achievements[i].getAchieveDesc());
@@ -266,7 +265,6 @@ public class DatabaseConnect {
             psmt.executeUpdate();
         }
     }
-
 
 }
 

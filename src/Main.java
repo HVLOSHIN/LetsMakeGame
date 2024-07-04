@@ -12,5 +12,6 @@ public class Main {
         Game game = new Game(databaseConnect);
         Player player = game.gameStart();
         game.gameLogic(player);
+
     }
 }
