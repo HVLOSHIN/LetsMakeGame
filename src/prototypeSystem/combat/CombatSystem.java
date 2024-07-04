@@ -2,6 +2,8 @@ package prototypeSystem.combat;
 
 import prototypeSystem.character.Enemy;
 import prototypeSystem.character.Player;
+import prototypeSystem.item.Armor;
+import prototypeSystem.item.Weapon;
 
 import java.util.Random;
 
@@ -19,6 +21,9 @@ public class CombatSystem {
     private int dodge;
     private int accuracy;
     private int attackSpeed;
+    private int STR;
+    private int DEX;
+    private int INT;
     //enemy
     private String eName;
     private int eMaxHP;
@@ -112,6 +117,7 @@ public class CombatSystem {
 
 
     }
+
     public void startShortCombat(Player player, Enemy enemy, int stageChoice) {
         getCombatStatus(player, enemy);
         int count = 1;
@@ -168,28 +174,44 @@ public class CombatSystem {
 
     public void getCombatStatus(Player player, Enemy enemy) {
         //player
+        getPlayerCombatStatus(player);
+
+        //enemy
+        getEnemyCombatStatus(enemy);
+
+
+    }
+
+    public void getPlayerCombatStatus(Player player) {
+        //player
+
+        STR = player.getSTR() + player.getAddSTR();
+        DEX = player.getDEX() + player.getAddDEX();
+        INT = player.getINT() + player.getAddINT();
         Name = player.getName();
         MaxHP = player.getMaxHP() + player.getAddHP();
         currentHP = MaxHP;
-        attack = ((player.getSTR() + player.getAddSTR()) * 3) + (player.getDEX() + player.getAddDEX());
-        magicAttack = ((player.getINT() + player.getAddINT()) * 3);
-        defense = ((player.getSTR() + player.getAddSTR()) * 2);
-        magicDefense = ((player.getINT() + player.getAddINT()) * 2);
+        attack = (STR * 3) + DEX;
+        magicAttack = INT * 3;
+        defense = STR * 2;
+        magicDefense = INT * 2;
 
-        critical = (player.getDEX() + player.getAddDEX());
-        dodge = (player.getDEX() + player.getAddDEX());
-        attackSpeed = (player.getDEX() + player.getAddDEX());
+        critical = DEX;
+        dodge = DEX;
+        attackSpeed = DEX;
 
-
-        if (player.getSTR() + player.getAddSTR() > player.getDEX() + player.getAddDEX() && player.getSTR() + player.getAddSTR() > player.getINT() + player.getAddINT()) {
-            accuracy = player.getSTR() + player.getAddSTR();
-        } else if (player.getDEX() + player.getAddDEX() > player.getINT() + player.getAddINT()) {
-            accuracy = player.getDEX() + player.getAddDEX();
+        if (STR > DEX && STR > INT) {
+            accuracy = STR;
+        } else if (DEX > INT) {
+            accuracy = DEX;
         } else {
-            accuracy = player.getINT() + player.getAddINT();
+            accuracy = INT;
         }
 
-        //enemy
+
+    }
+
+    public void getEnemyCombatStatus(Enemy enemy){
         eName = enemy.getName();
         eMaxHP = enemy.getMaxHP();
         eCurrentHP = eMaxHP;
@@ -210,9 +232,7 @@ public class CombatSystem {
         } else {
             eAccuracy = enemy.getINT();
         }
-
     }
-
 
     public int additionalDamage() {
         int additionalDamage = 0;
@@ -254,6 +274,7 @@ public class CombatSystem {
             player.setGold(player.getGold() + enemy.getMoney());
         }
     }
+
     public void shortGoldChance(Player player, Enemy enemy) {
         int random = rand.nextInt(100);
         if (random >= 50) {
@@ -262,4 +283,27 @@ public class CombatSystem {
         }
     }
 
+    public void displayPlayerCombatStatus(Player player) {
+        getPlayerCombatStatus(player);
+        System.out.println("===========================");
+        System.out.println("레벨 : " + player.getLevel());
+        System.out.print("체력 : " + MaxHP + " (+" + player.getAddHP() + ")");
+        System.out.println("  | 근력 : " + STR + " (+" + player.getAddSTR() + ")");
+        System.out.print("기교 : " + DEX + " (+" + player.getAddDEX() + ")");
+        System.out.println("  | 지력 : " + INT + " (+" + player.getAddINT() + ")");
+        System.out.println();
+        System.out.print("공격력 : " + attack);
+        System.out.println("  | 마법공격력 : " + magicAttack);
+        System.out.print("방어력 : " + defense);
+        System.out.println("  | 마법방어력 : " + magicDefense);
+        System.out.print("회피율 : " + dodge);
+        System.out.println("  | 명중률 : " + accuracy);
+        System.out.println("치명타 확률 :" + critical);
+        System.out.println();
+        System.out.println("레벨업 필요 경험치 : " + (player.getLevel()*player.getLevel()*5));
+        System.out.println("현재 경험치 : " + player.getCurrentEXP());
+        System.out.println("현재 보유 금화 : " + player.getGold());
+
+        System.out.println("===========================");
+    }
 }

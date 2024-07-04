@@ -1,10 +1,18 @@
 package prototypeSystem.game;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.combat.CombatSystem;
+import prototypeSystem.item.Armor;
+import prototypeSystem.item.Weapon;
 
 import java.util.Scanner;
 
 public class PlayerInfo {
+    int HP;
+    int STR;
+    int DEX;
+    int INT;
+
 
     int attack;
     int magicAttack;
@@ -20,10 +28,13 @@ public class PlayerInfo {
 
 
     Scanner scanner = new Scanner(System.in);
+    CombatSystem combatSystem = new CombatSystem();
 
-    public void levelUp(Player player) {
+    public void levelUp(Player player , Weapon[] weapon, Armor[] armor) {
+        maxExp = player.getLevel()*player.getLevel()*3;
         while (true) {
-            showPlayer(player);
+          //  showPlayer(player, weapon, armor);
+            combatSystem.displayPlayerCombatStatus(player);
 
             System.out.println("| 1.체력 | 2.근력 | 3.기교 | 4.지력 | 5.이전 |");
             String choice = scanner.nextLine();
@@ -32,8 +43,8 @@ public class PlayerInfo {
                 case "1":
                     expCheck = expCheck(player);
                     if (expCheck) {
-                        System.out.println("체력 : " + player.getMaxHP() + " -> " + (player.getMaxHP() + 5));
-                        player.setMaxHP(player.getMaxHP() + 5);
+                        System.out.println("체력 : " + player.getMaxHP() + " -> " + (player.getMaxHP() + 10));
+                        player.setMaxHP(player.getMaxHP() + 10);
                     }
                     break;
                 case "2":
@@ -81,47 +92,4 @@ public class PlayerInfo {
         }
     }
 
-    public void showPlayer(Player player) {
-        getStats(player);
-        System.out.println("===========================");
-        System.out.println("레벨 : " + player.getLevel());
-        System.out.print("체력 : " + player.getMaxHP());
-        System.out.println("  | 근력 : " + player.getSTR());
-        System.out.print("기교 : " + player.getDEX());
-        System.out.println("  | 지력 : " + player.getINT());
-        System.out.println();
-        System.out.print("공격력 : " + attack);
-        System.out.println("  | 마법공격력 : " + magicAttack);
-        System.out.print("방어력 : " + defense);
-        System.out.println("  | 마법방어력 : " + magicDefense);
-        System.out.print("회피율 : " + dodge);
-        System.out.println("  | 명중률 : " + accuracy);
-        System.out.println("치명타 확률 :" + critical);
-        System.out.println();
-        System.out.println("레벨업 필요 경험치 : " + maxExp);
-        System.out.println("현재 경험치 : " + player.getCurrentEXP());
-        System.out.println("현재 보유 금화 : " + player.getGold());
-
-        System.out.println("===========================");
-    }
-
-    public void getStats(Player player) {
-        attack = (player.getSTR() * 3) + player.getDEX();
-        magicAttack = (player.getINT() * 3);
-        defense = player.getSTR() * 2;
-        magicDefense = player.getINT() * 2;
-        critical = player.getDEX();
-        dodge = player.getDEX();
-        attackSpeed = player.getDEX();
-        maxExp = player.getLevel() * player.getLevel() * 5;
-
-
-        if (player.getSTR() > player.getDEX() && player.getSTR() > player.getINT()) {
-            accuracy = player.getSTR();
-        } else if (player.getDEX() > player.getINT()) {
-            accuracy = player.getDEX();
-        } else {
-            accuracy = player.getINT();
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package prototypeSystem.character;
 
 import prototypeSystem.game.Achievements;
+import prototypeSystem.item.Armor;
 import prototypeSystem.item.Weapon;
 
 //@Getter
@@ -55,7 +56,7 @@ public class Player {
         this.id = 1;
         this.name = name;
         this.level = 1;
-        this.maxHP = 30;
+        this.maxHP = 40;
         this.currentHP = maxHP;
         this.currentEXP = 50;
         this.STR = 1;
@@ -63,7 +64,7 @@ public class Player {
         this.INT = 1;
         this.usedExp = 0;
         this.mapUnlock = 1;
-        this.gold = 100;
+        this.gold = 200;
         this.killCount = 0;
 
     }
@@ -252,19 +253,26 @@ public class Player {
                 '}';
     }
 
-    public void showHaveItems(Weapon[] weapon) {
-        getPlayerAdditionalStats(weapon);
+    public void showHaveItems(Weapon[] weapon, Armor[] armor) {
+        getPlayerAddWeaponStats(weapon, armor);
         for (int i = 1; i < 8; i++) {
 
             if (weapon[i].getHave() == 1) {
-                displayItems(weapon, i);
+                displayWeapons(weapon, i);
+            }
+        }
+        for (int i = 1; i < 8; i++) {
+
+            if (armor[i].getHave() == 1) {
+                displayArmors(armor, i);
             }
         }
         getItemStats();
     }
 
-    public void getPlayerAdditionalStats(Weapon[] weapon) {
+    public void getPlayerAddWeaponStats(Weapon[] weapon, Armor[] armor) {
         resetItemStats();
+
         for (int i = 1; i < 8; i++) {
             if (weapon[i].getHave() == 1) {
 
@@ -277,9 +285,21 @@ public class Player {
                 addINT += weapon[i].getAddINT();
                 addHP += weapon[i].getAddHP();
             }
-            //방어구 , 직업 보너스도 여기에 연산하면 될듯
+            if (armor[i].getHave() == 1) {
+
+                addDamage += armor[i].getAddDamage();
+                multDamage *= armor[i].getMultDamage();
+                addMDamage += armor[i].getAddMagicDamage();
+                multMDamage *= armor[i].getMultMagicDamage();
+                addSTR += armor[i].getAddSTR();
+                addDEX += armor[i].getAddDEX();
+                addINT += armor[i].getAddINT();
+                addHP += armor[i].getAddHP();
+            }
+
         }
     }
+
 
     public void resetItemStats() {
         addDamage = 0;
@@ -292,10 +312,15 @@ public class Player {
         addHP = 0;
     }
 
-    public void displayItems(Weapon[] weapons, int i) {
-        System.out.print(i + ". " + weapons[i].getName() + " - " + "물리공격력 : " + weapons[i].getAddDamage() + ", 물리배율 : " + weapons[i].getMultDamage());
-        System.out.print(", 마법공격력 : " + weapons[i].getAddMagicDamage() + ", 마법배율 : " + weapons[i].getMultMagicDamage() + ", 근력 : " + weapons[i].getAddSTR());
-        System.out.println(", 기교 : " + weapons[i].getAddDEX() + ", 지력 : " + weapons[i].getAddINT() + ", 체력 : " + weapons[i].getAddHP());
+    public void displayWeapons(Weapon[] weapon, int i) {
+        System.out.print(i + ". " + weapon[i].getName() + " - " + "물리공격력 : " + weapon[i].getAddDamage() + ", 물리배율 : " + weapon[i].getMultDamage());
+        System.out.print(", 마법공격력 : " + weapon[i].getAddMagicDamage() + ", 마법배율 : " + weapon[i].getMultMagicDamage() + ", 근력 : " + weapon[i].getAddSTR());
+        System.out.println(", 기교 : " + weapon[i].getAddDEX() + ", 지력 : " + weapon[i].getAddINT() + ", 체력 : " + weapon[i].getAddHP());
+    }
+    public void displayArmors(Armor[] armor, int i) {
+        System.out.print(i + ". " + armor[i].getName() + " - " + "물리공격력 : " + armor[i].getAddDamage() + ", 물리배율 : " + armor[i].getMultDamage());
+        System.out.print(", 마법공격력 : " + armor[i].getAddMagicDamage() + ", 마법배율 : " + armor[i].getMultMagicDamage() + ", 근력 : " + armor[i].getAddSTR());
+        System.out.println(", 기교 : " + armor[i].getAddDEX() + ", 지력 : " + armor[i].getAddINT() + ", 체력 : " + armor[i].getAddHP());
     }
     public void getItemStats(){
         System.out.println("====================================");
@@ -329,5 +354,6 @@ public class Player {
             System.out.println("아무런 업적도 달성하지 못했습니다.");
         }
     }
+
 }
 

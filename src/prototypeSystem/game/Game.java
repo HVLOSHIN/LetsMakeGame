@@ -1,6 +1,7 @@
 package prototypeSystem.game;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.combat.CombatSystem;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.item.Armor;
@@ -19,6 +20,7 @@ public class Game {
     Weapon[] weapon = new Weapon[100];
     Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
+    CombatSystem combatSystem = new CombatSystem();
     int areYouComeBack = 0;
 
     public Game(DatabaseConnect databaseConnect) {
@@ -119,23 +121,24 @@ public class Game {
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1":
-                    player.getPlayerAdditionalStats(weapon); //전투 들어가기 전에 캐릭터 스텟 한번 점검
+                    player.getPlayerAddWeaponStats(weapon,armor); //전투 들어가기 전에 캐릭터 스텟 한번 점검
                     generator.regionGenerate(player);
 
 
                     break;
 
                 case "2":
-                    playerInfo.levelUp(player);
+                    playerInfo.levelUp(player,weapon, armor);
                     break;
 
                 case "3":
                     System.out.println("| 1.캐릭터 | 2.효과 | 3.통계 | 4.업적 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
                     if (choice2.equals("1")) {
-                        playerInfo.showPlayer(player);
+                        player.getPlayerAddWeaponStats(weapon,armor);
+                        combatSystem.displayPlayerCombatStatus(player);
                     } else if (choice2.equals("2")) {
-                        player.showHaveItems(weapon);
+                        player.showHaveItems(weapon,armor);
                     } else if (choice2.equals("3")) {
                         player.getStatistics();
                     } else if (choice2.equals("4")) {
@@ -205,6 +208,24 @@ public class Game {
             System.out.println("도전과제 달성! 보상 1000EXP");
             achieve[5].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if(player.getDeathCount() ==1 && achieve[6].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 1000EXP");
+            achieve[6].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (player.getDeathCount() == 10 && achieve[7].getClear() == 0) {
+            System.out.println("도전과제 달성! 보상 3000EXP");
+            achieve[7].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (player.getLevel() == 10 && achieve[8].getClear() == 0) {
+            achieve[8].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 1000);
+        }
+        if (player.getLevel() == 20 && achieve[9].getClear() == 0) {
+            achieve[9].setClear(1);
+            player.setCurrentEXP(player.getCurrentEXP() + 2000);
         }
     }
 }
