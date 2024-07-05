@@ -3,8 +3,8 @@ package prototypeSystem.job.subClass;
 import prototypeSystem.job.Job;
 
 public class Caster extends Job {
-    public Caster(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
-        super(ID,jobMain, jobHave,jobEXP,activeON,passiveON,unLock);
+    public Caster(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock,int master) {
+        super(ID,jobMain, jobHave,jobEXP,activeON,passiveON,unLock,master);
 
         setJobName("스펠캐스터");
         setJobMaxEXP(3000);
@@ -39,4 +39,5 @@ public class Caster extends Job {
     public void passiveDescription() {
         System.out.println(getPassiveName() + " : " + getPassiveDescription() + "지력 5증가");
     }
+
 }

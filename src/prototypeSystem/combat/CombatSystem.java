@@ -2,6 +2,7 @@ package prototypeSystem.combat;
 
 import prototypeSystem.character.Enemy;
 import prototypeSystem.character.Player;
+import prototypeSystem.job.Job;
 
 import java.util.Random;
 
@@ -37,7 +38,7 @@ public class CombatSystem {
     private int eAccuracy;
     private int eAttackSpeed;
 
-    public void startCombat(Player player, Enemy enemy, int stageChoice) {
+    public void startCombat(Player player, Enemy enemy, int stageChoice, Job[] job) {
     if(enemy.getBoss() == 1){
         System.out.println("========================보스전=======================");
     }
@@ -91,6 +92,7 @@ public class CombatSystem {
                 //아이템 드랍 추가예정
                 goldChance(player, enemy);
                 player.setCurrentEXP(player.getCurrentEXP() + enemy.getEXP());
+                jobEXP(job, enemy.getEXP());
                 player.setKillCount(player.getKillCount() + 1);
                 break;
 
@@ -134,7 +136,7 @@ public class CombatSystem {
     }
 
     //startCombat의 데이터를 이쪽으로 옮겨야 함.
-    public void startShortCombat(Player player, Enemy enemy, int stageChoice) {
+    public void startShortCombat(Player player, Enemy enemy, int stageChoice, Job[] job) {
         getCombatStatus(player, enemy);
         int count = 1;
         while (true) {
@@ -157,6 +159,7 @@ public class CombatSystem {
 
                 shortGoldChance(player, enemy);
                 player.setCurrentEXP(player.getCurrentEXP() + enemy.getEXP());
+
                 player.setKillCount(player.getKillCount() + 1);
                 System.out.println();
                 break;
@@ -341,5 +344,17 @@ public class CombatSystem {
         System.out.println("현재 보유 금화 : " + player.getGold());
 
         System.out.println("===========================");
+    }
+
+    public void jobEXP(Job[] job, int EXP){
+        for(int i = 1; i <=3; i++){     //TODO 이거 숫자 나중에 올려줘야 함
+            if(job[i].getJobMain() ==1 && job[i].getJobEXP() < job[i].getJobMaxEXP()){
+                job[i].setJobEXP(job[i].getJobEXP()+EXP);
+            }
+            if(job[i].getJobEXP() > job[i].getJobMaxEXP()){
+                job[i].setJobEXP(job[i].getJobEXP()-EXP);
+                job[i].setMaster(1);
+            }
+        }
     }
 }

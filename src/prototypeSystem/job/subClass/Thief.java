@@ -3,8 +3,8 @@ package prototypeSystem.job.subClass;
 import prototypeSystem.job.Job;
 
 public class Thief extends Job {
-    public Thief(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
-        super(ID,jobMain, jobHave,jobEXP,activeON,passiveON,unLock);
+    public Thief(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock, int master) {
+        super(ID,jobMain, jobHave,jobEXP,activeON,passiveON,unLock,master);
         setJobMain(jobMain);
         setJobHave(jobHave);
         setJobEXP(jobEXP);

@@ -280,7 +280,7 @@ public class DatabaseConnect {
             int activeON = resultSet.getInt(5);
             int passiveON = resultSet.getInt(6);
             int unLock = resultSet.getInt(7);
-
+            int master = resultSet.getInt(8);
 
             arr[i][1] = ID;
             arr[i][2] = jobMain;
@@ -289,6 +289,7 @@ public class DatabaseConnect {
             arr[i][5] = activeON;
             arr[i][6] = passiveON;
             arr[i][7] = unLock;
+            arr[i][8] = master;
 
         }
     }
@@ -304,6 +305,7 @@ public class DatabaseConnect {
             int activeON = resultSet.getInt(5);
             int passiveON = resultSet.getInt(6);
             int unLock = resultSet.getInt(7);
+            int master = resultSet.getInt(8);
 
 
             arr[i][1] = ID;
@@ -313,12 +315,12 @@ public class DatabaseConnect {
             arr[i][5] = activeON;
             arr[i][6] = passiveON;
             arr[i][7] = unLock;
-
+            arr[i][8] = master;
         }
     }
 
     public void saveJob(Job[] job, int jobArraySize) throws SQLException {
-        String sql = "update TextRPGSave.saveJob set main = ?, have =?, EXP =?,activeON =? ,passiveON =?, jobUnlock =? where id=?";
+        String sql = "update TextRPGSave.saveJob set main = ?, have =?, EXP =?,activeON =? ,passiveON =?, jobUnlock =?,master =? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
         for (int i = 1; i <= jobArraySize; i++) {
             psmt.setInt(1, job[i].getJobMain());
@@ -327,8 +329,9 @@ public class DatabaseConnect {
             psmt.setInt(4, job[i].getActiveON());
             psmt.setInt(5, job[i].getPassiveON());
             psmt.setInt(6,job[i].getUnLock());
+            psmt.setInt(7,job[i].getMaster());
 
-            psmt.setInt(7, job[i].getID());
+            psmt.setInt(8, job[i].getID());
             psmt.executeUpdate();
         }
     }

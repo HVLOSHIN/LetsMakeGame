@@ -24,10 +24,10 @@ public class Game {
     Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
     Job[] job = new Job[100];
-    int weaponArraySize =10;
+    int weaponArraySize = 10;
     int armorArraySize = 10;
     int achieveArraySize = 9;
-    int jobArraySize =3;
+    int jobArraySize = 3;
     CombatSystem combatSystem = new CombatSystem();
     int areYouComeBack = 0;
 
@@ -59,7 +59,7 @@ public class Game {
                 for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievements(i);
                 }
-                jobGenerator.getClass(job,databaseConnect,jobArraySize);
+                jobGenerator.getClass(job, databaseConnect, jobArraySize);
 
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
                 areYouComeBack = 1;
@@ -83,13 +83,7 @@ public class Game {
                 for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
-                jobGenerator.getClassOriginal(job,databaseConnect,jobArraySize);
-            //----------------------------------------------------------------------
-            //----------------------------------------------------------------------
-            //----------------------------------------------------------------------
-            //----------------------------------------------------------------------
-
-
+                jobGenerator.getClassOriginal(job, databaseConnect, jobArraySize);
 
                 break;
             default:
@@ -108,10 +102,10 @@ public class Game {
                 case 1:
                     databaseConnect.savePlayer(player);
                     System.out.println();
-                    databaseConnect.saveWeapon(weapon,weaponArraySize);
-                    databaseConnect.saveArmor(armor,armorArraySize);
-                    databaseConnect.saveAchievements(achieve,achieveArraySize);
-                    databaseConnect.saveJob(job,jobArraySize);
+                    databaseConnect.saveWeapon(weapon, weaponArraySize);
+                    databaseConnect.saveArmor(armor, armorArraySize);
+                    databaseConnect.saveAchievements(achieve, achieveArraySize);
+                    databaseConnect.saveJob(job, jobArraySize);
                     break;
 
                 case 2:
@@ -141,27 +135,34 @@ public class Game {
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1":
-                    player.getPlayerAddWeaponStats(weapon,armor); //전투 들어가기 전에 캐릭터 스텟 한번 점검
-                    generator.regionGenerate(player);
+                    player.getPlayerAddAllStats(weapon, armor, job); //전투 들어가기 전에 캐릭터 스텟 한번 점검
+                    generator.regionGenerate(player, job);
 
 
                     break;
 
                 case "2":
-                    playerInfo.levelUp(player,weapon, armor);
+                    // playerInfo.levelUp(player,weapon, armor);
                     break;
 
                 case "3":
-                    System.out.println("| 1.캐릭터 | 2.효과 | 3.통계 | 4.업적 | 0.뒤로가기 |");
+                    System.out.println("| 1.레벨업 | 2.아이템 | 3.클래스 | 4.통계 | 5.업적 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
                     if (choice2.equals("1")) {
-                        player.getPlayerAddWeaponStats(weapon,armor);
-                        combatSystem.displayPlayerCombatStatus(player);
+                        //  player.getPlayerAddWeaponStats(weapon,armor);
+                        //  combatSystem.displayPlayerCombatStatus(player);
+                        playerInfo.levelUp(player, weapon, armor);
                     } else if (choice2.equals("2")) {
-                        player.showHaveItems(weapon,armor);
+                        player.showHaveItems(weapon, armor);
                     } else if (choice2.equals("3")) {
-                        player.getStatistics();
+                        //======================================
+                        jobGenerator.DisplayOwnedJob(job, jobArraySize);
+
+
+                        //=======================================
                     } else if (choice2.equals("4")) {
+                        player.getStatistics();
+                    } else if (choice2.equals("5")) {
                         player.showAchievements(achieve);
                     } else if (choice2.equals("0")) {
                         break;
@@ -176,20 +177,15 @@ public class Game {
 
                     if (choice3.equals("1")) {
                         shop.CallWeaponShop(player, weapon);
-                    }
-                    else if (choice3.equals("2")) {
-                        shop.CallArmorShop(player,armor);
-                    }
-                    else if (choice3.equals("3")) {
-                        System.out.println("전직소 준비중...");
-                        System.out.println(job[1].getJobName());
-                        System.out.println(job[2].getJobName());
-                        System.out.println(job[3].getJobName());
-                    }
-                    else if (choice3.equals("0")) {
+                    } else if (choice3.equals("2")) {
+                        shop.CallArmorShop(player, armor);
+                    } else if (choice3.equals("3")) {
+                        jobGenerator.DisplayJob(job, jobArraySize);
+                        jobGenerator.choiceJob(job, jobArraySize);
+
+                    } else if (choice3.equals("0")) {
                         break;
-                    }
-                    else{
+                    } else {
                         System.out.println("올바른 입력이 아닙니다.");
                     }
 
@@ -232,7 +228,7 @@ public class Game {
             achieve[5].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
         }
-        if(player.getDeathCount() ==1 && achieve[6].getClear() == 0) {
+        if (player.getDeathCount() == 1 && achieve[6].getClear() == 0) {
             System.out.println("도전과제 달성! 보상 1000EXP");
             achieve[6].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);

@@ -2,6 +2,7 @@ package prototypeSystem.combat;
 
 import prototypeSystem.character.Enemy;
 import prototypeSystem.character.Player;
+import prototypeSystem.job.Job;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ public class Generator {
     Random rand = new Random();
 
 
-    public void enemyGenerate(int stageChoice, Player player) {
+    public void enemyGenerate(int stageChoice, Player player, Job[] job) {
         Enemy[] enemyNum = new Enemy[100];
         enemyNum[0] = null;
 
@@ -39,10 +40,10 @@ public class Generator {
 // 지역별로 드랍되는 아이템 추가 예정
 
 
-        choiceEnemy(player, stageChoice, enemyNum, boss);
+        choiceEnemy(player, stageChoice, enemyNum, boss, job);
     }
 
-    public void regionGenerate(Player player) {
+    public void regionGenerate(Player player, Job[] job) {
         int mapUnlock = player.getMapUnlock();
         Region[] regionNum = new Region[10];
         regionNum[0] = null;
@@ -69,12 +70,12 @@ public class Generator {
             System.out.println("이 지역은 아직 해금되지 않았습니다.");
         } else if (0 < stageChoice && stageChoice < regionNum.length) {
             System.out.println(regionNum[stageChoice].getName() + "으로 이동합니다.");
-            enemyGenerate(stageChoice, player);
+            enemyGenerate(stageChoice, player, job);
         }
     }
 
 
-    public void choiceEnemy(Player player, int stageChoice, Enemy[] enemyNum, Enemy[] boss) {
+    public void choiceEnemy(Player player, int stageChoice, Enemy[] enemyNum, Enemy[] boss, Job[] job) {
 
         System.out.println("전투 상대 선택 (0누를시 뒤로 이동)");
         //적 디스플레이
@@ -91,9 +92,9 @@ public class Generator {
                 int combatCount = scanner.nextInt();
                 //반복 전투 정의
                 if (2 <= combatCount && combatCount <= 10) {
-                    shortCombat(player, enemyNum, boss, combatCount, enemyChoice, stageChoice);
+                    shortCombat(player, enemyNum, boss, combatCount, enemyChoice, stageChoice, job);
                 } else if (combatCount == 1) {
-                    longCombat(player, enemyNum, boss, enemyChoice, stageChoice);
+                    longCombat(player, enemyNum, boss, enemyChoice, stageChoice, job);
                 } else {
                     System.out.println("올바른 입력이 아닙니다.");
                 }
@@ -102,7 +103,7 @@ public class Generator {
 
     }
 
-    public void shortCombat(Player player, Enemy[] enemyNum, Enemy[] boss, int combatCount, int enemyChoice, int stageChoice) {
+    public void shortCombat(Player player, Enemy[] enemyNum, Enemy[] boss, int combatCount, int enemyChoice, int stageChoice, Job[] job) {
         for (int j = 0; j < combatCount; j++) {
             //보스전 정의
             if (enemyChoice == 5) {
@@ -110,16 +111,16 @@ public class Generator {
                 //보스전
                 if (random > 70) {
                     System.out.print("전투 " + (j + 1) + " : ");
-                    combatSystem.startShortCombat(player, boss[stageChoice], stageChoice);
+                    combatSystem.startShortCombat(player, boss[stageChoice], stageChoice,job);
                 }
                 //일반전
                 else if (random <= 70) {
                     System.out.print("전투 " + (j + 1) + " : ");
-                    combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
+                    combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice,job);
                 }
                 // 1~4몹
             } else if (enemyChoice < 5) {
-                combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
+                combatSystem.startShortCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice,job);
             }
 
         }
@@ -127,16 +128,16 @@ public class Generator {
 
     }
 
-    public void longCombat(Player player, Enemy[] enemyNum, Enemy[] boss, int enemyChoice, int stageChoice) {
+    public void longCombat(Player player, Enemy[] enemyNum, Enemy[] boss, int enemyChoice, int stageChoice, Job[] job) {
 
         if (enemyChoice == 5) {
             int random = rand.nextInt(100);
             if (random > 70) {
-                combatSystem.startCombat(player, boss[stageChoice], stageChoice);
+                combatSystem.startCombat(player, boss[stageChoice], stageChoice, job);
             }
 
         }
-        combatSystem.startCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice);
+        combatSystem.startCombat(player, enemyNum[(enemyChoice + (5 * stageChoice)) - 5], stageChoice,job);
 
     }
 

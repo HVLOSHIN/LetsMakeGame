@@ -7,6 +7,7 @@ public  class Job {
     private int jobHave;
     private int jobMaxEXP;
     private int jobEXP;
+    private int master;
 
     private String activeName;
     private int activeON;
@@ -32,7 +33,7 @@ public  class Job {
     public  void activeDescription(){}
     public  void passiveDescription(){}
 
-    public Job(int ID, int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
+    public Job(int ID, int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock, int master) {
         this.ID = ID;
         this.jobMain = jobMain;
         this.jobHave = jobHave;
@@ -40,6 +41,7 @@ public  class Job {
         this.activeON = activeON;
         this.passiveON = passiveON;
         this.unLock = unLock;
+        this.master = master;
     }
 
     public int getJobMain() {
@@ -201,4 +203,14 @@ public  class Job {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    public int getMaster() {
+        return master;
+    }
+
+    public void setMaster(int master) {
+        this.master = master;
+    }
+
+
 }

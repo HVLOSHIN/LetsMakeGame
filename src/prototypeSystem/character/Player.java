@@ -3,6 +3,7 @@ package prototypeSystem.character;
 import prototypeSystem.game.Achievements;
 import prototypeSystem.item.Armor;
 import prototypeSystem.item.Weapon;
+import prototypeSystem.job.Job;
 
 //@Getter
 
@@ -271,7 +272,6 @@ public class Player {
         }
         getItemStats();
     }
-
     public void getPlayerAddWeaponStats(Weapon[] weapon, Armor[] armor) {
         resetItemStats();
 
@@ -300,6 +300,17 @@ public class Player {
             }
 
         }
+    }
+    public void getPlayerAddAllStats(Weapon[] weapon, Armor[] armor, Job[] job) {
+       getPlayerAddWeaponStats(weapon,armor);
+
+
+
+
+
+
+
+
     }
 
 
