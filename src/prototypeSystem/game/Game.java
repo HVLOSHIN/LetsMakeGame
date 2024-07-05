@@ -7,6 +7,8 @@ import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.item.Armor;
 import prototypeSystem.item.Shop;
 import prototypeSystem.item.Weapon;
+import prototypeSystem.job.Job;
+import prototypeSystem.job.JobGenerator;
 
 
 import java.sql.SQLException;
@@ -17,12 +19,15 @@ public class Game {
     PlayerInfo playerInfo = new PlayerInfo();
     Scanner scanner = new Scanner(System.in);
     Shop shop = new Shop();
+    JobGenerator jobGenerator = new JobGenerator();
     Weapon[] weapon = new Weapon[100];
     Armor[] armor = new Armor[100];
     Achievements[] achieve = new Achievements[100];
+    Job[] job = new Job[100];
     int weaponArraySize =10;
     int armorArraySize = 10;
     int achieveArraySize = 9;
+    int jobArraySize =3;
     CombatSystem combatSystem = new CombatSystem();
     int areYouComeBack = 0;
 
@@ -54,6 +59,7 @@ public class Game {
                 for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievements(i);
                 }
+                jobGenerator.getClass(job,databaseConnect,jobArraySize);
 
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
                 areYouComeBack = 1;
@@ -77,6 +83,11 @@ public class Game {
                 for (int i = 1; i <= achieveArraySize; i++) {
                     achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
+                jobGenerator.getClassOriginal(job,databaseConnect,jobArraySize);
+            //----------------------------------------------------------------------
+            //----------------------------------------------------------------------
+            //----------------------------------------------------------------------
+            //----------------------------------------------------------------------
 
 
 
@@ -100,6 +111,7 @@ public class Game {
                     databaseConnect.saveWeapon(weapon,weaponArraySize);
                     databaseConnect.saveArmor(armor,armorArraySize);
                     databaseConnect.saveAchievements(achieve,achieveArraySize);
+                    databaseConnect.saveJob(job,jobArraySize);
                     break;
 
                 case 2:
@@ -170,6 +182,9 @@ public class Game {
                     }
                     else if (choice3.equals("3")) {
                         System.out.println("전직소 준비중...");
+                        System.out.println(job[1].getJobName());
+                        System.out.println(job[2].getJobName());
+                        System.out.println(job[3].getJobName());
                     }
                     else if (choice3.equals("0")) {
                         break;

@@ -207,8 +207,8 @@ public class CombatSystem {
         Name = player.getName();
         MaxHP = player.getMaxHP() + player.getAddHP();
         currentHP = MaxHP;
-        attack = (STR * 2) + DEX;
-        magicAttack = INT * 3;
+        attack = STR  +  DEX;
+        magicAttack = INT * 2;
         defense = STR;
         magicDefense = INT * 2;
 
@@ -233,8 +233,8 @@ public class CombatSystem {
         eMaxHP = enemy.getMaxHP();
         eCurrentHP = eMaxHP;
 
-        eAttack = (enemy.getSTR() * 2) + enemy.getDEX();
-        eMagicAttack = enemy.getINT() * 3;
+        eAttack = enemy.getSTR()  + enemy.getDEX();
+        eMagicAttack = enemy.getINT() * 2;
         eDefense = enemy.getSTR();
         eMagicDefense = enemy.getINT() * 2;
 

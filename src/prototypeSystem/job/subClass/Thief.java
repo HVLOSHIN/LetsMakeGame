@@ -2,9 +2,8 @@ package prototypeSystem.job.subClass;
 
 import prototypeSystem.job.Job;
 
-public class Page extends Job {
-
-    public Page(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
+public class Thief extends Job {
+    public Thief(int ID,int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
         super(ID,jobMain, jobHave,jobEXP,activeON,passiveON,unLock);
         setJobMain(jobMain);
         setJobHave(jobHave);
@@ -13,14 +12,13 @@ public class Page extends Job {
         setPassiveON(passiveON);
         setUnLock(unLock);
 
-        setJobName("소년기사");
+        setJobName("좀도둑");
         setJobMaxEXP(3000);
-        setActiveName("강타I");
-        setPassiveName("집중I");
-        setPassiveDescription("훈련을 통해 어떤 순간에도 흐트러지지 않는다.");
+        setActiveName("뒤통수치기");
+        setPassiveName("현란한 손재주");
+        setPassiveDescription("말보다 주먹이 빠른 법");
 
     }
-
 
     @Override
     public void activeSkill() {
@@ -32,19 +30,19 @@ public class Page extends Job {
 
     @Override
     public void passiveSkill() {
-        setAddSTR(3);
-        setAddDEX(0);
+        setAddSTR(0);
+        setAddDEX(5);
         setAddINT(0);
-        setAddHP(40);
+        setAddHP(0);
     }
 
     @Override
     public void activeDescription() {
-        System.out.println(getActiveName() + " : " + "적을 강하게 내리친다.");
+        System.out.println(getActiveName() + " : " + "뒤통수를 후린다.");
     }
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "근력 5 증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "기교 5 증가");
     }
 }

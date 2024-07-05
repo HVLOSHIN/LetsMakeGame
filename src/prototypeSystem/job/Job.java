@@ -1,15 +1,17 @@
 package prototypeSystem.job;
 
-public abstract class Job {
-
+public  class Job {
+    private int ID;
     private String jobName;
-    private int jobON;
+    private int jobMain;
+    private int jobHave;
     private int jobMaxEXP;
     private int jobEXP;
 
     private String activeName;
     private int activeON;
     private String passiveName;
+    private String passiveDescription;
     private int passiveON;
 
     private int unLock;
@@ -25,9 +27,28 @@ public abstract class Job {
 
 
 
-    public abstract void activeSkill();
-    public abstract void passiveSkill();
+    public  void activeSkill(){}
+    public  void passiveSkill(){}
+    public  void activeDescription(){}
+    public  void passiveDescription(){}
 
+    public Job(int ID, int jobMain, int jobHave, int jobEXP, int activeON, int passiveON, int unLock) {
+        this.ID = ID;
+        this.jobMain = jobMain;
+        this.jobHave = jobHave;
+        this.jobEXP = jobEXP;
+        this.activeON = activeON;
+        this.passiveON = passiveON;
+        this.unLock = unLock;
+    }
+
+    public int getJobMain() {
+        return jobMain;
+    }
+
+    public void setJobMain(int jobMain) {
+        this.jobMain = jobMain;
+    }
 
     public String getJobName() {
         return jobName;
@@ -37,12 +58,12 @@ public abstract class Job {
         this.jobName = jobName;
     }
 
-    public int getJobON() {
-        return jobON;
+    public int getJobHave() {
+        return jobHave;
     }
 
-    public void setJobON(int jobON) {
-        this.jobON = jobON;
+    public void setJobHave(int jobHave) {
+        this.jobHave = jobHave;
     }
 
     public int getJobMaxEXP() {
@@ -165,4 +186,19 @@ public abstract class Job {
         this.addHP = addHP;
     }
 
+    public String getPassiveDescription() {
+        return passiveDescription;
+    }
+
+    public void setPassiveDescription(String passiveDescription) {
+        this.passiveDescription = passiveDescription;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }

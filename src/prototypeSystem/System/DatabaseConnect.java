@@ -4,6 +4,7 @@ import prototypeSystem.character.Player;
 import prototypeSystem.game.Achievements;
 import prototypeSystem.item.Armor;
 import prototypeSystem.item.Weapon;
+import prototypeSystem.job.Job;
 
 import java.sql.*;
 
@@ -262,6 +263,72 @@ public class DatabaseConnect {
             psmt.setString(3, achievements[i].getAchieveDesc());
 
             psmt.setInt(4, achievements[i].getAchieveID());
+            psmt.executeUpdate();
+        }
+    }
+
+    //JOB
+
+    public void getJob(int[][] arr, int i) throws SQLException {
+
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.saveJob where id=" + i).executeQuery();
+        while (resultSet.next()) {
+            int ID = resultSet.getInt(1);
+            int jobMain = resultSet.getInt(2);
+            int jobHave = resultSet.getInt(3);
+            int jobEXP = resultSet.getInt(4);
+            int activeON = resultSet.getInt(5);
+            int passiveON = resultSet.getInt(6);
+            int unLock = resultSet.getInt(7);
+
+
+            arr[i][1] = ID;
+            arr[i][2] = jobMain;
+            arr[i][3] = jobHave;
+            arr[i][4] = jobEXP;
+            arr[i][5] = activeON;
+            arr[i][6] = passiveON;
+            arr[i][7] = unLock;
+
+        }
+    }
+
+    public void getJobOriginal(int[][] arr, int i) throws SQLException {
+
+        ResultSet resultSet = conn.prepareStatement("select * from TextRPGSave.saveJobOriginal where id=" + i).executeQuery();
+        while (resultSet.next()) {
+            int ID = resultSet.getInt(1);
+            int jobMain = resultSet.getInt(2);
+            int jobHave = resultSet.getInt(3);
+            int jobEXP = resultSet.getInt(4);
+            int activeON = resultSet.getInt(5);
+            int passiveON = resultSet.getInt(6);
+            int unLock = resultSet.getInt(7);
+
+
+            arr[i][1] = ID;
+            arr[i][2] = jobMain;
+            arr[i][3] = jobHave;
+            arr[i][4] = jobEXP;
+            arr[i][5] = activeON;
+            arr[i][6] = passiveON;
+            arr[i][7] = unLock;
+
+        }
+    }
+
+    public void saveJob(Job[] job, int jobArraySize) throws SQLException {
+        String sql = "update TextRPGSave.saveJob set main = ?, have =?, EXP =?,activeON =? ,passiveON =?, jobUnlock =? where id=?";
+        PreparedStatement psmt = conn.prepareStatement(sql);
+        for (int i = 1; i <= jobArraySize; i++) {
+            psmt.setInt(1, job[i].getJobMain());
+            psmt.setInt(2, job[i].getJobHave());
+            psmt.setInt(3, job[i].getJobEXP());
+            psmt.setInt(4, job[i].getActiveON());
+            psmt.setInt(5, job[i].getPassiveON());
+            psmt.setInt(6,job[i].getUnLock());
+
+            psmt.setInt(7, job[i].getID());
             psmt.executeUpdate();
         }
     }
