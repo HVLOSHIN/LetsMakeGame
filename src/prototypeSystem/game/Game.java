@@ -72,6 +72,8 @@ public class Game {
                 returnPlayer = new Player(newPlayerName);
                 System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
 
+
+
                 // Original 에서 아이템 데이터 받기
                 for (int i = 1; i <= weaponArraySize; i++) {
                     weapon[i] = databaseConnect.getWeaponOriginal(i);
@@ -84,6 +86,14 @@ public class Game {
                     achieve[i] = databaseConnect.getAchievementsOriginal(i);
                 }
                 jobGenerator.getClassOriginal(job, databaseConnect, jobArraySize);
+
+
+                System.out.println("초기 직업을 설정해 주세요");
+                jobGenerator.DisplayJob(job, jobArraySize);
+                jobGenerator.choiceJob(job, jobArraySize);
+
+                System.out.println("액티브 스킬을 선택해주세요");
+                jobGenerator.DisplayOwnedJob(job, jobArraySize);
 
                 break;
             default:
@@ -130,28 +140,39 @@ public class Game {
         while (true) {
             AchievementCheck(player);
             System.out.println("=======================================================");
-            System.out.println("| 1.탐험 | 2.레벨업 | 3.스테이터스 | 4.마을 | 5.저장 | 6.종료 |");
+            System.out.println("| 1.탐험 | 2.캐릭터 | 3.마을 | 4.저장 | 5.종료 |");
             System.out.println("=======================================================");
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1":
+                {
+                    int x = 0;
+                    for (int i = 1; i <= jobArraySize; i++) {
+                        if (job[i].getActiveON() == 1) {
+                            x = i;
+                        }
+                    }
+                    if (x == 0) {
+                        System.out.println("액티브를 설정하셔야 입장할 수 있습니다.");
+                        break;
+                    } //예외 처리
+                }
+
+
                     player.getPlayerAddAllStats(weapon, armor, job); //전투 들어가기 전에 캐릭터 스텟 한번 점검
-                    generator.regionGenerate(player, job);
+                    generator.regionGenerate(player, job, jobArraySize);
 
 
                     break;
+
 
                 case "2":
-                    // playerInfo.levelUp(player,weapon, armor);
-                    break;
-
-                case "3":
                     System.out.println("| 1.레벨업 | 2.아이템 | 3.클래스 | 4.통계 | 5.업적 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
                     if (choice2.equals("1")) {
                         //  player.getPlayerAddWeaponStats(weapon,armor);
                         //  combatSystem.displayPlayerCombatStatus(player);
-                        playerInfo.levelUp(player, weapon, armor);
+                        playerInfo.levelUp(player, weapon, armor,job, jobArraySize);
                     } else if (choice2.equals("2")) {
                         player.showHaveItems(weapon, armor);
                     } else if (choice2.equals("3")) {
@@ -170,7 +191,7 @@ public class Game {
                         System.out.println("올바른 입력이 아닙니다.");
                     }
                     break;
-                case "4": {
+                case "3": {
                     System.out.println("마을로 이동합니다.");
                     System.out.println("| 1.무기상점 | 2.방어구상점 | 3.전직 | 0.이전 |");
                     String choice3 = scanner.nextLine();
@@ -192,11 +213,11 @@ public class Game {
 
                     break;
                 }
-                case "5":
+                case "4":
                     gameSave(player);
                     break;
 
-                case "6":
+                case "5":
                     gameExit(player);
                     break;
 

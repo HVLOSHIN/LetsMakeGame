@@ -57,12 +57,12 @@ public class Player {
         this.id = 1;
         this.name = name;
         this.level = 1;
-        this.maxHP = 40;
+        this.maxHP = 20;
         this.currentHP = maxHP;
         this.currentEXP = 50;
-        this.STR = 1;
-        this.DEX = 1;
-        this.INT = 1;
+        this.STR = 2;
+        this.DEX = 2;
+        this.INT = 2;
         this.usedExp = 0;
         this.mapUnlock = 1;
         this.gold = 200;
@@ -304,7 +304,19 @@ public class Player {
     public void getPlayerAddAllStats(Weapon[] weapon, Armor[] armor, Job[] job) {
        getPlayerAddWeaponStats(weapon,armor);
 
+        for (int i = 1; i <= 3; i++) {
+            if(job[i].getJobHave() == 1) {
+                addDamage += job[i].getAddDamage();
+                multDamage *= job[i].getMultDamage();
+                addMDamage += job[i].getAddMagicDamage();
+                multMDamage *= job[i].getMultMagicDamage();
+                addSTR += job[i].getAddSTR();
+                addDEX += job[i].getAddDEX();
+                addINT += job[i].getAddINT();
+                addHP += job[i].getAddHP();
+            }
 
+        }
 
 
 

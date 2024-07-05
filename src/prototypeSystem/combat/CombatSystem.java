@@ -2,6 +2,7 @@ package prototypeSystem.combat;
 
 import prototypeSystem.character.Enemy;
 import prototypeSystem.character.Player;
+import prototypeSystem.item.Weapon;
 import prototypeSystem.job.Job;
 
 import java.util.Random;
@@ -24,6 +25,20 @@ public class CombatSystem {
     private int STR;
     private int DEX;
     private int INT;
+
+    private int jobAddDamage = 0;
+    private int jobMultDamage = 1;
+    private int jobAddMagicDamage = 0;
+    private int jobMultMagicDamage =1;
+
+    private int jobAddHP = 0;
+    private int jobAddSTR = 0;
+    private int jobAddDEX = 0;
+    private int jobAddINT = 0;
+
+
+
+
     //enemy
     private String eName;
     private int eMaxHP;
@@ -38,12 +53,18 @@ public class CombatSystem {
     private int eAccuracy;
     private int eAttackSpeed;
 
-    public void startCombat(Player player, Enemy enemy, int stageChoice, Job[] job) {
+
+    // 디폴드 공격
+    private String defaultActive;
+    private int isMelee;
+    private String meleeMagic;
+
+    public void startCombat(Player player, Enemy enemy, int stageChoice, Job[] job, int jobArraySize) {
     if(enemy.getBoss() == 1){
         System.out.println("========================보스전=======================");
     }
         System.out.println(enemy.getName() + "과 전투를 시작합니다.");
-        getCombatStatus(player, enemy);
+        getCombatStatus(player, enemy, job, jobArraySize);
 
 
         int count = 1;
@@ -53,13 +74,11 @@ public class CombatSystem {
             System.out.println(count + "턴");
 
             System.out.println(Name + ", 체력 : " + currentHP + "/" + MaxHP);
-            // 데미지 정의
-            int currentAttack1 = attack + (int) (additionalDamage() * attack * 0.01) - eDefense;
-            if (currentAttack1 < 1) {
-                currentAttack1 = 1;
-            }
 
-            System.out.println(Name + "의 " + "공격" ); //playerAttack 에 디폴트 스킬 장착예정
+            int playerFinalDamage =  playerFinalDamage(player,job,jobArraySize);
+
+
+            System.out.println(Name + "의 " + defaultActive ); //playerAttack 에 디폴트 스킬 장착예정
 
             //회피  정의
             if (playerHitChance()) {
@@ -67,13 +86,13 @@ public class CombatSystem {
             }
             //크리티컬 정의
             else if (playerCriticalChance()) {
-                System.out.println((currentAttack1*criticalMult)+ "의 피해");
-                eCurrentHP -= currentAttack1*criticalMult;
+                System.out.println((playerFinalDamage*criticalMult)+ "의" + meleeMagic   + "피해");
+                eCurrentHP -= playerFinalDamage*criticalMult;
             }
             //평타
             else {
-                System.out.println(currentAttack1 + "의 피해");
-                eCurrentHP -= currentAttack1;
+                System.out.println(playerFinalDamage + "의" + meleeMagic + "피해");
+                eCurrentHP -= playerFinalDamage;
             }
 
 
@@ -136,8 +155,8 @@ public class CombatSystem {
     }
 
     //startCombat의 데이터를 이쪽으로 옮겨야 함.
-    public void startShortCombat(Player player, Enemy enemy, int stageChoice, Job[] job) {
-        getCombatStatus(player, enemy);
+    public void startShortCombat(Player player, Enemy enemy, int stageChoice, Job[] job, int jobArraySize) {
+        getCombatStatus(player, enemy, job, jobArraySize);
         int count = 1;
         while (true) {
             int currentAttack1 = attack + (int) (additionalDamage() * attack * 0.01) - eDefense;
@@ -191,9 +210,32 @@ public class CombatSystem {
 
     }
 
-    public void getCombatStatus(Player player, Enemy enemy) {
+    public int playerFinalDamage(Player player, Job[] job, int jobArraySize) {
+        int finalDamage = 0;
+        int x = 0;
+        for (int i = 1; i <= jobArraySize; i++) {
+            if(job[i].getActiveON() == 1){
+                x = i;
+            }
+        }
+        if(isMelee == 1){
+         finalDamage  = attack + (int) (additionalDamage() * attack * 0.01) - eDefense;
+         finalDamage *= job[x].getMultDamage();
+
+        }
+        else if (isMelee == 0){
+            finalDamage = magicAttack + (int) (additionalDamage() * magicAttack * 0.01) - eMagicDefense;
+            finalDamage *= job[x].getMultMagicDamage();
+        }
+        if (finalDamage < 1) {
+            finalDamage = 1;
+        }
+        return finalDamage;
+    }
+
+    public void getCombatStatus(Player player, Enemy enemy,Job[] job, int jobArraySize) {
         //player
-        getPlayerCombatStatus(player);
+        getPlayerCombatStatus(player, job, jobArraySize);
 
         //enemy
         getEnemyCombatStatus(enemy);
@@ -201,17 +243,46 @@ public class CombatSystem {
 
     }
 
-    public void getPlayerCombatStatus(Player player) {
+    public void getPlayerCombatStatus(Player player, Job[] job, int jobArraySize) {
         //player
 
-        STR = player.getSTR() + player.getAddSTR();
-        DEX = player.getDEX() + player.getAddDEX();
-        INT = player.getINT() + player.getAddINT();
+        //ActiveSkill 검증
+        int x = 0;
+        for (int i = 1; i <= jobArraySize; i++) {
+            if(job[i].getActiveON() == 1){
+                x = i;
+            }
+        }
+        if(x ==0){
+            defaultActive = "공격";
+            return;
+        } //예외 처리
+
+
+
+
+
+
+
+
+
+        defaultActive = job[x].getActiveName();
+        isMelee = job[x].getIsActiveMelee();
+        if(isMelee == 1){
+            meleeMagic = "물리";
+        }
+        else{
+            meleeMagic = "마법";
+        }
+
+        STR = player.getSTR() + player.getAddSTR() + job[x].getAddSTR();
+        DEX = player.getDEX() + player.getAddDEX() + job[x].getAddDEX();
+        INT = player.getINT() + player.getAddINT() + job[x].getAddINT();
         Name = player.getName();
-        MaxHP = player.getMaxHP() + player.getAddHP();
+        MaxHP = player.getMaxHP() + player.getAddHP() + job[x].getAddHP();
         currentHP = MaxHP;
-        attack = STR  +  DEX;
-        magicAttack = INT * 2;
+        attack = STR  +  DEX + job[x].getAddDamage();
+        magicAttack = (INT * 2) + job[x].getAddMagicDamage() ;
         defense = STR;
         magicDefense = INT * 2;
 
@@ -270,7 +341,7 @@ public class CombatSystem {
     public boolean playerHitChance() {
         int random = rand.nextInt(100);
         int chance = random + accuracy - eDodge;
-        if (chance >= 40) {
+        if (chance >= 30) {
             return false;
         } else {
             return true;
@@ -280,7 +351,7 @@ public class CombatSystem {
     public boolean enemyHitChance() {
         int random = rand.nextInt(100);
         int chance = random + dodge - eAccuracy;
-        if (chance >= 40) {
+        if (chance >= 30) {
             return false;
         } else {
             return true;
@@ -322,14 +393,27 @@ public class CombatSystem {
         }
     }
 
-    public void displayPlayerCombatStatus(Player player) {
-        getPlayerCombatStatus(player);
+    public void displayPlayerCombatStatus(Player player,Job[] job, int jobArraySize) {
+        jobCombatInfo(job, jobArraySize);
+        getPlayerCombatStatus(player, job, jobArraySize);
+        int x = 0;
+        for (int i = 1; i <= jobArraySize; i++) {
+            if(job[i].getActiveON() == 1){
+                x = i;
+            }
+        }
+        if(x ==0){
+            System.out.println("직업을 설정해야 스테이터스를 확인할 수 있습니다.");
+            return;
+        } //예외 처리
+
+
         System.out.println("===========================");
         System.out.println("레벨 : " + player.getLevel());
-        System.out.print("체력 : " + MaxHP + " (+" + player.getAddHP() + ")");
-        System.out.println("  | 근력 : " + STR + " (+" + player.getAddSTR() + ")");
-        System.out.print("기교 : " + DEX + " (+" + player.getAddDEX() + ")");
-        System.out.println("  | 지력 : " + INT + " (+" + player.getAddINT() + ")");
+        System.out.print("체력 : " + MaxHP + " (+" + (player.getAddHP() + jobAddHP) + ")");
+        System.out.println("  | 근력 : " + STR + " (+" + (player.getAddSTR() + jobAddSTR) + ")");
+        System.out.print("기교 : " + DEX + " (+" + (player.getAddDEX() + jobAddDEX) + ")");
+        System.out.println("  | 지력 : " + INT + " (+" + (player.getAddINT() + jobAddINT) + ")");
         System.out.println();
         System.out.print("공격력 : " + attack);
         System.out.println("  | 마법공격력 : " + magicAttack);
@@ -356,5 +440,29 @@ public class CombatSystem {
                 job[i].setMaster(1);
             }
         }
+    }
+
+
+    public void jobCombatInfo(Job[] job,int jobArraySize){
+        for(int i = 1; i <= jobArraySize; i++ ){
+            if(job[i].getPassiveON() == 1 && job[i].getJobHave() == 1){
+               jobAddDamage += job[i].getAddDamage();
+               jobMultDamage *= job[i].getMultDamage();
+               jobAddMagicDamage += job[i].getAddMagicDamage();
+               jobMultMagicDamage *= job[i].getMultMagicDamage();
+
+               jobAddHP += job[i].getAddHP();
+               jobAddSTR += job[i].getAddSTR();
+               jobAddDEX += job[i].getAddDEX();
+               jobAddINT +=job[i].getAddINT();
+
+            }
+        }
+
+
+
+
+
+
     }
 }

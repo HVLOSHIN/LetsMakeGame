@@ -16,6 +16,7 @@ public class Caster extends Job {
 
     @Override
     public void activeSkill() {
+        setIsActiveMelee(0);
         setAddDamage(0);
         setMultDamage(1);
         setAddMagicDamage(5);

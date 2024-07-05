@@ -9,6 +9,7 @@ public  class Job {
     private int jobEXP;
     private int master;
 
+    private int isActiveMelee;
     private String activeName;
     private int activeON;
     private String passiveName;
@@ -25,6 +26,9 @@ public  class Job {
     private int addDEX;
     private int addINT;
     private int addHP;
+
+
+
 
 
 
@@ -132,6 +136,14 @@ public  class Job {
         this.addDamage = addDamage;
     }
 
+    public int getIsActiveMelee() {
+        return isActiveMelee;
+    }
+
+    public void setIsActiveMelee(int isActiveMelee) {
+        this.isActiveMelee = isActiveMelee;
+    }
+
     public int getMultDamage() {
         return multDamage;
     }
@@ -211,6 +223,9 @@ public  class Job {
     public void setMaster(int master) {
         this.master = master;
     }
+
+
+
 
 
 }

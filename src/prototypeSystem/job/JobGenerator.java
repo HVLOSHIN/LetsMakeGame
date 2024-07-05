@@ -49,6 +49,16 @@ public class JobGenerator {
         }
     }
     public void DisplayOwnedJob(Job[] job, int jobArraySize) {
+        int counter = 0;
+        for (int i = 1; i <= jobArraySize; i++) {
+            if(job[i].getJobHave() == 1) {
+                counter++;
+            }
+        }
+        if(counter == 0){
+            System.out.println("현재 보유중인 클래스가 없습니다.");
+            return;
+        }
         System.out.println("보유한 클래스의 패시브효과들은 일괄 적용됩니다.");
         System.out.println("마스터하지 못한 직업은 변경할시 패시브 효과를 잃어버립니다.");
 
@@ -75,8 +85,10 @@ public class JobGenerator {
                 job[i].setJobMain(0);
             }
             job[choice].setJobMain(1);
+            job[choice].setActiveON(1);
             System.out.println(job[choice].getJobName() + "클래스의 " + job[choice].getActiveName() + "를 메인 공격으로 설정합니다.");
         }
+
 
 
 
@@ -87,6 +99,9 @@ public class JobGenerator {
     public void choiceJob(Job[] job, int jobArraySize){
         System.out.println("클래스 선택");
         int choice = scanner.nextInt();
+        if(choice == 0){
+            return;
+        }
         if (choice > jobArraySize) {
             System.out.println("아직 개방되지 않은 직업입니다.");
             return;
@@ -95,7 +110,17 @@ public class JobGenerator {
             return;
         }
         System.out.println(job[choice].getJobName() + "로 전직합니다.");
+        for(int i = 1; i <= jobArraySize; i++) {
+            //마스터하지 않은 클래스는 사라짐
+            if(job[i].getJobHave() == 1 && job[i].getMaster() == 0 ) {
+                job[i].setJobMain(0);
+                job[i].setJobHave(0);
+                job[i].setActiveON(0);
+                job[i].setPassiveON(0);
+            }
+        }
         job[choice].setJobHave(1);
+        job[choice].setPassiveON(1);
     }
 
 

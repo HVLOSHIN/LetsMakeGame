@@ -4,6 +4,7 @@ import prototypeSystem.character.Player;
 import prototypeSystem.combat.CombatSystem;
 import prototypeSystem.item.Armor;
 import prototypeSystem.item.Weapon;
+import prototypeSystem.job.Job;
 
 import java.util.Scanner;
 
@@ -30,11 +31,11 @@ public class PlayerInfo {
     Scanner scanner = new Scanner(System.in);
     CombatSystem combatSystem = new CombatSystem();
 
-    public void levelUp(Player player , Weapon[] weapon, Armor[] armor) {
+    public void levelUp(Player player , Weapon[] weapon, Armor[] armor, Job[] job, int jobArraySize) {
         maxExp = (player.getLevel()*player.getLevel())*3;
         while (true) {
           //  showPlayer(player, weapon, armor);
-            combatSystem.displayPlayerCombatStatus(player);
+            combatSystem.displayPlayerCombatStatus(player, job, jobArraySize);
 
             System.out.println("| 1.체력 | 2.근력 | 3.기교 | 4.지력 | 5.이전 |");
             String choice = scanner.nextLine();

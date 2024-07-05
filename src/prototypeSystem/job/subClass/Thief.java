@@ -22,6 +22,7 @@ public class Thief extends Job {
 
     @Override
     public void activeSkill() {
+        setIsActiveMelee(1);
         setAddDamage(5);
         setMultDamage(1);
         setAddMagicDamage(0);
