@@ -19,13 +19,14 @@ public  class Job {
     private int unLock;
 
     private int addDamage;
-    private int multDamage;
+    private double multDamage = 1;
     private int addMagicDamage;
-    private int multMagicDamage;
+    private double multMagicDamage = 1;
     private int addSTR;
     private int addDEX;
     private int addINT;
     private int addHP;
+    private double multHP =1;
 
 
 
@@ -144,11 +145,11 @@ public  class Job {
         this.isActiveMelee = isActiveMelee;
     }
 
-    public int getMultDamage() {
+    public double getMultDamage() {
         return multDamage;
     }
 
-    public void setMultDamage(int multDamage) {
+    public void setMultDamage(double multDamage) {
         this.multDamage = multDamage;
     }
 
@@ -160,11 +161,11 @@ public  class Job {
         this.addMagicDamage = addMagicDamage;
     }
 
-    public int getMultMagicDamage() {
+    public double getMultMagicDamage() {
         return multMagicDamage;
     }
 
-    public void setMultMagicDamage(int multMagicDamage) {
+    public void setMultMagicDamage(double multMagicDamage) {
         this.multMagicDamage = multMagicDamage;
     }
 
@@ -224,8 +225,11 @@ public  class Job {
         this.master = master;
     }
 
+    public double getMultHP() {
+        return multHP;
+    }
 
-
-
-
+    public void setMultHP(double multHP) {
+        this.multHP = multHP;
+    }
 }

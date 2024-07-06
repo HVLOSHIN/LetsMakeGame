@@ -85,16 +85,17 @@ public class DatabaseConnect {
             int id = rs.getInt(1);
             String name = rs.getString(2);
             int addDamage = rs.getInt(3);
-            int multDamage = rs.getInt(4);
+            double multDamage = rs.getInt(4);
             int addMagicDamage = rs.getInt(5);
-            int multMagicDamage = rs.getInt(6);
+            double multMagicDamage = rs.getInt(6);
             int addSTR = rs.getInt(7);
             int addDEX = rs.getInt(8);
             int addINT = rs.getInt(9);
             int addHP = rs.getInt(10);
             int price = rs.getInt(11);
             int have = rs.getInt(12);
-            weapon = new Weapon(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
+            double multHP = rs.getInt(13);
+            weapon = new Weapon(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have,multHP);
 
         }
 
@@ -109,16 +110,17 @@ public class DatabaseConnect {
             int id = rs.getInt(1);
             String name = rs.getString(2);
             int addDamage = rs.getInt(3);
-            int multDamage = rs.getInt(4);
+            double multDamage = rs.getInt(4);
             int addMagicDamage = rs.getInt(5);
-            int multMagicDamage = rs.getInt(6);
+            double multMagicDamage = rs.getInt(6);
             int addSTR = rs.getInt(7);
             int addDEX = rs.getInt(8);
             int addINT = rs.getInt(9);
             int addHP = rs.getInt(10);
             int price = rs.getInt(11);
             int have = rs.getInt(12);
-            weapon = new Weapon(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
+            double multHP = rs.getInt(13);
+            weapon = new Weapon(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have,multHP);
 
         }
 
@@ -127,22 +129,23 @@ public class DatabaseConnect {
 
     public void saveWeapon(Weapon[] weapon, int weaponArraySize) throws SQLException {
 
-        String sql = "update TextRPGSave.saveWeapon set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?,have=? where id=?";
+        String sql = "update TextRPGSave.saveWeapon set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?,have=?,multHP=? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < weaponArraySize; i++) {
             psmt.setString(1, weapon[i].getName());
             psmt.setInt(2, weapon[i].getAddDamage());
-            psmt.setInt(3, weapon[i].getMultDamage());
+            psmt.setDouble(3, weapon[i].getMultDamage());
             psmt.setInt(4, weapon[i].getAddMagicDamage());
-            psmt.setInt(5, weapon[i].getMultMagicDamage());
+            psmt.setDouble(5, weapon[i].getMultMagicDamage());
             psmt.setInt(6, weapon[i].getAddSTR());
             psmt.setInt(7, weapon[i].getAddDEX());
             psmt.setInt(8, weapon[i].getAddINT());
             psmt.setInt(9, weapon[i].getAddHP());
             psmt.setInt(10, weapon[i].getPrice());
             psmt.setInt(11, weapon[i].getHave());
+            psmt.setDouble(12,weapon[i].getMultHP());
 
-            psmt.setInt(12, weapon[i].getID());
+            psmt.setInt(13, weapon[i].getID());
             psmt.executeUpdate();
             //  System.out.println("무기 세이브 저장 완료..");
         }
@@ -158,16 +161,17 @@ public class DatabaseConnect {
             int id = rs.getInt(1);
             String name = rs.getString(2);
             int addDamage = rs.getInt(3);
-            int multDamage = rs.getInt(4);
+            double multDamage = rs.getInt(4);
             int addMagicDamage = rs.getInt(5);
-            int multMagicDamage = rs.getInt(6);
+            double multMagicDamage = rs.getInt(6);
             int addSTR = rs.getInt(7);
             int addDEX = rs.getInt(8);
             int addINT = rs.getInt(9);
             int addHP = rs.getInt(10);
-            int price = rs.getInt(11); //이상하게 SaveArmor 테이블만 Column 순서 꼬여있음 (11,12)
+            int price = rs.getInt(11);
             int have = rs.getInt(12);
-            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
+            double multHP = rs.getInt(13);
+            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have,multHP);
 
         }
 
@@ -182,16 +186,17 @@ public class DatabaseConnect {
             int id = rs.getInt(1);
             String name = rs.getString(2);
             int addDamage = rs.getInt(3);
-            int multDamage = rs.getInt(4);
+            double multDamage = rs.getInt(4);
             int addMagicDamage = rs.getInt(5);
-            int multMagicDamage = rs.getInt(6);
+            double multMagicDamage = rs.getInt(6);
             int addSTR = rs.getInt(7);
             int addDEX = rs.getInt(8);
             int addINT = rs.getInt(9);
             int addHP = rs.getInt(10);
             int price = rs.getInt(11);
             int have = rs.getInt(12);
-            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have);
+            double multHP = rs.getInt(13);
+            armor = new Armor(id, name, addDamage, multDamage, addMagicDamage, multMagicDamage, addSTR, addDEX, addINT, addHP, price, have,multHP);
 
         }
 
@@ -201,22 +206,23 @@ public class DatabaseConnect {
     public void saveArmor(Armor[] armor, int armorArraySize) throws SQLException {
 
 
-        String sql = "update TextRPGSave.SaveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?, have=? where id=?";
+        String sql = "update TextRPGSave.SaveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?, have=?,multHP=? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < armorArraySize; i++) {
             psmt.setString(1, armor[i].getName());
             psmt.setInt(2, armor[i].getAddDamage());
-            psmt.setInt(3, armor[i].getMultDamage());
+            psmt.setDouble(3, armor[i].getMultDamage());
             psmt.setInt(4, armor[i].getAddMagicDamage());
-            psmt.setInt(5, armor[i].getMultMagicDamage());
+            psmt.setDouble(5, armor[i].getMultMagicDamage());
             psmt.setInt(6, armor[i].getAddSTR());
             psmt.setInt(7, armor[i].getAddDEX());
             psmt.setInt(8, armor[i].getAddINT());
             psmt.setInt(9, armor[i].getAddHP());
             psmt.setInt(10, armor[i].getPrice());
-            psmt.setInt(11, armor[i].getHave());//이상하게 SaveArmor 테이블만 Column 순서 꼬여있음 (11,12)
+            psmt.setInt(11, armor[i].getHave());
+            psmt.setDouble(12, armor[i].getMultHP());
 
-            psmt.setInt(12, armor[i].getID());
+            psmt.setInt(13, armor[i].getID());
             psmt.executeUpdate();
             //  System.out.println("무기 세이브 저장 완료..");
         }

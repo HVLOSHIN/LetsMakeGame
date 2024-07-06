@@ -36,18 +36,19 @@ public class Page extends Job {
     @Override
     public void activeSkill() {
         setIsActiveMelee(1);
-        setAddDamage(5);
-        setMultDamage(1);
-        setAddMagicDamage(0);
-        setMultMagicDamage(1);
+        setAddDamage(getAddDamage() + 1);
+        setMultDamage(getMultDamage() * 1.3);
+        setAddMagicDamage(getAddMagicDamage() + 0);
+        setMultMagicDamage(getMultMagicDamage() * 1);
     }
 
     @Override
     public void passiveSkill() {
-        setAddSTR(3);
-        setAddDEX(0);
-        setAddINT(0);
-        setAddHP(40);
+        setAddSTR(getAddSTR() + 3);
+        setAddDEX(getAddDEX() + 0);
+        setAddINT(getAddINT() + 0);
+        setAddHP(getAddHP() + 10);
+        setMultHP(getMultHP() * 1.2);
     }
 
     @Override
@@ -57,6 +58,6 @@ public class Page extends Job {
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "근력 3 증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + " 근력 3 증가, 체력 20% 증가");
     }
 }

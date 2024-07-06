@@ -75,7 +75,7 @@ public class Shop {
     }
     public void displayArmors(Player player, Armor[] armor) {
         int mapUnlock = player.getMapUnlock();
-        for (int i = 1; i <= 3 * mapUnlock; i++) {
+        for (int i = 1; i <= 12 * mapUnlock; i++) {
             if (armor[i].getHave() == 1) {
                 System.out.print("(보유중)");
             }

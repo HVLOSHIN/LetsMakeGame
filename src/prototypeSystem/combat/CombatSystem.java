@@ -18,7 +18,7 @@ public class CombatSystem {
     private int defense;
     private int magicDefense;
     private int criticalChance;
-    private int criticalMult;
+    private double criticalMult;
     private int dodge;
     private int accuracy;
     private int attackSpeed;
@@ -27,9 +27,10 @@ public class CombatSystem {
     private int INT;
 
     private int addDamage;
-    private int multDamage;
+    private double multDamage;
     private int addMagicDamage;
-    private int multMagicDamage;
+    private double multMagicDamage;
+    private double multHP;
 
     //enemy
     private String eName;
@@ -40,7 +41,7 @@ public class CombatSystem {
     private int eDefense;
     private int eMagicDefense;
     private int eCriticalChance;
-    private int eCriticalMult;
+    private double eCriticalMult;
     private int eDodge;
     private int eAccuracy;
     private int eAttackSpeed;
@@ -78,12 +79,12 @@ public class CombatSystem {
             }
             //크리티컬 정의
             else if (playerCriticalChance()) {
-                System.out.println((playerFinalDamage * criticalMult) + "의 " + meleeMagic + "피해");
+                System.out.println((playerFinalDamage * criticalMult) + "의 " + meleeMagic + " 피해");
                 eCurrentHP -= playerFinalDamage * criticalMult;
             }
             //평타
             else {
-                System.out.println(playerFinalDamage + "의" + meleeMagic + "피해");
+                System.out.println(playerFinalDamage + "의 " + meleeMagic + " 피해");
                 eCurrentHP -= playerFinalDamage;
             }
 
@@ -209,10 +210,11 @@ public class CombatSystem {
             }
         }
         if (isMelee == 1) {
-            finalDamage = (attack + addDamage) * multDamage + (int) (additionalDamage() * attack * 0.01) - eDefense;
+            finalDamage =(int)( (attack + addDamage) * multDamage + (additionalDamage() * attack * 0.01) - eDefense);
+            System.out.println("attack : " + attack + "addDamage : " + addDamage + "multDamage : " + multDamage + "eDefense : " + eDefense);
 
         } else if (isMelee == 0) {
-            finalDamage = (magicAttack + addMagicDamage) * multMagicDamage + (int) (additionalDamage() * magicAttack * 0.01) - eMagicDefense;
+            finalDamage =(int)( (magicAttack + addMagicDamage) * multMagicDamage + (additionalDamage() * magicAttack * 0.01) - eMagicDefense);
         }
         if (finalDamage < 1) {
             finalDamage = 1;
@@ -258,7 +260,7 @@ public class CombatSystem {
         DEX = player.getDEX() + player.getAddDEX();
         INT = player.getINT() + player.getAddINT();
         Name = player.getName();
-        MaxHP = player.getMaxHP() + player.getAddHP();
+        MaxHP = (int)(player.getMaxHP()*player.getMultHP() + player.getAddHP());
         currentHP = MaxHP;
         attack = STR + DEX;
         magicAttack = (INT * 2);

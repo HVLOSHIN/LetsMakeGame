@@ -37,6 +37,7 @@ public class PlayerInfo {
           //  showPlayer(player, weapon, armor);
             combatSystem.displayPlayerCombatStatus(player, job, jobArraySize);
 
+
             System.out.println("| 1.체력 | 2.근력 | 3.기교 | 4.지력 | 5.이전 |");
             String choice = scanner.nextLine();
 

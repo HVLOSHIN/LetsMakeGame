@@ -5,17 +5,18 @@ public class Item {
     private int ID;
     private String name;
     private int addDamage;
-    private int multDamage;
+    private double multDamage;
     private int addMagicDamage;
-    private int multMagicDamage;
+    private double multMagicDamage;
     private int addSTR;
     private int addDEX;
     private int addINT;
     private int addHP;
     private int have;
     private int price;
+    private double multHP;
 
-    public Item(int ID, String name, int addDamage, int multDamage, int addMagicDamage, int multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int price, int have) {
+    public Item(int ID, String name, int addDamage, double multDamage, int addMagicDamage, double multMagicDamage, int addSTR, int addDEX, int addINT, int addHP, int price, int have, double multHP) {
         this.ID = ID;
         this.name = name;
         this.addDamage = addDamage;
@@ -28,6 +29,7 @@ public class Item {
         this.addHP = addHP;
         this.price = price;
         this.have = have;
+        this.multHP = multHP;
 
     }
 
@@ -55,7 +57,7 @@ public class Item {
         this.addDamage = addDamage;
     }
 
-    public int getMultDamage() {
+    public double getMultDamage() {
         return multDamage;
     }
 
@@ -71,7 +73,7 @@ public class Item {
         this.addMagicDamage = addMagicDamage;
     }
 
-    public int getMultMagicDamage() {
+    public double getMultMagicDamage() {
         return multMagicDamage;
     }
 
@@ -126,11 +128,20 @@ public class Item {
     public void setPrice(int price) {
         this.price = price;
     }
-    public void getItemInfo(){
-        System.out.print( ID + ". " + name + ", 공격력 : " + addDamage + ", 공격배율 : x" + multDamage);
-        System.out.print(", 마법공격력 : " + addMagicDamage + ", 마법공격배올 : " + multMagicDamage);
-        System.out.print(", 근력 : " + addSTR + ", 기교 : " + addDEX + ", 지력 : " + addINT );
-        System.out.println(" , 체력 : " + addHP +  ", 가격 : " + price);
+
+    public double getMultHP() {
+        return multHP;
+    }
+
+    public void setMultHP(int multHP) {
+        this.multHP = multHP;
+    }
+
+    public void getItemInfo() {
+        System.out.print(ID + ". " + name + " | 공격력 : " + addDamage + " | 공격배율 : x" + multDamage);
+        System.out.print(" | 마법공격력 : " + addMagicDamage + " | 마법공격배올 : x" + multMagicDamage);
+        System.out.print(" | 근력 : " + addSTR + " | 기교 : " + addDEX + " | 지력 : " + addINT);
+        System.out.println(" | 체력 : " + addHP +" | 체력배율 : x" + multHP +  " | 가격 : " + price);
     }
 
 

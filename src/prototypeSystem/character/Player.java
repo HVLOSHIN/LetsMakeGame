@@ -26,9 +26,10 @@ public class Player {
     private int deathCount;
     //전투스텟
     private int addDamage;
-    private int multDamage;
+    private double multDamage = 1;
     private int addMDamage;
-    private int multMDamage;
+    private double multMDamage = 1;
+    private double multHP =1;
 
     private int addSTR;
     private int addDEX;
@@ -209,7 +210,7 @@ public class Player {
         this.addSTR = addSTR;
     }
 
-    public int getMultMDamage() {
+    public double getMultMDamage() {
         return multMDamage;
     }
 
@@ -225,7 +226,7 @@ public class Player {
         this.addMDamage = addMDamage;
     }
 
-    public int getMultDamage() {
+    public double getMultDamage() {
         return multDamage;
     }
 
@@ -241,6 +242,14 @@ public class Player {
         this.addDamage = addDamage;
     }
 
+    public double getMultHP() {
+        return multHP;
+    }
+
+    public void setMultHP(int multHP) {
+        this.multHP = multHP;
+    }
+
     //종합 스텟 불러오기
     public void organizeStats(Weapon[] weapon, Armor[] armor, Job[] job, int weaponArraySize, int armorArraySize, int jobArraySize) {
         resetItemStats();
@@ -249,8 +258,9 @@ public class Player {
     }
 
     // 아이템 디스플레이
-    public void showHaveItems(Weapon[] weapon, Armor[] armor, int weaponArraySize, int armorArraySize) {
+    public void showHaveItems(Weapon[] weapon, Armor[] armor, int weaponArraySize, int armorArraySize,Job[] job, int jobArraySize) {
         getPlayerItemStats(weapon, armor, weaponArraySize, armorArraySize);
+        getPlayerJobStats(job,jobArraySize);
         for (int i = 1; i < weaponArraySize; i++) {
 
             if (weapon[i].getHave() == 1) {
@@ -275,6 +285,8 @@ public class Player {
                 multDamage *= weapon[i].getMultDamage();
                 addMDamage += weapon[i].getAddMagicDamage();
                 multMDamage *= weapon[i].getMultMagicDamage();
+                multHP *= weapon[i].getMultHP();
+
                 addSTR += weapon[i].getAddSTR();
                 addDEX += weapon[i].getAddDEX();
                 addINT += weapon[i].getAddINT();
@@ -288,6 +300,8 @@ public class Player {
                 multDamage *= armor[i].getMultDamage();
                 addMDamage += armor[i].getAddMagicDamage();
                 multMDamage *= armor[i].getMultMagicDamage();
+                multHP *= armor[i].getMultHP();
+
                 addSTR += armor[i].getAddSTR();
                 addDEX += armor[i].getAddDEX();
                 addINT += armor[i].getAddINT();
@@ -304,6 +318,8 @@ public class Player {
                 multDamage *= job[i].getMultDamage();
                 addMDamage += job[i].getAddMagicDamage();
                 multMDamage *= job[i].getMultMagicDamage();
+                multHP *= job[i].getMultHP();
+
                 addSTR += job[i].getAddSTR();
                 addDEX += job[i].getAddDEX();
                 addINT += job[i].getAddINT();
@@ -319,6 +335,7 @@ public class Player {
         multDamage = 1;
         addMDamage = 0;
         multMDamage = 1;
+        multHP = 1;
         addSTR = 0;
         addDEX = 0;
         addINT = 0;
@@ -330,19 +347,19 @@ public class Player {
     public void displayWeapons(Weapon[] weapon, int i) {
         System.out.print(i + ". " + weapon[i].getName() + " - " + "물리공격력 : " + weapon[i].getAddDamage() + ", 물리배율 : " + weapon[i].getMultDamage());
         System.out.print(", 마법공격력 : " + weapon[i].getAddMagicDamage() + ", 마법배율 : " + weapon[i].getMultMagicDamage() + ", 근력 : " + weapon[i].getAddSTR());
-        System.out.println(", 기교 : " + weapon[i].getAddDEX() + ", 지력 : " + weapon[i].getAddINT() + ", 체력 : " + weapon[i].getAddHP());
+        System.out.println(", 기교 : " + weapon[i].getAddDEX() + ", 지력 : " + weapon[i].getAddINT() + ", 체력 : " + weapon[i].getAddHP() + ", 체력배율 : " + weapon[i].getMultHP());
     }
 
     public void displayArmors(Armor[] armor, int i) {
         System.out.print(i + ". " + armor[i].getName() + " - " + "물리공격력 : " + armor[i].getAddDamage() + ", 물리배율 : " + armor[i].getMultDamage());
         System.out.print(", 마법공격력 : " + armor[i].getAddMagicDamage() + ", 마법배율 : " + armor[i].getMultMagicDamage() + ", 근력 : " + armor[i].getAddSTR());
-        System.out.println(", 기교 : " + armor[i].getAddDEX() + ", 지력 : " + armor[i].getAddINT() + ", 체력 : " + armor[i].getAddHP());
+        System.out.println(", 기교 : " + armor[i].getAddDEX() + ", 지력 : " + armor[i].getAddINT() + ", 체력 : " + armor[i].getAddHP()+ ", 체력배율 : " + armor[i].getMultHP());
     }
 
     public void getItemStats() {
         System.out.println("====================================");
         System.out.println("효과 (강화, 장비, 직업)");
-        System.out.println(name + " : 물리공격력 : " + addDamage + ", 물리배율 : " + multDamage + ", 마법공격력 : " + addMDamage + ", 마법배율 : " + multMDamage + ", 근력 : " + addSTR + ", 기교 : " + addDEX + ", 지력 : " + addINT + ", 추가 체력 : " + addHP);
+        System.out.println("최종 추가 스텟 | 물리공격력 : " + addDamage + " | 물리배율 : x" + multDamage + " | 마법공격력 : " + addMDamage + " | 마법배율 : x" + multMDamage + " | 근력 : " + addSTR + " | 기교 : " + addDEX + " | 지력 : " + addINT + " | 추가 체력 : " + addHP+ " | 체력배율 : x" + multHP);
 
     }
     //통계

@@ -38,10 +38,11 @@ public class Thief extends Job {
 
     @Override
     public void passiveSkill() {
-        setAddSTR(0);
-        setAddDEX(3);
-        setAddINT(0);
-        setAddHP(0);
+        setAddSTR(getAddSTR() + 0);
+        setAddDEX(getAddDEX() + 4);
+        setAddINT(getAddINT() + 0);
+        setAddHP(getAddHP() + 0);
+        setMultHP(getMultHP() + 0);
     }
 
     @Override
@@ -51,6 +52,6 @@ public class Thief extends Job {
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "기교 3 증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + " 기교 4 증가");
     }
 }

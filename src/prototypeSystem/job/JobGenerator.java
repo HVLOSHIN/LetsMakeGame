@@ -121,6 +121,8 @@ public class JobGenerator {
         }
         job[choice].setJobHave(1);
         job[choice].setPassiveON(1);
+        job[choice].setActiveON(1);
+        System.out.println("액티브 스킬 '" + job[choice].getActiveName() + "' 이 활성화 됩니다.");
     }
 
 

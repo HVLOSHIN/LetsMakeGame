@@ -31,10 +31,11 @@ public class Caster extends Job {
 
     @Override
     public void passiveSkill() {
-        setAddSTR(0);
-        setAddDEX(0);
-        setAddINT(5);
-        setAddHP(0);
+        setAddSTR(getAddSTR() + 0);
+        setAddDEX(getAddDEX() + 0);
+        setAddINT(getAddINT() + 5);
+        setAddHP(getAddHP() + 0);
+        setMultHP(getMultHP() + 0);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class Caster extends Job {
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "지력 5증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + " 지력 5증가");
     }
 
 }

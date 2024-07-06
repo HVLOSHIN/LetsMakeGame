@@ -25,7 +25,7 @@ public class Game {
     Achievements[] achieve = new Achievements[100];
     Job[] job = new Job[100];
     int weaponArraySize = 10;
-    int armorArraySize = 10;
+    int armorArraySize = 25;
     int achieveArraySize = 9;
     int jobArraySize = 3;
     CombatSystem combatSystem = new CombatSystem();
@@ -91,8 +91,6 @@ public class Game {
                 jobGenerator.DisplayJob(job, jobArraySize);
                 jobGenerator.choiceJob(job, jobArraySize);
 
-                System.out.println("액티브 스킬을 선택해주세요");
-                jobGenerator.DisplayOwnedJob(job, jobArraySize);
 
                 break;
             default:
@@ -170,7 +168,7 @@ public class Game {
                     if (choice2.equals("1")) {
                         playerInfo.levelUp(player, weapon, armor, job, jobArraySize);
                     } else if (choice2.equals("2")) {
-                        player.showHaveItems(weapon, armor, weaponArraySize, armorArraySize);
+                        player.showHaveItems(weapon, armor, weaponArraySize, armorArraySize,job, jobArraySize);
                     } else if (choice2.equals("3")) {
                         //======================================
                         jobGenerator.DisplayOwnedJob(job, jobArraySize);
