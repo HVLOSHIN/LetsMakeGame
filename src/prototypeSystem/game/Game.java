@@ -43,13 +43,13 @@ public class Game {
         System.out.println("1.불러오기 | 2.새로 시작");
         int choice = scanner.nextInt();
 
-        Player returnPlayer = null;
+        Player player = null;
 
         // 세이브 데이터 or 새로 시작을 위해 미리 객체 생성
 
         switch (choice) {
             case 1:     //세이브 불러오기
-                returnPlayer = databaseConnect.getPlayer(1);
+                player = databaseConnect.getPlayer(1);
                 for (int i = 1; i <= weaponArraySize; i++) {
                     weapon[i] = databaseConnect.getWeapon(i);
                 }
@@ -61,7 +61,7 @@ public class Game {
                 }
                 jobGenerator.getClass(job, databaseConnect, jobArraySize);
 
-                System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
+                System.out.println(player.getName() + "님, 모험을 시작합니다.");
                 areYouComeBack = 1;
 
                 break;
@@ -69,9 +69,8 @@ public class Game {
                 System.out.print("플레이어 이름 : ");
                 String newPlayerName = scanner.next();
                 // 새로운 플레이어 생성
-                returnPlayer = new Player(newPlayerName);
-                System.out.println(returnPlayer.getName() + "님, 모험을 시작합니다.");
-
+                player = new Player(newPlayerName);
+                System.out.println(player.getName() + "님, 모험을 시작합니다.");
 
 
                 // Original 에서 아이템 데이터 받기
@@ -99,7 +98,7 @@ public class Game {
             default:
                 System.out.println("올바른 입력이 아닙니다.");
         }
-        return returnPlayer;
+        return player;
     }
 
     // 게임 저장
@@ -110,12 +109,8 @@ public class Game {
             int choice = new Scanner(System.in).nextInt();
             switch (choice) {
                 case 1:
-                    databaseConnect.savePlayer(player);
-                    System.out.println();
-                    databaseConnect.saveWeapon(weapon, weaponArraySize);
-                    databaseConnect.saveArmor(armor, armorArraySize);
-                    databaseConnect.saveAchievements(achieve, achieveArraySize);
-                    databaseConnect.saveJob(job, jobArraySize);
+                    saveGame(player);
+                    System.out.println("세이브 저장 완료");
                     break;
 
                 case 2:
@@ -138,14 +133,18 @@ public class Game {
 
 
         while (true) {
+            //자동저장?
+            saveGame(player);
+            jobGenerator.getClass(job, databaseConnect, jobArraySize);
             AchievementCheck(player);
+            player.organizeStats(weapon, armor, job, weaponArraySize, achieveArraySize, jobArraySize); //플레이어 종합 스텟 점검
+
             System.out.println("=======================================================");
             System.out.println("| 1.탐험 | 2.캐릭터 | 3.마을 | 4.저장 | 5.종료 |");
             System.out.println("=======================================================");
             String choice = scanner.nextLine();
             switch (choice) {
-                case "1":
-                {
+                case "1": {
                     int x = 0;
                     for (int i = 1; i <= jobArraySize; i++) {
                         if (job[i].getActiveON() == 1) {
@@ -159,22 +158,19 @@ public class Game {
                 }
 
 
-                    player.getPlayerAddAllStats(weapon, armor, job); //전투 들어가기 전에 캐릭터 스텟 한번 점검
-                    generator.regionGenerate(player, job, jobArraySize);
+                generator.regionGenerate(player, job, jobArraySize);
 
 
-                    break;
+                break;
 
 
                 case "2":
                     System.out.println("| 1.레벨업 | 2.아이템 | 3.클래스 | 4.통계 | 5.업적 | 0.뒤로가기 |");
                     String choice2 = scanner.nextLine();
                     if (choice2.equals("1")) {
-                        //  player.getPlayerAddWeaponStats(weapon,armor);
-                        //  combatSystem.displayPlayerCombatStatus(player);
-                        playerInfo.levelUp(player, weapon, armor,job, jobArraySize);
+                        playerInfo.levelUp(player, weapon, armor, job, jobArraySize);
                     } else if (choice2.equals("2")) {
-                        player.showHaveItems(weapon, armor);
+                        player.showHaveItems(weapon, armor, weaponArraySize, armorArraySize);
                     } else if (choice2.equals("3")) {
                         //======================================
                         jobGenerator.DisplayOwnedJob(job, jobArraySize);
@@ -184,7 +180,7 @@ public class Game {
                     } else if (choice2.equals("4")) {
                         player.getStatistics();
                     } else if (choice2.equals("5")) {
-                        player.showAchievements(achieve);
+                        player.showAchievements(achieve,achieveArraySize);
                     } else if (choice2.equals("0")) {
                         break;
                     } else {
@@ -267,5 +263,14 @@ public class Game {
             achieve[9].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 2000);
         }
+    }
+
+    public void saveGame(Player player) throws SQLException {
+        databaseConnect.savePlayer(player);
+        databaseConnect.saveWeapon(weapon, weaponArraySize);
+        databaseConnect.saveArmor(armor, armorArraySize);
+        databaseConnect.saveAchievements(achieve, achieveArraySize);
+        databaseConnect.saveJob(job, jobArraySize);
+
     }
 }

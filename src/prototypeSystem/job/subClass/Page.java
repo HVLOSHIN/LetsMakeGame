@@ -14,10 +14,21 @@ public class Page extends Job {
         setUnLock(unLock);
 
         setJobName("소년기사");
-        setJobMaxEXP(3000);
+        setJobMaxEXP(30); //테스트용
         setActiveName("강타I");
         setPassiveName("집중I");
         setPassiveDescription("훈련을 통해 어떤 순간에도 흐트러지지 않는다.");
+
+        if(activeON == 1) {
+            activeSkill();
+        }
+        if (passiveON == 1) {
+            passiveSkill();
+        }
+        if(getJobMain() == 1 && getJobMaxEXP() == getJobEXP()){
+            System.out.println("현재 직업 마스터. 새로운 클래스 '수련기사' 해금됩니다.");
+            //
+        }
 
     }
 
@@ -46,6 +57,6 @@ public class Page extends Job {
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "근력 5 증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "근력 3 증가");
     }
 }

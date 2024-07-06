@@ -12,6 +12,12 @@ public class Caster extends Job {
         setPassiveName("마나수양");
         setPassiveDescription("더 위대한 마법사가 되기위해 마나와 친해진다.");
 
+        if(activeON == 1) {
+            activeSkill();
+        }
+        if (passiveON == 1) {
+            passiveSkill();
+        }
     }
 
     @Override

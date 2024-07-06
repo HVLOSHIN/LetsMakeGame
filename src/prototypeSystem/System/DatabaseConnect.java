@@ -73,7 +73,6 @@ public class DatabaseConnect {
 
         psmt.setInt(13, player.getId());  //얘가 무조건 끝에 와야함
         psmt.executeUpdate();
-        System.out.println("캐릭터 세이브 저장 완료..");
     }
 
     //WEAPON
@@ -335,6 +334,7 @@ public class DatabaseConnect {
             psmt.executeUpdate();
         }
     }
+
 
 }
 

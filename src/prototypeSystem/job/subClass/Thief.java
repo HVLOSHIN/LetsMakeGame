@@ -18,6 +18,13 @@ public class Thief extends Job {
         setPassiveName("현란한 손재주");
         setPassiveDescription("말보다 주먹이 빠른 법");
 
+        if(activeON == 1) {
+            activeSkill();
+        }
+        if (passiveON == 1) {
+            passiveSkill();
+        }
+
     }
 
     @Override
@@ -32,7 +39,7 @@ public class Thief extends Job {
     @Override
     public void passiveSkill() {
         setAddSTR(0);
-        setAddDEX(5);
+        setAddDEX(3);
         setAddINT(0);
         setAddHP(0);
     }
@@ -44,6 +51,6 @@ public class Thief extends Job {
 
     @Override
     public void passiveDescription() {
-        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "기교 5 증가");
+        System.out.println(getPassiveName() + " : " + getPassiveDescription() + "기교 3 증가");
     }
 }
