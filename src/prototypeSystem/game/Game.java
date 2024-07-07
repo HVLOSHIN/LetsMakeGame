@@ -1,7 +1,6 @@
 package prototypeSystem.game;
 
 import prototypeSystem.character.Player;
-import prototypeSystem.combat.CombatSystem;
 import prototypeSystem.combat.Generator;
 import prototypeSystem.System.DatabaseConnect;
 import prototypeSystem.item.Armor;
@@ -10,38 +9,84 @@ import prototypeSystem.item.Weapon;
 import prototypeSystem.job.Job;
 import prototypeSystem.job.JobGenerator;
 
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Game {
-    private DatabaseConnect databaseConnect;
-    PlayerInfo playerInfo = new PlayerInfo();
-    Scanner scanner = new Scanner(System.in);
-    Shop shop = new Shop();
-    JobGenerator jobGenerator = new JobGenerator();
-    Weapon[] weapon = new Weapon[100];
-    Armor[] armor = new Armor[100];
-    Achievements[] achieve = new Achievements[100];
-    Job[] job = new Job[100];
-    int weaponArraySize = 10;
-    int armorArraySize = 25;
-    int achieveArraySize = 9;
-    int jobArraySize = 3;
-    CombatSystem combatSystem = new CombatSystem();
-    int areYouComeBack = 0;
+    private final DatabaseConnect databaseConnect;
 
+    Scanner scanner = new Scanner(System.in);
+
+    PlayerInfo playerInfo = new PlayerInfo();
+    JobGenerator jobGenerator = new JobGenerator();
+    Shop shop = new Shop();
+
+    Weapon[] weapon;
+    Armor[] armor;
+    Achievements[] achieve;
+    Job[] job;
+
+    int weaponArraySize;
+    int armorArraySize;
+    int achieveArraySize;
+    int jobArraySize;
+
+    int areYouComeBack = 0;     // 도전과제 체크용
+
+    //생성자
     public Game(DatabaseConnect databaseConnect) {
         this.databaseConnect = databaseConnect;
+
+    }
+
+    public int getJobArraySize() {
+        return jobArraySize;
+    }
+
+    public void setJobArraySize(int jobArraySize) {
+        this.jobArraySize = jobArraySize;
+    }
+
+    public int getAchieveArraySize() {
+        return achieveArraySize;
+    }
+
+    public void setAchieveArraySize(int achieveArraySize) {
+        this.achieveArraySize = achieveArraySize;
+    }
+
+    public int getArmorArraySize() {
+        return armorArraySize;
+    }
+
+    public void setArmorArraySize(int armorArraySize) {
+        this.armorArraySize = armorArraySize;
+    }
+
+    public int getWeaponArraySize() {
+        return weaponArraySize;
+    }
+
+    public void setWeaponArraySize(int weaponArraySize) {
+        this.weaponArraySize = weaponArraySize;
     }
 
     // 게임 시작
+
     public Player gameStart() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
+        // 세이브 로드에 필요한 ArraySize들을 SQL 쿼리를 통해 가져옴
+        getArray();
+        weapon = new Weapon[weaponArraySize + 1];
+        armor = new Armor[armorArraySize + 1];
+        achieve = new Achievements[achieveArraySize + 1];
+        job = new Job[jobArraySize + 1];
+
+        System.out.println(jobArraySize);
 
         System.out.println("Game Start");
         System.out.println("1.불러오기 | 2.새로 시작");
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         Player player = null;
 
@@ -65,9 +110,11 @@ public class Game {
                 areYouComeBack = 1;
 
                 break;
-            case 2:     // 새로 시작
+            case 2:  // 새로 시작
+            {
                 System.out.print("플레이어 이름 : ");
                 String newPlayerName = scanner.next();
+
                 // 새로운 플레이어 생성
                 player = new Player(newPlayerName);
                 System.out.println(player.getName() + "님, 모험을 시작합니다.");
@@ -90,8 +137,8 @@ public class Game {
                 System.out.println("초기 직업을 설정해 주세요");
                 jobGenerator.DisplayJob(job, jobArraySize);
                 jobGenerator.choiceJob(job, jobArraySize);
-
-
+                scanner.nextLine();
+            }
                 break;
             default:
                 System.out.println("올바른 입력이 아닙니다.");
@@ -168,7 +215,7 @@ public class Game {
                     if (choice2.equals("1")) {
                         playerInfo.levelUp(player, weapon, armor, job, jobArraySize);
                     } else if (choice2.equals("2")) {
-                        player.showHaveItems(weapon, armor, weaponArraySize, armorArraySize,job, jobArraySize);
+                        player.showHaveItems(weapon, armor, weaponArraySize, armorArraySize, job, jobArraySize);
                     } else if (choice2.equals("3")) {
                         //======================================
                         jobGenerator.DisplayOwnedJob(job, jobArraySize);
@@ -178,7 +225,7 @@ public class Game {
                     } else if (choice2.equals("4")) {
                         player.getStatistics();
                     } else if (choice2.equals("5")) {
-                        player.showAchievements(achieve,achieveArraySize);
+                        player.showAchievements(achieve, achieveArraySize);
                     } else if (choice2.equals("0")) {
                         break;
                     } else {
@@ -269,6 +316,15 @@ public class Game {
         databaseConnect.saveArmor(armor, armorArraySize);
         databaseConnect.saveAchievements(achieve, achieveArraySize);
         databaseConnect.saveJob(job, jobArraySize);
+
+    }
+
+    public void getArray() throws SQLException {
+        int[] array = databaseConnect.arrayCounterMaster();
+        weaponArraySize = array[1];
+        armorArraySize = array[2];
+        achieveArraySize = array[3];
+        jobArraySize = array[4];
 
     }
 }

@@ -30,6 +30,31 @@ public class DatabaseConnect {
         }
     }
 
+    //Counter
+    public int[] arrayCounterMaster() throws SQLException {
+        int[] arraySize = new int[5];
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rsWeapon = stmt.executeQuery("select id from saveWeaponOriginal");
+        rsWeapon.last();
+        arraySize[1] = rsWeapon.getRow();
+
+
+        ResultSet rsArmor = stmt.executeQuery("select id from saveArmorOriginal");
+        rsArmor.last();
+        arraySize[2] = rsArmor.getRow();
+
+        ResultSet rsAchieve = stmt.executeQuery("select id from saveAchievementsOriginal");
+        rsAchieve.last();
+        arraySize[3] = rsAchieve.getRow();
+
+        ResultSet rsJob = stmt.executeQuery("select ID from saveJobOriginal");
+        rsJob.last();
+        arraySize[4] = rsJob.getRow();
+
+        return arraySize;
+
+    }
+
     //PLAYER
     public Player getPlayer(int playerId) throws SQLException {
         Player player = null;
@@ -76,6 +101,14 @@ public class DatabaseConnect {
     }
 
     //WEAPON
+    public int countWeapon()throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery("select id from saveWeaponOriginal");
+        rs.last(); //커서의 위치를 제일 뒤로 이동
+        int rowCount = rs.getRow(); //현재 커서의 Row Index 값을 저장
+
+        return rowCount;
+    }
 
     public Weapon getWeapon(int weaponID) throws SQLException {
         Weapon weapon = null;
@@ -153,6 +186,15 @@ public class DatabaseConnect {
 
     //ARMOR
 
+    public int countArmor()throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery("select id from saveArmorOriginal");
+        rs.last(); //커서의 위치를 제일 뒤로 이동
+        int rowCount = rs.getRow(); //현재 커서의 Row Index 값을 저장
+
+        return rowCount;
+    }
+
     public Armor getArmor(int armorID) throws SQLException {
         Armor armor = null;
 
@@ -208,7 +250,7 @@ public class DatabaseConnect {
 
         String sql = "update TextRPGSave.SaveArmor set name =?, addDamage=?,multDamage=?,addMagicDamage=?,multMagicDamage=?,addSTR=?,addDEX=?,addINT=?,addHP=?,price=?, have=?,multHP=? where id=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
-        for (int i = 1; i < armorArraySize; i++) {
+        for (int i = 1; i < armorArraySize ; i++) {
             psmt.setString(1, armor[i].getName());
             psmt.setInt(2, armor[i].getAddDamage());
             psmt.setDouble(3, armor[i].getMultDamage());
