@@ -1,4 +1,4 @@
-package prototypeSystem.job.subClass;
+package prototypeSystem.job.subClass.lv1;
 
 import prototypeSystem.job.Job;
 

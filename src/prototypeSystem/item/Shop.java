@@ -1,6 +1,7 @@
 package prototypeSystem.item;
 
 import prototypeSystem.character.Player;
+import prototypeSystem.job.Job;
 
 import java.util.Scanner;
 
@@ -16,10 +17,9 @@ public class Shop {
 
         // 무기 선택
         int itemChoice = scanner.nextInt();
-        if (itemChoice > player.getMapUnlock()*3) {
+        if (itemChoice > player.getMapUnlock() * 3) {
             System.out.println("아직 해금된 무기가 아닙니다..");
-        }
-        else {
+        } else {
             try {
                 buyWeapon(player, itemChoice, weapon);
             } catch (NullPointerException e) {
@@ -27,6 +27,7 @@ public class Shop {
             }
         }
     }
+
     public void displayWeapons(Player player, Weapon[] weapon) {
         int mapUnlock = player.getMapUnlock();
         for (int i = 1; i <= 3 * mapUnlock; i++) {
@@ -36,6 +37,7 @@ public class Shop {
             weapon[i].getItemInfo();
         }
     }
+
     public void buyWeapon(Player player, int weaponChoice, Weapon[] weapon) {
         //소유 검증
         if (weapon[weaponChoice].getHave() == 1) {
@@ -55,33 +57,39 @@ public class Shop {
     }
 
 
-
-    public void CallArmorShop(Player player, Armor[] armor) {
+    public void CallArmorShop(Player player, Armor[] armor, Job[] job) {
         System.out.println("현재 보유 골드 : " + player.getGold());
 
-        displayArmors(player, armor);
+        displayArmors(player, armor, job);
         //방어구 선택
         int itemChoice = scanner.nextInt();
-        if (itemChoice > player.getMapUnlock()*3) {
+        if (itemChoice > player.getMapUnlock() * 3) {
             System.out.println("아직 해금된 방어구가 아닙니다..");
-        }
-        else{
-        try {
-            buyArmor(player, itemChoice, armor);
-        } catch (NullPointerException e) {
-            System.out.println("올바른 입력이 아닙니다.");
-        }
+        } else {
+            try {
+                buyArmor(player, itemChoice, armor);
+            } catch (NullPointerException e) {
+                System.out.println("올바른 입력이 아닙니다.");
+            }
         }
     }
-    public void displayArmors(Player player, Armor[] armor) {
+
+    public void displayArmors(Player player, Armor[] armor, Job[] job) {
         int mapUnlock = player.getMapUnlock();
+
         for (int i = 1; i <= 12 * mapUnlock; i++) {
+
             if (armor[i].getHave() == 1) {
                 System.out.print("(보유중)");
             }
+
             armor[i].getItemInfo();
+
         }
+
+
     }
+
     public void buyArmor(Player player, int i, Armor[] armor) {
         //소유 검증
         if (armor[i].getHave() == 1) {

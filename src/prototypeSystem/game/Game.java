@@ -31,7 +31,7 @@ public class Game {
     int achieveArraySize;
     int jobArraySize;
 
-    int areYouComeBack = 0;     // 도전과제 체크용
+    int isLoadGame = 0;     // 도전과제 체크용
 
     //생성자
     public Game(DatabaseConnect databaseConnect) {
@@ -39,49 +39,13 @@ public class Game {
 
     }
 
-    public int getJobArraySize() {
-        return jobArraySize;
-    }
-
-    public void setJobArraySize(int jobArraySize) {
-        this.jobArraySize = jobArraySize;
-    }
-
-    public int getAchieveArraySize() {
-        return achieveArraySize;
-    }
-
-    public void setAchieveArraySize(int achieveArraySize) {
-        this.achieveArraySize = achieveArraySize;
-    }
-
-    public int getArmorArraySize() {
-        return armorArraySize;
-    }
-
-    public void setArmorArraySize(int armorArraySize) {
-        this.armorArraySize = armorArraySize;
-    }
-
-    public int getWeaponArraySize() {
-        return weaponArraySize;
-    }
-
-    public void setWeaponArraySize(int weaponArraySize) {
-        this.weaponArraySize = weaponArraySize;
-    }
 
     // 게임 시작
 
     public Player gameStart() throws SQLException {
         // 세이브 로드에 필요한 ArraySize들을 SQL 쿼리를 통해 가져옴
         getArray();
-        weapon = new Weapon[weaponArraySize + 1];
-        armor = new Armor[armorArraySize + 1];
-        achieve = new Achievements[achieveArraySize + 1];
-        job = new Job[jobArraySize + 1];
 
-        System.out.println(jobArraySize);
 
         System.out.println("Game Start");
         System.out.println("1.불러오기 | 2.새로 시작");
@@ -107,7 +71,7 @@ public class Game {
                 jobGenerator.getClass(job, databaseConnect, jobArraySize);
 
                 System.out.println(player.getName() + "님, 모험을 시작합니다.");
-                areYouComeBack = 1;
+                isLoadGame = 1;
 
                 break;
             case 2:  // 새로 시작
@@ -240,7 +204,7 @@ public class Game {
                     if (choice3.equals("1")) {
                         shop.CallWeaponShop(player, weapon);
                     } else if (choice3.equals("2")) {
-                        shop.CallArmorShop(player, armor);
+                        shop.CallArmorShop(player, armor,job);
                     } else if (choice3.equals("3")) {
                         jobGenerator.DisplayJob(job, jobArraySize);
                         jobGenerator.choiceJob(job, jobArraySize);
@@ -285,7 +249,7 @@ public class Game {
             achieve[4].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
         }
-        if (areYouComeBack == 1 && achieve[5].getClear() == 0) {
+        if (isLoadGame == 1 && achieve[5].getClear() == 0) {
             System.out.println("도전과제 달성! 보상 1000EXP");
             achieve[5].setClear(1);
             player.setCurrentEXP(player.getCurrentEXP() + 1000);
@@ -325,6 +289,10 @@ public class Game {
         armorArraySize = array[2];
         achieveArraySize = array[3];
         jobArraySize = array[4];
+        weapon = new Weapon[weaponArraySize + 1];
+        armor = new Armor[armorArraySize + 1];
+        achieve = new Achievements[achieveArraySize + 1];
+        job = new Job[jobArraySize + 1];
 
     }
 }

@@ -1,9 +1,9 @@
 package prototypeSystem.job;
 
 import prototypeSystem.System.DatabaseConnect;
-import prototypeSystem.job.subClass.Caster;
-import prototypeSystem.job.subClass.Page;
-import prototypeSystem.job.subClass.Thief;
+import prototypeSystem.job.subClass.lv1.Caster;
+import prototypeSystem.job.subClass.lv1.Page;
+import prototypeSystem.job.subClass.lv1.Thief;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -75,6 +75,7 @@ public class JobGenerator {
                 job[i].passiveDescription();
             }
         }
+        /*
         System.out.println("활성화할 액티브를 선택 (0입력시 이전)");
         int choice = scanner.nextInt();
         if (choice == 0) {
@@ -89,7 +90,7 @@ public class JobGenerator {
             System.out.println(job[choice].getJobName() + "클래스의 " + job[choice].getActiveName() + "를 메인 공격으로 설정합니다.");
         }
 
-
+*/
 
 
 
@@ -119,6 +120,7 @@ public class JobGenerator {
                 job[i].setPassiveON(0);
             }
         }
+        job[choice].setJobMain(1);
         job[choice].setJobHave(1);
         job[choice].setPassiveON(1);
         job[choice].setActiveON(1);

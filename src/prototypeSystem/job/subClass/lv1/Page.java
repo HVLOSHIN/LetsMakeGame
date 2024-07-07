@@ -1,4 +1,4 @@
-package prototypeSystem.job.subClass;
+package prototypeSystem.job.subClass.lv1;
 
 import prototypeSystem.job.Job;
 
@@ -14,7 +14,7 @@ public class Page extends Job {
         setUnLock(unLock);
 
         setJobName("소년기사");
-        setJobMaxEXP(30); //테스트용
+        setJobMaxEXP(3000); //테스트용
         setActiveName("강타I");
         setPassiveName("집중I");
         setPassiveDescription("훈련을 통해 어떤 순간에도 흐트러지지 않는다.");
